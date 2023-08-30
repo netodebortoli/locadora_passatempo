@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ator {
+public class Titulo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,4 +17,21 @@ public class Ator {
 
     @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
+    private String ano;
+
+    @Column(nullable = false)
+    private String sinopse;
+
+    @Column(nullable = false)
+    private String categoria;
+
+    private Diretor diretor;
+
+    private Classe classe;
+
+    private Ator ator;
+
+    private Item item;
 }

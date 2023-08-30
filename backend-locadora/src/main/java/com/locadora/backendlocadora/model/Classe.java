@@ -9,12 +9,18 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ator {
+public class Classe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nome;
+    private String name;
+
+    @Column(nullable = false)
+    private Double valor;
+
+    @Column(nullable = false, name = "prazo_devolucao")
+    private int prazoDevolucao;
 }
