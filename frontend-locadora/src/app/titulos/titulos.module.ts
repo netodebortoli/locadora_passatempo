@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { TitulosRoutingModule } from './titulos-routing.module';
 import { TitulosComponent } from './titulos/titulos.component';
-
+import { AppMaterialModule } from '../shared/app-material/app-material.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    TitulosComponent
-  ],
+  declarations: [TitulosComponent],
   imports: [
     CommonModule,
-    TitulosRoutingModule
-  ]
+    TitulosRoutingModule,
+    AppMaterialModule,
+    SharedModule,
+  ],
 })
-export class TitulosModule { }
+export class TitulosModule {}

@@ -1,0 +1,20 @@
+.tabela-titulos {
+  width: 100%;
+}
+
+.mat-column-ano {
+  width: 32px;
+  font-style: italic;
+}
+
+.mat-column-categoria {
+  width: 200px;
+}
+
+.loading-spinner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  background: rgba(0,0,0,0.15);
+}

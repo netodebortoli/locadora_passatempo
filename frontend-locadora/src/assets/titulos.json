@@ -1,0 +1,23 @@
+[
+  {
+    "_id": "1",
+    "nome": "Bastardos Inglórios",
+    "ano": "2009",
+    "sinopse": "Durante a Segunda Guerra Mundial, na França, judeus americanos espalham o terror entre o terceiro Reich. Ao mesmo tempo, Shosanna, uma judia que fugiu dos nazistas, planeja vingança quando um evento em seu cinema reunirá os líderes do partido.",
+    "categoria": "Ação"
+  },
+  {
+    "_id": "2",
+    "nome": "Simplesmente Acontece",
+    "ano": "2014",
+    "sinopse": "Alex e Rosie são amigos inseparáveis que cresceram juntos em Londres, compartilhando entre si suas melhores experiências. Tudo muda quando Alex ganha uma bolsa de estudos e passa a morar nos EUA. Separados, seus caminhos agora são outros. Mas nos tempos de hoje é impossível não se conectar. E, em se tratando de amor, o difícil é fazer as escolhas certas.",
+    "categoria": "Romance"
+  },
+  {
+    "_id": "3",
+    "nome": "lha Do Medo",
+    "ano": "2010",
+    "sinopse": "Nos anos 1950, a fuga de uma assassina leva o detetive Teddy Daniels e seu parceiro a investigarem o seu desaparecimento de um quarto trancado em um hospital psiquiátrico. Lá, uma rebelião se inicia e o agente terá que enfrentar seus próprios medos.",
+    "categoria": "Mistério"
+  }
+]
