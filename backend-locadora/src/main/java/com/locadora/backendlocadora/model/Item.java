@@ -11,6 +11,7 @@ import java.sql.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "itens")
 public class Item {
 
     @Id
@@ -26,5 +27,8 @@ public class Item {
     @Column(name = "data_aquisicao", nullable = false)
     private Date dataAquisicao;
 
+    @ManyToOne
+    @Column(nullable = false)
     private Titulo titulo;
+
 }

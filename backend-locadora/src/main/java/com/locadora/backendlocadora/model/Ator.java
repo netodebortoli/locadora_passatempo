@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "atores")
 public class Ator {
 
     @Id
@@ -17,4 +20,7 @@ public class Ator {
 
     @Column(nullable = false)
     private String nome;
+
+    @ManyToMany(mappedBy = "atores")
+    private List<Titulo> titulos;
 }
