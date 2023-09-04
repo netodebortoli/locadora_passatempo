@@ -2,9 +2,10 @@ package com.locadora.backendlocadora.entity.enums.converter;
 
 import com.locadora.backendlocadora.entity.enums.TipoItem;
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 import java.util.stream.Stream;
-
+@Converter(autoApply = true)
 public class TipoItemConverter implements AttributeConverter<TipoItem, String> {
 
     @Override
