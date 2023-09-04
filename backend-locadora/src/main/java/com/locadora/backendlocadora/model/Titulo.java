@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "titulos")
 public class Titulo {
 
     @Id
@@ -27,11 +30,18 @@ public class Titulo {
     @Column(nullable = false)
     private String categoria;
 
+    @ManyToOne
+    @JoinColumn(name = "id_diretor", referencedColumnName = "id")
     private Diretor diretor;
 
+    @ManyToOne
+    @JoinColumn(name = "id_classe", referencedColumnName = "id")
     private Classe classe;
 
-    private Ator ator;
+    @ManyToMany
+    @JoinTable(name = "titulo_ator",
+            joinColumns = @JoinColumn(name = "id_titulo"),
+            inverseJoinColumns = @JoinColumn(name = "id_ator"))
+    private List<Ator> atores;
 
-    private Item item;
 }
