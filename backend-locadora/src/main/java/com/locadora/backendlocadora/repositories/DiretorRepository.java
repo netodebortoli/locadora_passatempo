@@ -1,6 +1,6 @@
 package com.locadora.backendlocadora.repositories;
 
-import com.locadora.backendlocadora.model.Diretor;
+import com.locadora.backendlocadora.entity.Diretor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

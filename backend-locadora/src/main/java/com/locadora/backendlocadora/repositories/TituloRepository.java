@@ -1,6 +1,6 @@
 package com.locadora.backendlocadora.repositories;
 
-import com.locadora.backendlocadora.model.Titulo;
+import com.locadora.backendlocadora.entity.Titulo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

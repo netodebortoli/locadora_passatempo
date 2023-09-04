@@ -1,6 +1,9 @@
-package com.locadora.backendlocadora.model;
+package com.locadora.backendlocadora.entity;
 
+import com.locadora.backendlocadora.entity.enums.Categoria;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,24 +21,29 @@ public class Titulo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false)
     private String nome;
 
+    @NotBlank
     @Column(nullable = false)
     private String ano;
 
+    @NotBlank
     @Column(nullable = false)
     private String sinopse;
 
     @Column(nullable = false)
-    private String categoria;
+    private Categoria categoria;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_diretor", referencedColumnName = "id")
+    @JoinColumn(name = "id_diretor", referencedColumnName = "id", nullable = false)
     private Diretor diretor;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_classe", referencedColumnName = "id")
+    @JoinColumn(name = "id_classe", referencedColumnName = "id", nullable = false)
     private Classe classe;
 
     @ManyToMany

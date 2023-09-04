@@ -1,6 +1,8 @@
-package com.locadora.backendlocadora.model;
+package com.locadora.backendlocadora.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,12 +18,15 @@ public class Classe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false)
     private String name;
 
+    @NotNull
     @Column(nullable = false)
     private Double valor;
 
+    @NotNull
     @Column(nullable = false, name = "prazo_devolucao")
     private int prazoDevolucao;
 }
