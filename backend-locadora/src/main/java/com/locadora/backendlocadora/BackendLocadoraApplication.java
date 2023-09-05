@@ -27,6 +27,10 @@ public class BackendLocadoraApplication {
                                    ClasseRepository classeRepository,
                                    TituloRepository tituloRepository) {
         return args -> {
+            atorRepository.deleteAll();
+            diretorRepository.deleteAll();
+            classeRepository.deleteAll();
+            tituloRepository.deleteAll();
             Ator ator1 = new Ator();
             ator1.setNome("Christoph Waltz");
             Ator ator2 = new Ator();
