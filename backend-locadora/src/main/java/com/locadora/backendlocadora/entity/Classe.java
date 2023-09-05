@@ -20,7 +20,7 @@ public class Classe {
 
     @NotBlank
     @Column(nullable = false)
-    private String name;
+    private String nome;
 
     @NotNull
     @Column(nullable = false)
@@ -28,5 +28,5 @@ public class Classe {
 
     @NotNull
     @Column(nullable = false, name = "prazo_devolucao")
-    private int prazoDevolucao;
+    private Integer prazoDevolucao;
 }

@@ -1,6 +1,7 @@
 package com.locadora.backendlocadora.entity;
 
 import com.locadora.backendlocadora.entity.enums.Categoria;
+import com.locadora.backendlocadora.entity.enums.converter.CategoriaConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,10 +32,11 @@ public class Titulo {
     private String ano;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String sinopse;
 
     @Column(nullable = false)
+    @Convert(converter = CategoriaConverter.class)
     private Categoria categoria;
 
     @NotNull
@@ -50,6 +53,6 @@ public class Titulo {
     @JoinTable(name = "titulo_ator",
             joinColumns = @JoinColumn(name = "id_titulo"),
             inverseJoinColumns = @JoinColumn(name = "id_ator"))
-    private List<Ator> atores;
+    private List<Ator> atores = new ArrayList<>();
 
 }
