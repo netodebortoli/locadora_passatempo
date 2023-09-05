@@ -1,15 +1,12 @@
 package com.locadora.backendlocadora.service;
 
 import com.locadora.backendlocadora.entity.Ator;
-import com.locadora.backendlocadora.entity.Titulo;
 import com.locadora.backendlocadora.repositories.AtorRepository;
 import com.locadora.backendlocadora.repositories.TituloRepository;
-import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,11 +45,8 @@ public class AtorService {
                 }).orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id));
     }
 
-    public void deletar(@Valid @NotNull Long id) throws NegocioException {
-//        List<Titulo> titulos = tituloRepository.findTituloByAtor(id);
-//        if (!titulos.isEmpty()) {
-//            throw new NegocioException("O Ator possui títulos associados.");
-//        }
+    //TODO: adicionar regra de negocio que nao permite excluir um que possui titulos associados
+    public void deletar(@Valid @NotNull Long id) {
         atorRepository.delete(atorRepository.findById(id)
                 .orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id)));
     }
