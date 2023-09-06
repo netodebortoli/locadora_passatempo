@@ -28,12 +28,12 @@ public class DiretorController {
     private DiretorService diretorService;
 
     public DiretorController(DiretorService diretorService) {
-        this.diretorService = diretorService;
+        this.diretorService = diretorService; 
     }
 
     @GetMapping
     public List<Diretor> listarTodos() {
-        return diretorService.buscarTodos();
+        return diretorService.listarTodos();
     }
 
     @GetMapping("/{id}")
@@ -44,12 +44,14 @@ public class DiretorController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Diretor criarDiretor(@RequestBody @Valid @NotNull Diretor diretor) {
-        return diretorService.criar(diretor);
+        return diretorService.salvar(diretor);
     }
 
     @PutMapping("/{id}")
     public Diretor atualizarDiretor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull Diretor diretor) {
-        return diretorService.atualizar(id, diretor);
+        diretorService.buscarPorId(id);
+        diretor.setId(id);
+        return diretorService.salvar(diretor);
     }
 
     @DeleteMapping("/{id}")

@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TituloRepository extends JpaRepository<Titulo, Long> {
+
+    //TODO: implementar método para buscar Títulos que um ator possui
 }

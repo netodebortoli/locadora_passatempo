@@ -1,15 +1,25 @@
 package com.locadora.backendlocadora.controller;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.locadora.backendlocadora.entity.Ator;
 import com.locadora.backendlocadora.service.AtorService;
 import com.locadora.backendlocadora.service.exception.NegocioException;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/atores")
@@ -23,7 +33,7 @@ public class AtorController {
 
     @GetMapping
     public List<Ator> listarTodos() {
-        return atorService.buscarTodos();
+        return atorService.listarTodos();
     }
 
     @GetMapping("/{id}")
@@ -34,12 +44,14 @@ public class AtorController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Ator criarAtor(@RequestBody @Valid @NotNull Ator ator) {
-        return atorService.criar(ator);
+        return atorService.salvar(ator);
     }
 
     @PutMapping("/{id}")
     public Ator atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull Ator ator) {
-        return atorService.atualizar(id, ator);
+        atorService.buscarPorId(id);
+        ator.setId(id);
+        return atorService.salvar(ator);
     }
 
     @DeleteMapping("/{id}")
