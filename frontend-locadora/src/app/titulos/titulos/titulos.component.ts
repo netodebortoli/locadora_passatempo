@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, Observable, of } from 'rxjs';
+import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 import { Titulo } from '../model/titulo';
 import { TitulosService } from '../services/titulos.service';
-import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-titulos',
@@ -13,7 +13,7 @@ import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/err
 })
 export class TitulosComponent implements OnInit {
   titulos$: Observable<Titulo[]>;
-  displayedColumns = ['nome', 'ano', 'sinopse', 'categoria'];
+  displayedColumns = ['nome', 'ano', 'sinopse', 'categoria', 'acoes'];
 
   constructor(
     private titulosService: TitulosService,

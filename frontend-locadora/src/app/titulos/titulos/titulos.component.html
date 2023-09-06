@@ -27,6 +27,24 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="acoes">
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-mini-fab collor="accent" aria-label="Adicionar um título">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button collor="primary" aria-label="Editar um título">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button collor="warn" aria-label="Remover um título">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+
+      </ng-container>
+
       <!-- Header and Row Declarations -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
