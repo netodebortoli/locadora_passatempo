@@ -19,7 +19,7 @@ export class AtoresService {
     );
   }
 
-  save(record: Ator) {
+  save(record: Partial<Ator>) {
     return this.httpClient.post<Ator>(this.API, record);
   }
 }

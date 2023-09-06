@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AtoresService } from '../services/atores.service';
@@ -10,26 +10,23 @@ import { AtoresService } from '../services/atores.service';
   styleUrls: ['./ator-form.component.scss'],
 })
 export class AtorFormComponent {
-  form: FormGroup;
+  form = this.formBuilder.group({
+    nome: new FormControl<string>('', { nonNullable: true }),
+  });
 
   constructor(
     private atoresService: AtoresService,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar
-  ) {
-    this.form = this.formBuilder.group({
-      nome: [null],
-    });
-  }
+  ) {}
+
   onSubmit() {
     this.atoresService.save(this.form.value).subscribe(
-      result => console.log(result),
-      error => this.onError()
+      (result) => console.log(result),
+      (error) => this.onError()
     );
   }
-  onCancel() {
-    throw new Error('Method not implemented.');
-  }
+  onCancel() {}
 
   private onError() {
     this.snackBar.open('Erro ao salvar Ator.', '', { duration: 3500 });
