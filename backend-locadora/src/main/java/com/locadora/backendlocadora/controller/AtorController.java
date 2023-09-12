@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.locadora.backendlocadora.domain.Ator;
+import com.locadora.backendlocadora.domain.DTO.AtorDTO;
 import com.locadora.backendlocadora.service.AtorService;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 
@@ -32,26 +32,26 @@ public class AtorController {
     }
 
     @GetMapping
-    public List<Ator> listarTodos() {
+    public List<AtorDTO> listarTodos() {
         return atorService.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Ator buscarPorId(@PathVariable @NotNull @Positive Long id) {
+    public AtorDTO buscarPorId(@PathVariable @NotNull @Positive Long id) {
         return atorService.buscarPorId(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Ator criarAtor(@RequestBody @Valid @NotNull Ator ator) {
+    public AtorDTO criarAtor(@RequestBody @Valid @NotNull AtorDTO ator) {
         return atorService.salvar(ator);
     }
 
     @PutMapping("/{id}")
-    public Ator atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull Ator ator) {
+    public AtorDTO atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull AtorDTO ator) {
         atorService.buscarPorId(id);
-        ator.setId(id);
-        return atorService.salvar(ator);
+        AtorDTO atorDTO = new AtorDTO(ator.id(), ator.nome());
+        return atorService.salvar(atorDTO);
     }
 
     @DeleteMapping("/{id}")
