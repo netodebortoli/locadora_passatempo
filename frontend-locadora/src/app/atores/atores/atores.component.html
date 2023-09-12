@@ -6,7 +6,8 @@
     <div class="mat-elevation-z8">
       <app-atores-list *ngIf="atores$ | async as atores; else loading" [atores]="atores"
       (add)="onAdd()"
-      (edit)="onEdit($event)">
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)">
       </app-atores-list>
 
       <ng-template #loading>

@@ -27,7 +27,11 @@ export class AtoresService {
   }
 
   loadById(id: string) {
-    return this.httpClient.get<Ator>(`${this.API}/${id}`);
+    return this.httpClient.get<Ator>(`${this.API}/${id}`).pipe(first());
+  }
+
+  delete(id: string) {
+    return this.httpClient.delete<Ator>(`${this.API}/${id}`);
   }
 
   private create(record: Partial<Ator>) {

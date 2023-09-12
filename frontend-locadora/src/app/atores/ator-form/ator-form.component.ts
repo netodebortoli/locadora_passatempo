@@ -1,11 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
-import { AtoresService } from '../services/atores.service';
 import { Ator } from '../model/ator';
+import { AtoresService } from '../services/atores.service';
 
 @Component({
   selector: 'app-ator-form',

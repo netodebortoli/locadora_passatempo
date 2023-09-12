@@ -10,6 +10,7 @@ export class AtoresListComponent {
   @Input() atores: Ator[] = [];
   @Output() add = new EventEmitter(false);
   @Output() edit = new EventEmitter(false);
+  @Output() delete = new EventEmitter(false);
   readonly displayedColumns = ['nome', 'acoes'];
 
   constructor() {}
@@ -17,7 +18,10 @@ export class AtoresListComponent {
   onAdd() {
     this.add.emit(true);
   }
-  onEdit(ator: Ator){
+  onEdit(ator: Ator) {
     this.edit.emit(ator);
+  }
+  onDelete(ator: Ator) {
+    this.delete.emit(ator);
   }
 }
