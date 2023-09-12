@@ -39,6 +39,7 @@ public class Titulo {
     @Convert(converter = CategoriaConverter.class)
     private Categoria categoria;
 
+    @Transient
     @NotNull
     @ManyToOne
     @JoinColumn(name = "id_diretor", referencedColumnName = "id", nullable = false)
@@ -49,6 +50,7 @@ public class Titulo {
     @JoinColumn(name = "id_classe", referencedColumnName = "id", nullable = false)
     private Classe classe;
 
+    @Transient
     @ManyToMany
     @JoinTable(name = "titulo_ator",
             joinColumns = @JoinColumn(name = "id_titulo"),

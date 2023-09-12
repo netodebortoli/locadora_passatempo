@@ -1,18 +1,19 @@
 package com.locadora.backendlocadora;
 
-import com.locadora.backendlocadora.entity.Ator;
-import com.locadora.backendlocadora.entity.Classe;
-import com.locadora.backendlocadora.entity.Diretor;
-import com.locadora.backendlocadora.entity.Titulo;
-import com.locadora.backendlocadora.entity.enums.Categoria;
-import com.locadora.backendlocadora.repositories.*;
-import org.hibernate.boot.model.relational.InitCommand;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
+import com.locadora.backendlocadora.entity.Ator;
+import com.locadora.backendlocadora.entity.Classe;
+import com.locadora.backendlocadora.entity.Diretor;
+import com.locadora.backendlocadora.entity.Titulo;
+import com.locadora.backendlocadora.entity.enums.Categoria;
+import com.locadora.backendlocadora.repositories.AtorRepository;
+import com.locadora.backendlocadora.repositories.ClasseRepository;
+import com.locadora.backendlocadora.repositories.DiretorRepository;
+import com.locadora.backendlocadora.repositories.TituloRepository;
 
 @SpringBootApplication
 public class BackendLocadoraApplication {
