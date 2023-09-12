@@ -7,11 +7,13 @@ import { SharedModule } from '../shared/shared.module';
 import { AtorFormComponent } from './ator-form/ator-form.component';
 import { AtoresRoutingModule } from './atores-routing.module';
 import { AtoresComponent } from './atores/atores.component';
+import { AtoresListComponent } from './atores-list/atores-list.component';
 
 @NgModule({
   declarations: [
     AtoresComponent,
-    AtorFormComponent
+    AtorFormComponent,
+    AtoresListComponent
   ],
   imports: [
     CommonModule,

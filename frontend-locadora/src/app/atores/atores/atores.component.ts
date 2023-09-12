@@ -14,13 +14,12 @@ import { Ator } from '../model/ator';
 })
 export class AtoresComponent implements OnInit {
   atores$: Observable<Ator[]>;
-  displayedColumns = ['nome', 'acoes'];
 
   constructor(
     private atoresService: AtoresService,
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     this.atores$ = this.atoresService.list().pipe(
       catchError((error) => {
@@ -37,8 +36,10 @@ export class AtoresComponent implements OnInit {
   ngOnInit(): void {}
 
   onAdd() {
-    console.log("OnAdd called");
-    this.router.navigate(['novo'], { relativeTo: this.route});
+    this.router.navigate(['novo'], { relativeTo: this.route });
   }
 
+  onEdit(ator: Ator) {
+    this.router.navigate(['editar', ator._id], { relativeTo: this.route });
+  }
 }

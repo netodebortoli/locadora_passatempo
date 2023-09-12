@@ -1,11 +1,19 @@
-.tabela-atores {
-  width: 100%;
+mat-card {
+  max-width: 90%;
+  margin: 2em auto;
+  text-align: center;
 }
 
-.loading-spinner{
+.column-flex {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.loading-spinner {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 25px;
-  background: rgba(0,0,0,0.15);
+  background: rgba(0, 0, 0, 0.15);
 }

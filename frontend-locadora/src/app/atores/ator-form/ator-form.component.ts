@@ -1,32 +1,54 @@
-import { Component } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 import { AtoresService } from '../services/atores.service';
+import { Ator } from '../model/ator';
 
 @Component({
   selector: 'app-ator-form',
   templateUrl: './ator-form.component.html',
   styleUrls: ['./ator-form.component.scss'],
 })
-export class AtorFormComponent {
+export class AtorFormComponent implements OnInit {
   form = this.formBuilder.group({
-    nome: new FormControl<string>('', { nonNullable: true }),
+    _id: [''],
+    nome: [''],
   });
 
   constructor(
     private atoresService: AtoresService,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location,
+    private route: ActivatedRoute
   ) {}
 
-  onSubmit() {
-    this.atoresService.save(this.form.value).subscribe(
-      (result) => console.log(result),
-      (error) => this.onError()
-    );
+  ngOnInit(): void {
+    const ator: Ator = this.route.snapshot.data['ator'];
+    this.form.setValue({
+      _id: ator._id,
+      nome: ator.nome,
+    });
   }
-  onCancel() {}
+
+  onSubmit() {
+    this.atoresService.save(this.form.value as Ator).subscribe({
+      next: () => this.onSuccess(),
+      error: () => this.onError(),
+    });
+  }
+
+  onCancel() {
+    this.location.back();
+  }
+
+  private onSuccess() {
+    this.snackBar.open('Ator salvo com sucesso', '', { duration: 3500 });
+    this.onCancel();
+  }
 
   private onError() {
     this.snackBar.open('Erro ao salvar Ator.', '', { duration: 3500 });
