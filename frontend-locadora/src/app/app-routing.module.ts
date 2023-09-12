@@ -6,12 +6,12 @@ const routes: Routes = [
   {
     path: 'titulos',
     loadChildren: () =>
-      import('./titulos/titulos.module').then((m) => m.TitulosModule),
+      import('./modulos/titulos/titulos.module').then((m) => m.TitulosModule),
   },
   {
     path: 'atores',
     loadChildren: () =>
-      import('./atores/atores.module').then((m) => m.AtoresModule),
+      import('./modulos/atores/atores.module').then((m) => m.AtoresModule),
   },
 ];
 

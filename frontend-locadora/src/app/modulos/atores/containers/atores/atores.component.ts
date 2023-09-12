@@ -5,8 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
-import { Ator } from '../model/ator';
-import { AtoresService } from '../services/atores.service';
+import { Ator } from '../../model/ator';
+import { AtoresService } from '../../services/atores.service';
 
 @Component({
   selector: 'app-atores',

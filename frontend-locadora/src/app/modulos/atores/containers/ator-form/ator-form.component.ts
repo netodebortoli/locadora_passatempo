@@ -4,8 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
-import { Ator } from '../model/ator';
-import { AtoresService } from '../services/atores.service';
+import { Ator } from '../../model/ator';
+import { AtoresService } from '../../services/atores.service';
 
 @Component({
   selector: 'app-ator-form',

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Ator } from '../model/ator';
+import { Ator } from '../../model/ator';
 
 @Component({
   selector: 'app-atores-list',
