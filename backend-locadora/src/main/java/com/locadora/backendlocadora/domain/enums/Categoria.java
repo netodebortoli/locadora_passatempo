@@ -1,4 +1,4 @@
-package com.locadora.backendlocadora.entity.enums;
+package com.locadora.backendlocadora.domain.enums;
 
 import lombok.Getter;
 

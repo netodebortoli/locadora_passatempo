@@ -1,7 +1,5 @@
-package com.locadora.backendlocadora.entity;
+package com.locadora.backendlocadora.domain;
 
-import com.locadora.backendlocadora.entity.enums.TipoItem;
-import com.locadora.backendlocadora.entity.enums.converter.TipoItemConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+
+import com.locadora.backendlocadora.domain.enums.TipoItem;
+import com.locadora.backendlocadora.domain.enums.converter.TipoItemConverter;
 
 @Data
 @Entity

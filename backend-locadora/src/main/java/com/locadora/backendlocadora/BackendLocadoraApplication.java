@@ -5,11 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.locadora.backendlocadora.entity.Ator;
-import com.locadora.backendlocadora.entity.Classe;
-import com.locadora.backendlocadora.entity.Diretor;
-import com.locadora.backendlocadora.entity.Titulo;
-import com.locadora.backendlocadora.entity.enums.Categoria;
+import com.locadora.backendlocadora.domain.Ator;
+import com.locadora.backendlocadora.domain.Classe;
+import com.locadora.backendlocadora.domain.Diretor;
+import com.locadora.backendlocadora.domain.Titulo;
+import com.locadora.backendlocadora.domain.enums.Categoria;
 import com.locadora.backendlocadora.repositories.AtorRepository;
 import com.locadora.backendlocadora.repositories.ClasseRepository;
 import com.locadora.backendlocadora.repositories.DiretorRepository;

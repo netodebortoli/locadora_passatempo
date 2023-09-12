@@ -1,10 +1,11 @@
-package com.locadora.backendlocadora.entity.enums.converter;
+package com.locadora.backendlocadora.domain.enums.converter;
 
-import com.locadora.backendlocadora.entity.enums.TipoItem;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 import java.util.stream.Stream;
+
+import com.locadora.backendlocadora.domain.enums.TipoItem;
 @Converter(autoApply = true)
 public class TipoItemConverter implements AttributeConverter<TipoItem, String> {
 

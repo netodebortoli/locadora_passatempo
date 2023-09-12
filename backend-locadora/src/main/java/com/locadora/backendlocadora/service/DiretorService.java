@@ -2,7 +2,7 @@ package com.locadora.backendlocadora.service;
 
 import org.springframework.stereotype.Service;
 
-import com.locadora.backendlocadora.entity.Diretor;
+import com.locadora.backendlocadora.domain.Diretor;
 import com.locadora.backendlocadora.repositories.DiretorRepository;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
