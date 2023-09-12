@@ -3,7 +3,7 @@ package com.locadora.backendlocadora.service;
 import org.springframework.stereotype.Service;
 
 import com.locadora.backendlocadora.domain.Ator;
-import com.locadora.backendlocadora.domain.DTO.AtorDTO;
+import com.locadora.backendlocadora.domain.dto.AtorDTO;
 import com.locadora.backendlocadora.domain.mapper.AtorMapper;
 import com.locadora.backendlocadora.repositories.AtorRepository;
 import com.locadora.backendlocadora.service.exception.NegocioException;

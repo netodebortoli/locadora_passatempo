@@ -1,10 +1,10 @@
-package com.locadora.backendlocadora.domain.DTO;
+package com.locadora.backendlocadora.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record DiretorDTO(
+public record AtorDTO(
     @JsonProperty("_id") Long id,
-    @NotBlank String nome) {
+    @NotBlank String nome) { 
 }

@@ -1,4 +1,4 @@
-package com.locadora.backendlocadora.domain.DTO;
+package com.locadora.backendlocadora.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

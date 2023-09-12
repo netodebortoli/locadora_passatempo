@@ -3,7 +3,7 @@ package com.locadora.backendlocadora.domain.mapper;
 import org.springframework.stereotype.Component;
 
 import com.locadora.backendlocadora.domain.Ator;
-import com.locadora.backendlocadora.domain.DTO.AtorDTO;
+import com.locadora.backendlocadora.domain.dto.AtorDTO;
 
 @Component
 public class AtorMapper extends GenericMapper<AtorDTO, Ator> {

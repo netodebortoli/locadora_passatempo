@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.locadora.backendlocadora.domain.DTO.AtorDTO;
+import com.locadora.backendlocadora.domain.dto.AtorDTO;
 import com.locadora.backendlocadora.service.AtorService;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 
