@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { HomeComponent } from './shared/components/home/home.component';
 
 const routes: Routes = [
   //{ path: '', pathMatch: 'full', redirectTo: 'titulos' },
-  { path: '', pathMatch: 'full' },
+  { path: '', pathMatch: 'full', component: HomeComponent},
   {
     path: 'titulos',
     loadChildren: () =>
