@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.locadora.backendlocadora.domain.dto.AtorDTO;
 import com.locadora.backendlocadora.service.AtorService;
 import com.locadora.backendlocadora.service.exception.NegocioException;
+import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -43,12 +44,12 @@ public class AtorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AtorDTO criarAtor(@RequestBody @Valid @NotNull AtorDTO ator) {
+    public AtorDTO criarAtor(@RequestBody @Valid @NotNull AtorDTO ator) throws RegistroNaoEncontradoException, NegocioException {
         return atorService.salvar(ator);
     }
 
     @PutMapping("/{id}")
-    public AtorDTO atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull AtorDTO ator) {
+    public AtorDTO atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull AtorDTO ator) throws RegistroNaoEncontradoException, NegocioException {
         atorService.buscarPorId(id);
         AtorDTO atorDTO = new AtorDTO(id, ator.nome());
         return atorService.salvar(atorDTO);

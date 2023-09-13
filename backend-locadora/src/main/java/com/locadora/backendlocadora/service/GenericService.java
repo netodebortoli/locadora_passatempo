@@ -3,6 +3,8 @@ package com.locadora.backendlocadora.service;
 import com.locadora.backendlocadora.domain.mapper.GenericMapper;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
+
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
 @Data
 public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP extends GenericMapper<M, E>> {
 
-    private R repository;
+    protected R repository;
 
     private String humanReadableName;
 
@@ -44,9 +46,10 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
                 .orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id)));
     }
 
-    public abstract void validarSave(@NotNull @Valid M model) throws RegistroNaoEncontradoException;
+    public abstract void validarSave(@NotNull @Valid M model) throws RegistroNaoEncontradoException, NegocioException;
 
-    public M salvar(@Valid @NotNull M model) {
+    @Transactional(rollbackOn = {Exception.class})
+    public M salvar(@Valid @NotNull M model) throws RegistroNaoEncontradoException, NegocioException {
         validarSave(model);
         return mapper.toDTO(this.repository.saveAndFlush(mapper.toEntity(model)));
     }

@@ -19,7 +19,13 @@ public class ClasseService extends GenericService<ClasseDTO, Long, ClasseReposit
     }
 
     @Override
-    public void validarSave(ClasseDTO model) throws RegistroNaoEncontradoException {
+    public void validarSave(ClasseDTO model) throws RegistroNaoEncontradoException, NegocioException {
+        
+        Classe classeBanco = this.repository.findByNome(model.nome());
+
+        if (classeBanco != null) {
+            throw new NegocioException("Já existe a classe: " + model.nome().toUpperCase());
+        }
     }
 
     @Override

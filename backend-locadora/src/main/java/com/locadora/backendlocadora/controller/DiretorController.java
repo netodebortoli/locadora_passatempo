@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.locadora.backendlocadora.domain.Diretor;
 import com.locadora.backendlocadora.service.DiretorService;
 import com.locadora.backendlocadora.service.exception.NegocioException;
+import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -44,12 +44,12 @@ public class DiretorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public DiretorDTO criarDiretor(@RequestBody @Valid @NotNull DiretorDTO diretor) {
+    public DiretorDTO criarDiretor(@RequestBody @Valid @NotNull DiretorDTO diretor) throws RegistroNaoEncontradoException, NegocioException {
         return diretorService.salvar(diretor);
     }
 
     @PutMapping("/{id}")
-    public DiretorDTO atualizarDiretor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull DiretorDTO diretor) {
+    public DiretorDTO atualizarDiretor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull DiretorDTO diretor) throws RegistroNaoEncontradoException, NegocioException {
         diretorService.buscarPorId(id);
         return diretorService.salvar(new DiretorDTO(id, diretor.nome()));
     }
