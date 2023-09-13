@@ -50,7 +50,7 @@ public class AtorController {
     @PutMapping("/{id}")
     public AtorDTO atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull AtorDTO ator) {
         atorService.buscarPorId(id);
-        AtorDTO atorDTO = new AtorDTO(ator.id(), ator.nome());
+        AtorDTO atorDTO = new AtorDTO(id, ator.nome());
         return atorService.salvar(atorDTO);
     }
 
