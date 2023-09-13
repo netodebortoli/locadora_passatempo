@@ -14,7 +14,7 @@ export class AtoresService {
   list() {
     return this.httpClient.get<Ator[]>(this.API).pipe(
       first(),
-      delay(1500),
+      delay(1000),
       tap((atores) => console.log(atores))
     );
   }

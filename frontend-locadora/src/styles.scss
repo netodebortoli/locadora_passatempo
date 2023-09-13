@@ -2,3 +2,28 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-card-form{
+  max-width: 90%;
+  margin: 2em auto;
+  text-align: center;
+}
+
+.full-width{
+  width: 100%;
+}
+
+.min-width-form{
+  width: 100%;
+  min-width: 150px;
+}
+
+.mat-table-list {
+  overflow: auto;
+  max-height: 600px;
+}
+
+.action-column-list{
+  flex: 0 0 125px;
+}
+
