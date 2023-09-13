@@ -10,10 +10,10 @@ import com.locadora.backendlocadora.domain.Classe;
 import com.locadora.backendlocadora.domain.Diretor;
 import com.locadora.backendlocadora.domain.Titulo;
 import com.locadora.backendlocadora.domain.enums.Categoria;
-import com.locadora.backendlocadora.repositories.AtorRepository;
-import com.locadora.backendlocadora.repositories.ClasseRepository;
-import com.locadora.backendlocadora.repositories.DiretorRepository;
-import com.locadora.backendlocadora.repositories.TituloRepository;
+import com.locadora.backendlocadora.repository.AtorRepository;
+import com.locadora.backendlocadora.repository.ClasseRepository;
+import com.locadora.backendlocadora.repository.DiretorRepository;
+import com.locadora.backendlocadora.repository.TituloRepository;
 
 @SpringBootApplication
 public class BackendLocadoraApplication {
