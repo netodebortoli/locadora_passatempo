@@ -1,22 +1,18 @@
 package com.locadora.backendlocadora.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
-
 import com.locadora.backendlocadora.domain.mapper.GenericMapper;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
-@Service
 public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP extends GenericMapper<M, E>> {
 
     private R repository;
