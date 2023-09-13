@@ -2,6 +2,7 @@ package com.locadora.backendlocadora.controller;
 
 import java.util.List;
 
+import com.locadora.backendlocadora.domain.dto.DiretorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,26 +33,25 @@ public class DiretorController {
     }
 
     @GetMapping
-    public List<Diretor> listarTodos() {
+    public List<DiretorDTO> listarTodos() {
         return diretorService.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Diretor buscarPorId(@PathVariable @NotNull @Positive Long id) {
+    public DiretorDTO buscarPorId(@PathVariable @NotNull @Positive Long id) {
         return diretorService.buscarPorId(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Diretor criarDiretor(@RequestBody @Valid @NotNull Diretor diretor) {
+    public DiretorDTO criarDiretor(@RequestBody @Valid @NotNull DiretorDTO diretor) {
         return diretorService.salvar(diretor);
     }
 
     @PutMapping("/{id}")
-    public Diretor atualizarDiretor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull Diretor diretor) {
+    public DiretorDTO atualizarDiretor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull DiretorDTO diretor) {
         diretorService.buscarPorId(id);
-        diretor.setId(id);
-        return diretorService.salvar(diretor);
+        return diretorService.salvar(new DiretorDTO(id, diretor.nome()));
     }
 
     @DeleteMapping("/{id}")
