@@ -44,12 +44,14 @@ public class AtorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AtorDTO criarAtor(@RequestBody @Valid @NotNull AtorDTO ator) throws RegistroNaoEncontradoException, NegocioException {
+    public AtorDTO criarAtor(@RequestBody @Valid @NotNull AtorDTO ator)
+            throws RegistroNaoEncontradoException, NegocioException {
         return atorService.salvar(ator);
     }
 
     @PutMapping("/{id}")
-    public AtorDTO atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull AtorDTO ator) throws RegistroNaoEncontradoException, NegocioException {
+    public AtorDTO atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull AtorDTO ator)
+            throws RegistroNaoEncontradoException, NegocioException {
         atorService.buscarPorId(id);
         AtorDTO atorDTO = new AtorDTO(id, ator.nome());
         return atorService.salvar(atorDTO);
