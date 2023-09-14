@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -26,6 +27,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSelectModule,
     MatSnackBarModule,
     MatMenuModule,
+    ReactiveFormsModule
   ],
 })
 export class AppMaterialModule {}

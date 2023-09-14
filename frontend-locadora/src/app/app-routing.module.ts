@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+
 import { HomeComponent } from './shared/components/home/home.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  //{ path: '', pathMatch: 'full', redirectTo: 'titulos' },
-  { path: '', pathMatch: 'full', component: HomeComponent},
+  { path: '', pathMatch: 'full', component: HomeComponent },
   {
     path: 'titulos',
     loadChildren: () =>
@@ -22,6 +22,11 @@ const routes: Routes = [
       import('./modulos/diretores/diretores.module').then(
         (m) => m.DiretoresModule
       ),
+  },
+  {
+    path: 'classes',
+    loadChildren: () =>
+      import('./modulos/classes/classes.module').then((m) => m.ClassesModule),
   },
   { path: '**', component: PageNotFoundComponent },
 ];
