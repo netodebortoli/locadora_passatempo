@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { DiretoresService } from '../../services/diretores.service';
 export class DiretorFormComponent implements OnInit {
   form = this.formBuilder.group({
     _id: [''],
-    nome: [''],
+    nome: ['', [Validators.required, Validators.maxLength(255)]],
   });
 
   constructor(
@@ -52,5 +52,19 @@ export class DiretorFormComponent implements OnInit {
       next: () => this.onSuccess(),
       error: () => this.onError(),
     });
+  }
+
+  getErrorMessage(nomeDoCampo: string) {
+    const campo = this.form.get(nomeDoCampo);
+    if (campo?.hasError('required')) {
+      return 'Campo obrigatório.';
+    }
+    if (campo?.hasError('maxlength')) {
+      const requiredLength: number = campo.errors
+        ? campo.errors['maxlength']['requiredLength']
+        : 255;
+      return `O número máximo de caracteres é ${requiredLength}`;
+    }
+    return 'Campo inválido.';
   }
 }
