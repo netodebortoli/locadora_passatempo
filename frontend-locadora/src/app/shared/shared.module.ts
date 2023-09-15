@@ -4,13 +4,15 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
 import { AppMaterialModule } from './app-material/app-material.module';
 import { CategoriaPipe } from './pipes/categoria.pipe';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     //componentes
     ErrorDialogComponent,
     CategoriaPipe,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     //módulos
@@ -19,6 +21,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   ],
   exports: [
     ErrorDialogComponent,
+    ConfirmationDialogComponent,
     CategoriaPipe
   ]
 })

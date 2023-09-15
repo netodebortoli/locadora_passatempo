@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 import { Classe } from '../../model/classe';
@@ -46,16 +47,24 @@ export class ClassesComponent implements OnInit {
     this.router.navigate(['editar', classe._id], { relativeTo: this.route });
   }
   onDelete(classe: Classe) {
-    this.classesService.delete(classe._id).subscribe({
-      error: () => this.onError('Erro ao tentar remover Classe.'),
-      complete: () => {
-        this.refresh();
-        this.snackBar.open('Classe removida com sucesso.', 'X', {
-          duration: 3500,
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Tem certeza que deseja remover este Ator?',
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.classesService.delete(classe._id).subscribe({
+          error: () => this.onError('Erro ao tentar remover Classe.'),
+          complete: () => {
+            this.refresh();
+            this.snackBar.open('Classe removida com sucesso.', 'X', {
+              duration: 3500,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+            });
+          },
         });
-      },
+      }
     });
   }
 
