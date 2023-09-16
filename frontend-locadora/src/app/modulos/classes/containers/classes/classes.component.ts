@@ -48,7 +48,7 @@ export class ClassesComponent implements OnInit {
   }
   onDelete(classe: Classe) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'Tem certeza que deseja remover este Ator?',
+      data: 'Tem certeza que deseja remover esta Classe?',
     });
 
     dialogRef.afterClosed().subscribe((result: boolean) => {

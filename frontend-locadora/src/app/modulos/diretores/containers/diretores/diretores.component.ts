@@ -54,7 +54,7 @@ export class DiretoresComponent implements OnInit {
 
   onDelete(diretor: Diretor) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'Tem certeza que deseja remover este Ator?',
+      data: 'Tem certeza que deseja remover este Diretor?',
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
