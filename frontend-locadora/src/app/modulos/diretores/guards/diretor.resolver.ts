@@ -3,7 +3,7 @@ import { ResolveFn } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 import { Diretor } from '../model/diretor';
-import { DiretoresService } from '../services/diretores.service';
+import { DiretoresService } from '../diretores.service';
 
 export const diretorResolver: ResolveFn<Observable<Diretor>> = (
   route,

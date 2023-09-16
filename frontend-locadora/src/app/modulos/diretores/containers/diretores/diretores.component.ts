@@ -7,7 +7,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 import { Diretor } from '../../model/diretor';
-import { DiretoresService } from './../../services/diretores.service';
+import { DiretoresService } from '../../diretores.service';
 
 @Component({
   selector: 'app-diretores',

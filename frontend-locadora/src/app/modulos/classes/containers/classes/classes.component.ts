@@ -7,7 +7,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 import { Classe } from '../../model/classe';
-import { ClassesService } from '../../services/classes.service';
+import { ClassesService } from '../../classes.service';
 
 @Component({
   selector: 'app-classes',

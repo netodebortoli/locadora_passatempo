@@ -3,7 +3,7 @@ import { ResolveFn } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 import { Classe } from '../model/classe';
-import { ClassesService } from '../services/classes.service';
+import { ClassesService } from '../classes.service';
 
 export const classeResolver: ResolveFn<Observable<Classe>> = (
   route,

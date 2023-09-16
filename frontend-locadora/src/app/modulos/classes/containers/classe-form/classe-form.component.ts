@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
 import { Classe } from '../../model/classe';
-import { ClassesService } from '../../services/classes.service';
+import { ClassesService } from '../../classes.service';
 
 @Component({
   selector: 'app-classe-form',

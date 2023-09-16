@@ -3,7 +3,7 @@ import { ResolveFn } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 import { Ator } from '../model/ator';
-import { AtoresService } from '../services/atores.service';
+import { AtoresService } from '../atores.service';
 
 export const atorResolver: ResolveFn<Observable<Ator>> = (
   route,

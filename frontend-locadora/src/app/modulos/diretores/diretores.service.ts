@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from 'src/app/shared/base/base.service';
 
-import { Ator } from '../model/ator';
+import { Diretor } from './model/diretor';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AtoresService extends BaseService<Ator> {
+export class DiretoresService extends BaseService<Diretor> {
   constructor(protected override httpClient: HttpClient) {
-    super("/api/atores", httpClient);
+    super("/api/diretores", httpClient);
   }
 }

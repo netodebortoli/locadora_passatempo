@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
 import { Diretor } from '../../model/diretor';
-import { DiretoresService } from '../../services/diretores.service';
+import { DiretoresService } from '../../diretores.service';
 
 @Component({
   selector: 'app-diretor-form',

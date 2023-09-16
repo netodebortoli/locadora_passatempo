@@ -4,7 +4,7 @@ import { catchError, Observable, of } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 import { Titulo } from '../model/titulo';
-import { TitulosService } from '../services/titulos.service';
+import { TitulosService } from '../titulos.service';
 
 @Component({
   selector: 'app-titulos',
