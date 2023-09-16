@@ -4,7 +4,8 @@
       <span>Atores disponíveis</span>
     </mat-toolbar>
     <div class="mat-elevation-z8">
-      <app-atores-list *ngIf="atores$ | async as atores; else loading" [atores]="atores"
+      <app-atores-list *ngIf="atores$ | async as atores; else loading"
+      [arrayModel]="atores"
       (add)="onAdd()"
       (edit)="onEdit($event)"
       (delete)="onDelete($event)">

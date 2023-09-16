@@ -4,7 +4,8 @@
       <span>Classes disponíveis</span>
     </mat-toolbar>
     <div class="mat-elevation-z8">
-      <app-classes-list *ngIf="classes$ | async as classes; else loading" [classes]="classes"
+      <app-classes-list *ngIf="classes$ | async as classes; else loading"
+      [arrayModel]="classes"
       (add)="onAdd()"
       (edit)="onEdit($event)"
       (delete)="onDelete($event)">

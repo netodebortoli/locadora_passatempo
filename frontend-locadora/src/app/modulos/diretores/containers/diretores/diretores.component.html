@@ -4,7 +4,8 @@
       <span>Diretores disponíveis</span>
     </mat-toolbar>
     <div class="mat-elevation-z8">
-      <app-diretores-list *ngIf="diretores$ | async as diretores; else loading" [diretores]="diretores"
+      <app-diretores-list *ngIf="diretores$ | async as diretores; else loading"
+      [arrayModel]="diretores"
       (add)="onAdd()"
       (edit)="onEdit($event)"
       (delete)="onDelete($event)">

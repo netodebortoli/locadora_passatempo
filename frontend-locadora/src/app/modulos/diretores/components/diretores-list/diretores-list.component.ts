@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { BaseListComponent } from 'src/app/shared/base/components/base-list/base-list.component';
+
 import { Diretor } from '../../model/diretor';
 
 @Component({
@@ -6,22 +8,8 @@ import { Diretor } from '../../model/diretor';
   templateUrl: './diretores-list.component.html',
   styleUrls: ['./diretores-list.component.scss'],
 })
-export class DiretoresListComponent {
-  @Input() diretores: Diretor[] = [];
-  @Output() add = new EventEmitter(false);
-  @Output() edit = new EventEmitter(false);
-  @Output() delete = new EventEmitter(false);
-  readonly displayedColumns = ['nome', 'acoes'];
-
-  constructor() {}
-
-  onAdd() {
-    this.add.emit(true);
-  }
-  onEdit(diretor: Diretor) {
-    this.edit.emit(diretor);
-  }
-  onDelete(diretor: Diretor) {
-    this.delete.emit(diretor);
+export class DiretoresListComponent extends BaseListComponent<Diretor> {
+  constructor(){
+    super(['nome','acoes']);
   }
 }
