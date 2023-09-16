@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { AppMaterialModule } from './app-material/app-material.module';
 import { BaseListComponent } from './base/components/base-list/base-list.component';
@@ -15,17 +16,19 @@ import { CategoriaPipe } from './pipes/categoria.pipe';
     CategoriaPipe,
     PageNotFoundComponent,
     ConfirmationDialogComponent,
-    BaseListComponent
+    BaseListComponent,
   ],
   imports: [
     //módulos
     CommonModule,
-    AppMaterialModule
+    AppMaterialModule,
+    NgxMaskModule.forRoot(),
   ],
   exports: [
     ErrorDialogComponent,
     ConfirmationDialogComponent,
-    CategoriaPipe
+    CategoriaPipe,
+    NgxMaskModule,
   ]
 })
 export class SharedModule { }
