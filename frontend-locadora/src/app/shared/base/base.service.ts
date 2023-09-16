@@ -17,7 +17,7 @@ export class BaseService<Type extends BaseModel> {
   list() {
     return this.httpClient.get<[]>(this.apiUrl).pipe(
       first(),
-      delay(1000)
+      delay(1500)
     );
   }
 
