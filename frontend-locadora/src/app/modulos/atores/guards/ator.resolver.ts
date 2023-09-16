@@ -7,11 +7,11 @@ import { AtoresService } from '../atores.service';
 
 export const atorResolver: ResolveFn<Observable<Ator>> = (
   route,
-  state,
+  _state,
   service: AtoresService = inject(AtoresService)
 ) => {
   if (route.params?.['id']) {
     return service.loadById(route.params['id']);
   }
-  return of({ _id: '', nome: '' });
+  return of({ } as Ator);
 };

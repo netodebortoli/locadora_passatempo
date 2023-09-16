@@ -7,11 +7,11 @@ import { DiretoresService } from '../diretores.service';
 
 export const diretorResolver: ResolveFn<Observable<Diretor>> = (
   route,
-  state,
+  _state,
   service: DiretoresService = inject(DiretoresService)
 ) => {
   if (route.params?.['id']) {
     return service.loadById(route.params['id']);
   }
-  return of({ _id: '', nome: '' });
+  return of({ } as Diretor);
 };
