@@ -33,7 +33,7 @@ export class ClasseFormComponent extends BaseFormComponent<Classe> implements On
 
   ngOnInit(): void {
     const classe: Classe = this.route.snapshot.data['classe'];
-    this.form.setValue({
+    this.form.patchValue({
       _id: classe._id,
       nome: classe.nome,
       valor: classe.valor,

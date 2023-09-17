@@ -31,7 +31,7 @@ export class DiretorFormComponent extends BaseFormComponent<Diretor> implements 
 
   ngOnInit(): void {
     const diretor: Diretor = this.route.snapshot.data['diretor'];
-    this.form.setValue({
+    this.form.patchValue({
       _id: diretor._id,
       nome: diretor.nome,
     });

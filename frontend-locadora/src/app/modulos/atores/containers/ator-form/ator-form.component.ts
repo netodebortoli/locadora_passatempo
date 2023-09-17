@@ -32,7 +32,7 @@ export class AtorFormComponent extends BaseFormComponent<Ator> implements OnInit
 
   ngOnInit(): void {
     const ator: Ator = this.route.snapshot.data['ator'];
-    this.form.setValue({
+    this.form.patchValue({
       _id: ator._id,
       nome: ator.nome,
     });
