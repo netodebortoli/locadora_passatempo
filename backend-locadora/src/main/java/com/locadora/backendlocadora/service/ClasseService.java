@@ -23,7 +23,7 @@ public class ClasseService extends GenericService<ClasseDTO, Long, ClasseReposit
         
         Classe classeBanco = this.repository.findByNome(model.nome());
 
-        if (classeBanco != null) {
+        if (classeBanco != null && model.id() != classeBanco.getId()) {
             throw new NegocioException("Já existe a classe: " + model.nome().toUpperCase());
         }
     }
