@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Ator } from '../../model/ator';
 import { AtoresService } from '../../atores.service';
-import { BaseFormComponent } from 'src/app/shared/base/containers/base-form/base-form.component';
+import { BaseFormComponent } from 'src/app/shared/base/components/base-form/base-form.component';
 
 @Component({
   selector: 'app-ator-form',

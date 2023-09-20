@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { BaseFormComponent } from 'src/app/shared/base/containers/base-form/base-form.component';
+import { BaseFormComponent } from 'src/app/shared/base/components/base-form/base-form.component';
 
 import { ClassesService } from '../../classes.service';
 import { Classe } from '../../model/classe';
