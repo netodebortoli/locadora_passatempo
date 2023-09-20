@@ -26,7 +26,7 @@ export class DiretorFormComponent extends BaseFormComponent<Diretor> implements 
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {
-    super(diretoresService, snackBar, location);
+    super('Diretor', diretoresService, snackBar, location);
   }
 
   ngOnInit(): void {

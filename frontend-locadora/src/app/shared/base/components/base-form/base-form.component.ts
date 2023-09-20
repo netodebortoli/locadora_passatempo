@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormGroup, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -16,6 +16,7 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
   abstract form: FormGroup;
 
   constructor(
+    @Inject(String) protected humanReadbleName: string,
     protected service: BaseService<Type>,
     protected snackBar: MatSnackBar,
     protected location: Location,
@@ -37,12 +38,12 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
   }
 
   private onSuccess() {
-    this.snackBar.open('Registro salvo com sucesso', '', { duration: 3500 });
+    this.snackBar.open(`${this.humanReadbleName} salvo(a) com sucesso.`, '', { duration: 3500 });
     this.onCancel();
   }
 
   private onError() {
-    this.snackBar.open('Erro ao salvar o registro.', '', { duration: 3500 });
+    this.snackBar.open(`Erro ao salvar o(a) ${this.humanReadbleName}.`, '', { duration: 3500 });
   }
 
   private validateAllFormFields(formGroup: UntypedFormGroup | UntypedFormArray) {

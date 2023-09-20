@@ -27,7 +27,7 @@ export class AtorFormComponent extends BaseFormComponent<Ator> implements OnInit
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
   ) {
-    super(atoresService, snackBar, location);
+    super('Ator', atoresService, snackBar, location);
   }
 
   ngOnInit(): void {

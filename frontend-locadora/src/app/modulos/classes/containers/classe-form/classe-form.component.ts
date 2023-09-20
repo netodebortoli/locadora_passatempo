@@ -28,7 +28,7 @@ export class ClasseFormComponent extends BaseFormComponent<Classe> implements On
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {
-    super(classesService, snackBar, location);
+    super('Classe', classesService, snackBar, location);
   }
 
   ngOnInit(): void {
