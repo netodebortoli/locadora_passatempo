@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { BaseModel } from '../../base.model';
@@ -18,14 +18,18 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
   constructor(
     protected service: BaseService<Type>,
     protected snackBar: MatSnackBar,
-    protected location: Location
+    protected location: Location,
   ) { }
 
   onSubmit() {
-    this.service.save(this.form.value as Type).subscribe({
-      next: () => this.onSuccess(),
-      error: () => this.onError(),
-    });
+    if (this.form.valid) {
+      this.service.save(this.form.value as Type).subscribe({
+        next: () => this.onSuccess(),
+        error: () => this.onError(),
+      });
+    } else {
+      this.validateAllFormFields(this.form)
+    }
   }
 
   onCancel() {
@@ -41,19 +45,45 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
     this.snackBar.open('Erro ao salvar o registro.', '', { duration: 3500 });
   }
 
-  getErrorMessage(nomeDoCampo: string) {
+  private validateAllFormFields(formGroup: UntypedFormGroup | UntypedFormArray) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof UntypedFormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) {
+        control.markAsTouched({ onlySelf: true });
+        this.validateAllFormFields(control);
+      }
+    });
+  }
 
-    const campo = this.form.get(nomeDoCampo);
+  getErrorMessage(formGroup: UntypedFormGroup, fieldName: string) {
+    const field = formGroup.get(fieldName) as UntypedFormControl;
+    return this.getErrorMessageFromField(field);
+  }
 
-    if (campo?.hasError('required')) {
-      return 'Campo obrigatório.';
+  getFormArrayFieldErrorMessage(formGroup: UntypedFormGroup, formArrayName: string, fieldName: string, index: number) {
+    const formArray = formGroup.get(formArrayName) as UntypedFormArray;
+    const field = formArray.controls[index].get(fieldName) as UntypedFormControl;
+    return this.getErrorMessageFromField(field);
+  }
+
+  private getErrorMessageFromField(field: UntypedFormControl) {
+
+    if (field?.hasError('required')) {
+      return 'Campo obrigatório';
     }
 
-    if (campo?.hasError('maxlength')) {
-      const requiredLength: number = campo.errors ? campo.errors['maxlength']['requiredLength'] : 255;
-      return `O número máximo de caracteres é ${requiredLength}`;
+    if (field?.hasError('maxlength')) {
+      const requiredLength: number = field.errors ? field.errors['maxlength']['requiredLength'] : 255;
+      return `Tamanho máximo excedido de ${requiredLength} caracteres.`;
     }
 
-    return 'Campo inválido.';
+    return 'Campo Inválido';
+  }
+
+  isFormArrayRequired(formGroup: UntypedFormGroup, formArrayName: string) {
+    const formArray = formGroup.get(formArrayName) as UntypedFormArray;
+    return !formArray.valid && formArray.hasError('required') && formArray.touched;
   }
 }
