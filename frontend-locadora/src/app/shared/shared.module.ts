@@ -8,6 +8,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { CategoriaPipe } from './pipes/categoria.pipe';
+import { BaseContainerComponent } from './base/components/base-container/base-container.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CategoriaPipe } from './pipes/categoria.pipe';
     PageNotFoundComponent,
     ConfirmationDialogComponent,
     BaseListComponent,
+    BaseContainerComponent,
   ],
   imports: [
     //módulos
