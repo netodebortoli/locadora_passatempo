@@ -21,9 +21,11 @@ export class BaseListComponent<Type extends BaseModel> {
   onAdd() {
     this.add.emit(true);
   }
+
   onEdit(model: Type) {
     this.edit.emit(model);
   }
+
   onDelete(model: Type) {
     this.delete.emit(model);
   }

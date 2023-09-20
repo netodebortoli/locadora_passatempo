@@ -19,7 +19,7 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
     protected service: BaseService<Type>,
     protected snackBar: MatSnackBar,
     protected location: Location
-  ) {}
+  ) { }
 
   onSubmit() {
     this.service.save(this.form.value as Type).subscribe({
@@ -42,16 +42,18 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
   }
 
   getErrorMessage(nomeDoCampo: string) {
+
     const campo = this.form.get(nomeDoCampo);
+
     if (campo?.hasError('required')) {
       return 'Campo obrigatório.';
     }
+
     if (campo?.hasError('maxlength')) {
-      const requiredLength: number = campo.errors
-        ? campo.errors['maxlength']['requiredLength']
-        : 255;
+      const requiredLength: number = campo.errors ? campo.errors['maxlength']['requiredLength'] : 255;
       return `O número máximo de caracteres é ${requiredLength}`;
     }
+
     return 'Campo inválido.';
   }
 }
