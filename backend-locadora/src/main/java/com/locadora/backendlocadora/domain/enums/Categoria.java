@@ -26,4 +26,9 @@ public enum Categoria {
     public String toString() {
         return this.valor;
     }
+
+    public Categoria[] getCategorias() {
+        return new Categoria[] { ACAO, AVENTURA, ROMANCE, COMEDIA, DRAMA, FICCAO_CIENTIFICA, DOCUMENTARIO, SUSPENSE,
+                TERROR, OUTROS };
+    }
 }

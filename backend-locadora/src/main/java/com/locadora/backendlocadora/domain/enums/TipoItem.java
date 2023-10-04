@@ -19,4 +19,7 @@ public enum TipoItem {
         return this.valor;
     }
 
+    public TipoItem[] getTipos() {
+        return new TipoItem[] { DVD, BLU_RAY, FITA };
+    }    
 }
