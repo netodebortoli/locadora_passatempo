@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record ClasseDTO(
     @JsonProperty("_id") Long id,
-    @NotBlank String nome,
-    @NotNull Double valor,
-    @NotNull Integer prazoDevolucao) {
+    @NotBlank(message = "O campo Nome é obrigatório.") String nome,
+    @NotNull(message = "O campo Valor é obrigatório.") Double valor,
+    @NotNull(message = "O campo Prazo de Devolução é obrigatório.") Integer prazoDevolucao) {
 }

@@ -6,5 +6,5 @@ import jakarta.validation.constraints.NotBlank;
 
 public record DiretorDTO(
     @JsonProperty("_id") Long id,
-    @NotBlank String nome) {
+    @NotBlank(message = "O campo Nome é obrigatório.") String nome) {
 }
