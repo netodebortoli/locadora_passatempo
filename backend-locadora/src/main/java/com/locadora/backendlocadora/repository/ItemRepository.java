@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.locadora.backendlocadora.domain.Item;
 
+
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
+
+    public Item findItemByNumSerie(String numSerie);
 }
