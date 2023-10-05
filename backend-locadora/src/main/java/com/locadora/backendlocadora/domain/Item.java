@@ -37,7 +37,7 @@ public class Item {
     private Date dataAquisicao;
 
     @Transient
-    @NotNull
+    //@NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_titulo", referencedColumnName = "id")
     private Titulo titulo;
