@@ -28,6 +28,7 @@ public class AtorMapper extends GenericMapper<AtorDTO, Ator> {
         if (registro.id() != null) {
             entity.setId(registro.id());
         }
+        
         entity.setNome(registro.nome());
 
         return entity;

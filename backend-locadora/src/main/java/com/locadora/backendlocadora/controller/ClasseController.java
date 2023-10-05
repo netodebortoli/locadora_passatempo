@@ -47,9 +47,9 @@ public class ClasseController {
     }
 
     @PutMapping("/{id}")
-    public ClasseDTO atualizarClasse(@NotNull @Positive @PathVariable Long id, @RequestBody @Valid @NotNull ClasseDTO registro) throws RegistroNaoEncontradoException, NegocioException{
+    public ClasseDTO atualizarClasse(@NotNull @Positive @PathVariable Long id, @RequestBody @Valid @NotNull ClasseDTO classe) throws RegistroNaoEncontradoException, NegocioException{
         classeService.buscarPorId(id);
-        ClasseDTO classeDTO = new ClasseDTO(id, registro.nome(), registro.valor(), registro.prazoDevolucao());
+        ClasseDTO classeDTO = new ClasseDTO(id, classe.nome(), classe.valor(), classe.prazoDevolucao());
         return classeService.salvar(classeDTO);
     }
 

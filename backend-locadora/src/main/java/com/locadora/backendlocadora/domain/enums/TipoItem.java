@@ -6,7 +6,6 @@ public enum TipoItem {
     DVD("Dvd"),
     BLU_RAY("BluRay"),
     FITA("Fita");
-
     @Getter
     private String valor;
 
