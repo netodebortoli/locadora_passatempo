@@ -1,5 +1,8 @@
 package com.locadora.backendlocadora;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,11 +11,14 @@ import org.springframework.context.annotation.Bean;
 import com.locadora.backendlocadora.domain.Ator;
 import com.locadora.backendlocadora.domain.Classe;
 import com.locadora.backendlocadora.domain.Diretor;
+import com.locadora.backendlocadora.domain.Item;
 import com.locadora.backendlocadora.domain.Titulo;
 import com.locadora.backendlocadora.domain.enums.Categoria;
+import com.locadora.backendlocadora.domain.enums.TipoItem;
 import com.locadora.backendlocadora.repository.AtorRepository;
 import com.locadora.backendlocadora.repository.ClasseRepository;
 import com.locadora.backendlocadora.repository.DiretorRepository;
+import com.locadora.backendlocadora.repository.ItemRepository;
 import com.locadora.backendlocadora.repository.TituloRepository;
 
 @SpringBootApplication
@@ -26,12 +32,15 @@ public class BackendLocadoraApplication {
     CommandLineRunner initDataBase(AtorRepository atorRepository,
                                    DiretorRepository diretorRepository,
                                    ClasseRepository classeRepository,
-                                   TituloRepository tituloRepository) {
+                                   TituloRepository tituloRepository,
+                                   ItemRepository itemRepository) {
         return args -> {
             atorRepository.deleteAll();
             diretorRepository.deleteAll();
             classeRepository.deleteAll();
             tituloRepository.deleteAll();
+            itemRepository.deleteAll();
+            
             Ator ator1 = new Ator();
             ator1.setNome("Christoph Waltz");
             Ator ator2 = new Ator();
@@ -61,6 +70,20 @@ public class BackendLocadoraApplication {
             titulo1.getAtores().add(ator1);
             titulo1.getAtores().add(ator2);
             tituloRepository.save(titulo1);
+
+            Item item = new Item();
+            item.setDataAquisicao(Date.valueOf(LocalDate.now()));
+            item.setNumSerie("11223345");
+            item.setTipoItem(TipoItem.DVD);
+            item.setTitulo(titulo1);
+            itemRepository.save(item);
+
+            Item item2 = new Item();
+            item2.setDataAquisicao(Date.valueOf(LocalDate.now()));
+            item2.setNumSerie("00559841");
+            item2.setTipoItem(TipoItem.BLU_RAY);
+            item2.setTitulo(titulo1);
+            itemRepository.save(item2);
         };
     }
 
