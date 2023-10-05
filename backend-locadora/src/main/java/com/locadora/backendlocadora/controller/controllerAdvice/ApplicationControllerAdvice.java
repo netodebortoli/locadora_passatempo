@@ -1,4 +1,4 @@
-package com.locadora.backendlocadora.controller;
+package com.locadora.backendlocadora.controller.controllerAdvice;
 
 import java.time.LocalDateTime;
 
