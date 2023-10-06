@@ -1,45 +1,19 @@
 package com.locadora.backendlocadora.domain;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.sql.Date;
 
-import com.locadora.backendlocadora.domain.enums.TipoItem;
-import com.locadora.backendlocadora.domain.enums.converter.TipoItemConverter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Data
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "itens")
-public class Item {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank
-    @Column(name = "num_serie", nullable = false)
-    private String numSerie;
-
-    @NotNull
-    @Column(name = "tipo_item", nullable = false)
-    @Convert(converter = TipoItemConverter.class)
-    private TipoItem tipoItem;
-
-    @NotNull
-    @Column(name = "data_aquisicao", nullable = false)
-    private Date dataAquisicao;
-
-    @Transient
-    //@NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_titulo", referencedColumnName = "id")
-    private Titulo titulo;
-
+public record Item(
+                @JsonProperty("_id") Long id,
+                @NotBlank(message = "O campo Número de Série é obrigatório.") String numSerie,
+                @NotBlank(message = "O campo Tipo de Item é obrigatório.") String tipoItem,
+                @NotNull(message = "A Data de Aquisição é obrigatório.") 
+                @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy") Date dataAquisicao) {
 }
+
+// @NotNull(message = "O Campo Título é obrigatório.") TituloDTO titulo

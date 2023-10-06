@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.locadora.backendlocadora.domain.dto.ClasseDTO;
+import com.locadora.backendlocadora.domain.Classe;
 import com.locadora.backendlocadora.service.ClasseService;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
@@ -33,24 +33,27 @@ public class ClasseController {
     }
 
     @GetMapping
-    public List<ClasseDTO> listarTodos(){
+    public List<Classe> listarTodos() {
         return classeService.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public ClasseDTO buscarPorId(@NotNull @Positive @PathVariable Long id){ return classeService.buscarPorId(id); }
+    public Classe buscarPorId(@NotNull @Positive @PathVariable Long id) {
+        return classeService.buscarPorId(id);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ClasseDTO criarClasse(@RequestBody @NotNull @Valid ClasseDTO classe) throws RegistroNaoEncontradoException, NegocioException{
+    public Classe criarClasse(@RequestBody @NotNull @Valid Classe classe) throws RegistroNaoEncontradoException, NegocioException {
         return classeService.salvar(classe);
     }
 
     @PutMapping("/{id}")
-    public ClasseDTO atualizarClasse(@NotNull @Positive @PathVariable Long id, @RequestBody @Valid @NotNull ClasseDTO classe) throws RegistroNaoEncontradoException, NegocioException{
+    public Classe atualizarClasse(@NotNull @Positive @PathVariable Long id, @RequestBody @Valid @NotNull Classe classe) throws RegistroNaoEncontradoException, NegocioException {
         classeService.buscarPorId(id);
-        ClasseDTO classeDTO = new ClasseDTO(id, classe.nome(), classe.valor(), classe.prazoDevolucao());
-        return classeService.salvar(classeDTO);
+        return classeService.salvar(
+                new Classe(id, classe.nome(), classe.valor(), classe.prazoDevolucao())
+        );
     }
 
     @DeleteMapping("/{id}")

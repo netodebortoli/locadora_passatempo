@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.locadora.backendlocadora.domain.Classe;
+import com.locadora.backendlocadora.domain.entity.ClasseEntity;
 
 @Repository
-public interface ClasseRepository extends JpaRepository<Classe, Long> {
+public interface ClasseRepository extends JpaRepository<ClasseEntity, Long> {
 
-    @Query("from Classe where lower(nome) like lower(:nome)")
-    public Classe findByNome(@Param("nome")String nome);
+    @Query("from ClasseEntity where lower(nome) like lower(:nome)")
+    ClasseEntity findByNome(@Param("nome") String nome);
 }

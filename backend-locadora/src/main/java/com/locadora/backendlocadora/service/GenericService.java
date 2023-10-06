@@ -23,7 +23,7 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
 
     private MP mapper;
 
-    public GenericService(R repository, MP mapper) {
+    protected GenericService(R repository, MP mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -41,7 +41,7 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
                 .orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id));
     }
 
-    public void deletar(@Valid @NotNull K id) throws NegocioException, RegistroNaoEncontradoException {
+    public void deletar(@Valid @NotNull K id) throws RegistroNaoEncontradoException {
         repository.delete(repository.findById(id)
                 .orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id)));
     }

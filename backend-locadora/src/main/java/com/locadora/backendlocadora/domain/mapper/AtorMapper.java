@@ -2,28 +2,28 @@ package com.locadora.backendlocadora.domain.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.locadora.backendlocadora.domain.entity.AtorEntity;
 import com.locadora.backendlocadora.domain.Ator;
-import com.locadora.backendlocadora.domain.dto.AtorDTO;
 
 @Component
-public class AtorMapper extends GenericMapper<AtorDTO, Ator> {
+public class AtorMapper extends GenericMapper<Ator, AtorEntity> {
 
-    public AtorDTO toDTO(Ator registro) {
+    public Ator toDTO(AtorEntity registro) {
 
         if (registro == null) {
             return null;
         }
 
-        return new AtorDTO(registro.getId(), registro.getNome());
+        return new Ator(registro.getId(), registro.getNome());
     }
 
-    public Ator toEntity(AtorDTO registro) {
+    public AtorEntity toEntity(Ator registro) {
 
         if (registro == null) {
             return null;
         }
 
-        Ator entity = new Ator();
+        AtorEntity entity = new AtorEntity();
 
         if (registro.id() != null) {
             entity.setId(registro.id());

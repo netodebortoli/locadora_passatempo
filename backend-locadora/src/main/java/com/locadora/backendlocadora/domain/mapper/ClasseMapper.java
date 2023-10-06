@@ -1,28 +1,28 @@
 package com.locadora.backendlocadora.domain.mapper;
 
+import com.locadora.backendlocadora.domain.entity.ClasseEntity;
 import com.locadora.backendlocadora.domain.Classe;
-import com.locadora.backendlocadora.domain.dto.ClasseDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClasseMapper extends GenericMapper<ClasseDTO, Classe> {
+public class ClasseMapper extends GenericMapper<Classe, ClasseEntity> {
 
     @Override
-    public ClasseDTO toDTO(Classe registro) {
+    public Classe toDTO(ClasseEntity registro) {
 
         if (registro == null)
             return null;
 
-        return new ClasseDTO(registro.getId(), registro.getNome(), registro.getValor(), registro.getPrazoDevolucao());
+        return new Classe(registro.getId(), registro.getNome(), registro.getValor(), registro.getPrazoDevolucao());
     }
 
     @Override
-    public Classe toEntity(ClasseDTO registro) {
+    public ClasseEntity toEntity(Classe registro) {
 
         if (registro == null)
             return null;
 
-        Classe entity = new Classe();
+        ClasseEntity entity = new ClasseEntity();
 
         if (registro.id() != null)
             entity.setId(registro.id());

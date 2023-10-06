@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.locadora.backendlocadora.domain.dto.ItemDTO;
+import com.locadora.backendlocadora.domain.Item;
 import com.locadora.backendlocadora.service.ItemService;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
@@ -33,28 +33,29 @@ public class ItemController {
     }
 
     @GetMapping
-    public List<ItemDTO> listarTodos() {
+    public List<Item> listarTodos() {
         return itemService.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public ItemDTO buscarPorId(@PathVariable @NotNull @Positive Long id) {
+    public Item buscarPorId(@PathVariable @NotNull @Positive Long id) {
         return itemService.buscarPorId(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ItemDTO criarItem(@RequestBody @Valid @NotNull ItemDTO item)
+    public Item criarItem(@RequestBody @Valid @NotNull Item item)
             throws RegistroNaoEncontradoException, NegocioException {
         return itemService.salvar(item);
     }
 
     @PutMapping("/{id}")
-    public ItemDTO atualizarItem(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull ItemDTO item)
+    public Item atualizarItem(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull Item item)
             throws RegistroNaoEncontradoException, NegocioException {
         itemService.buscarPorId(id);
-        ItemDTO itemDTO = new ItemDTO(id, item.numSerie(), item.tipoItem(), item.dataAquisicao());
-        return itemService.salvar(itemDTO);
+        return itemService.salvar(
+                new Item(id, item.numSerie(), item.tipoItem(), item.dataAquisicao())
+        );
     }
 
     @DeleteMapping("/{id}")

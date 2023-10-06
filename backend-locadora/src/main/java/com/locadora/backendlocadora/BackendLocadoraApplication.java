@@ -8,11 +8,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.locadora.backendlocadora.domain.Ator;
-import com.locadora.backendlocadora.domain.Classe;
-import com.locadora.backendlocadora.domain.Diretor;
-import com.locadora.backendlocadora.domain.Item;
-import com.locadora.backendlocadora.domain.Titulo;
+import com.locadora.backendlocadora.domain.entity.AtorEntity;
+import com.locadora.backendlocadora.domain.entity.ClasseEntity;
+import com.locadora.backendlocadora.domain.entity.DiretorEntity;
+import com.locadora.backendlocadora.domain.entity.ItemEntity;
+import com.locadora.backendlocadora.domain.entity.TituloEntity;
 import com.locadora.backendlocadora.domain.enums.Categoria;
 import com.locadora.backendlocadora.domain.enums.TipoItem;
 import com.locadora.backendlocadora.repository.AtorRepository;
@@ -41,24 +41,24 @@ public class BackendLocadoraApplication {
             tituloRepository.deleteAll();
             itemRepository.deleteAll();
             
-            Ator ator1 = new Ator();
+            AtorEntity ator1 = new AtorEntity();
             ator1.setNome("Christoph Waltz");
-            Ator ator2 = new Ator();
+            AtorEntity ator2 = new AtorEntity();
             ator2.setNome("Brad Pitt");
             atorRepository.save(ator1);
             atorRepository.save(ator2);
 
-            Diretor diretor1 = new Diretor();
+            DiretorEntity diretor1 = new DiretorEntity();
             diretor1.setNome("Quentin Tarantino");
             diretorRepository.save(diretor1);
 
-            Classe classe1 = new Classe();
+            ClasseEntity classe1 = new ClasseEntity();
             classe1.setNome("Elite");
             classe1.setValor(5.00);
             classe1.setPrazoDevolucao(3);
             classeRepository.save(classe1);
 
-            Titulo titulo1 = new Titulo();
+            TituloEntity titulo1 = new TituloEntity();
             titulo1.setNome("Bastardos Inglórios");
             titulo1.setAno("2009");
             titulo1.setClasse(classe1);
@@ -71,14 +71,14 @@ public class BackendLocadoraApplication {
             titulo1.getAtores().add(ator2);
             tituloRepository.save(titulo1);
 
-            Item item = new Item();
+            ItemEntity item = new ItemEntity();
             item.setDataAquisicao(Date.valueOf(LocalDate.now()));
             item.setNumSerie("11223345");
             item.setTipoItem(TipoItem.DVD);
             item.setTitulo(titulo1);
             itemRepository.save(item);
 
-            Item item2 = new Item();
+            ItemEntity item2 = new ItemEntity();
             item2.setDataAquisicao(Date.valueOf(LocalDate.now()));
             item2.setNumSerie("00559841");
             item2.setTipoItem(TipoItem.BLU_RAY);

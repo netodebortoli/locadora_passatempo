@@ -1,4 +1,4 @@
-package com.locadora.backendlocadora.domain;
+package com.locadora.backendlocadora.domain.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -18,7 +18,7 @@ import com.locadora.backendlocadora.domain.enums.converter.CategoriaConverter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "titulos")
-public class Titulo {
+public class TituloEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,18 +44,18 @@ public class Titulo {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "id_diretor", referencedColumnName = "id", nullable = false)
-    private Diretor diretor;
+    private DiretorEntity diretor;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "id_classe", referencedColumnName = "id", nullable = false)
-    private Classe classe;
+    private ClasseEntity classe;
 
     @Transient
     @ManyToMany
     @JoinTable(name = "titulo_ator",
             joinColumns = @JoinColumn(name = "id_titulo"),
             inverseJoinColumns = @JoinColumn(name = "id_ator"))
-    private List<Ator> atores = new ArrayList<>();
+    private List<AtorEntity> atores = new ArrayList<>();
 
 }

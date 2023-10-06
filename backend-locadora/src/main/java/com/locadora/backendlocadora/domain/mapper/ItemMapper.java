@@ -4,21 +4,21 @@ import java.util.stream.Stream;
 
 import org.springframework.stereotype.Component;
 
+import com.locadora.backendlocadora.domain.entity.ItemEntity;
 import com.locadora.backendlocadora.domain.Item;
-import com.locadora.backendlocadora.domain.dto.ItemDTO;
 import com.locadora.backendlocadora.domain.enums.TipoItem;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 
 @Component
-public class ItemMapper extends GenericMapper<ItemDTO, Item> {
+public class ItemMapper extends GenericMapper<Item, ItemEntity> {
 
     @Override
-    public ItemDTO toDTO(Item registro) {
+    public Item toDTO(ItemEntity registro) {
 
         if (registro == null)
             return null;
 
-        return new ItemDTO(
+        return new Item(
                 registro.getId(),
                 registro.getNumSerie(),
                 registro.getTipoItem().getValor(),
@@ -26,13 +26,13 @@ public class ItemMapper extends GenericMapper<ItemDTO, Item> {
     }
 
     @Override
-    public Item toEntity(ItemDTO registro) throws NegocioException {
+    public ItemEntity toEntity(Item registro) throws NegocioException {
         
         if (registro == null) {
             return null;
         }
 
-        Item entity = new Item();
+        ItemEntity entity = new ItemEntity();
 
         if (registro.id() != null)
             entity.setId(registro.id());

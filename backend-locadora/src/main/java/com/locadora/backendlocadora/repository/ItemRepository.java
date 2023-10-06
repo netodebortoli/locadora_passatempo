@@ -3,11 +3,11 @@ package com.locadora.backendlocadora.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.locadora.backendlocadora.domain.Item;
+import com.locadora.backendlocadora.domain.entity.ItemEntity;
 
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
 
-    public Item findItemByNumSerie(String numSerie);
+    ItemEntity findItemByNumSerie(String numSerie);
 }

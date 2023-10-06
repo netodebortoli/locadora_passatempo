@@ -1,28 +1,28 @@
 package com.locadora.backendlocadora.domain.mapper;
 
+import com.locadora.backendlocadora.domain.entity.DiretorEntity;
 import com.locadora.backendlocadora.domain.Diretor;
-import com.locadora.backendlocadora.domain.dto.DiretorDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DiretorMapper extends GenericMapper<DiretorDTO, Diretor> {
+public class DiretorMapper extends GenericMapper<Diretor, DiretorEntity> {
 
     @Override
-    public DiretorDTO toDTO(Diretor registro) {
+    public Diretor toDTO(DiretorEntity registro) {
 
         if (registro == null)
             return null;
 
-        return new DiretorDTO(registro.getId(), registro.getNome());
+        return new Diretor(registro.getId(), registro.getNome());
     }
 
     @Override
-    public Diretor toEntity(DiretorDTO registro) {
+    public DiretorEntity toEntity(Diretor registro) {
 
         if (registro == null)
             return null;
 
-        Diretor entity = new Diretor();
+        DiretorEntity entity = new DiretorEntity();
 
         if (registro.id() != null)
             entity.setId(registro.id());
