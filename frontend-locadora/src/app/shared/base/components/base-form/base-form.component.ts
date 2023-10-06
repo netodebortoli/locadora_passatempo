@@ -26,7 +26,7 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
     if (this.form.valid) {
       this.service.save(this.form.value as Type).subscribe({
         next: () => this.onSuccess(),
-        error: () => this.onError(),
+        error: () => this.onError(`Erro ao salvar o(a) ${this.humanReadbleName}.`),
       });
     } else {
       this.validateAllFormFields(this.form)
@@ -42,8 +42,8 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
     this.onCancel();
   }
 
-  private onError() {
-    this.snackBar.open(`Erro ao salvar o(a) ${this.humanReadbleName}.`, '', { duration: 3500 });
+  protected onError(mensagem: string) {
+    this.snackBar.open(mensagem,  '', { duration: 3500 });
   }
 
   private validateAllFormFields(formGroup: UntypedFormGroup | UntypedFormArray) {
