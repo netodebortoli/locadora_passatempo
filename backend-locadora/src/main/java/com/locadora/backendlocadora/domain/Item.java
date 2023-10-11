@@ -13,7 +13,6 @@ public record Item(
                 @NotBlank(message = "O campo Número de Série é obrigatório.") String numSerie,
                 @NotBlank(message = "O campo Tipo de Item é obrigatório.") String tipoItem,
                 @NotNull(message = "A Data de Aquisição é obrigatório.") 
-                @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy") Date dataAquisicao) {
+                @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy") Date dataAquisicao,
+                @NotNull(message = "O campo Título é obrigatório.") Titulo titulo) {
 }
-
-// @NotNull(message = "O Campo Título é obrigatório.") TituloDTO titulo

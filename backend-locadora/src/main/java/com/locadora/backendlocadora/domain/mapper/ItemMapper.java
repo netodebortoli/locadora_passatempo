@@ -12,6 +12,8 @@ import com.locadora.backendlocadora.service.exception.NegocioException;
 @Component
 public class ItemMapper extends GenericMapper<Item, ItemEntity> {
 
+    TituloMapper tituloMapper = new TituloMapper();
+
     @Override
     public Item toDTO(ItemEntity registro) {
 
@@ -22,7 +24,8 @@ public class ItemMapper extends GenericMapper<Item, ItemEntity> {
                 registro.getId(),
                 registro.getNumSerie(),
                 registro.getTipoItem().getValor(),
-                registro.getDataAquisicao());
+                registro.getDataAquisicao(),
+                tituloMapper.toDTO(registro.getTitulo()));
     }
 
     @Override
@@ -44,6 +47,7 @@ public class ItemMapper extends GenericMapper<Item, ItemEntity> {
                         .findFirst()
                         .orElseThrow(() -> new NegocioException("Tipo de Item inválido!")));
         entity.setDataAquisicao(registro.dataAquisicao());
+        entity.setTitulo(tituloMapper.toEntity(registro.titulo()));
 
         return entity;
     }

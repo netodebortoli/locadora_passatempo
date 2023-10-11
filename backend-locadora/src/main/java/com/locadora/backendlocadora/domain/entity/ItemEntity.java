@@ -36,8 +36,7 @@ public class ItemEntity {
     @Column(name = "data_aquisicao", nullable = false)
     private Date dataAquisicao;
 
-    @Transient
-    //@NotNull
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_titulo", referencedColumnName = "id")
     private TituloEntity titulo;

@@ -54,7 +54,7 @@ public class ItemController {
             throws RegistroNaoEncontradoException, NegocioException {
         itemService.buscarPorId(id);
         return itemService.salvar(
-                new Item(id, item.numSerie(), item.tipoItem(), item.dataAquisicao())
+                new Item(id, item.numSerie(), item.tipoItem(), item.dataAquisicao(), item.titulo())
         );
     }
 
