@@ -33,7 +33,7 @@ public class ClasseService extends GenericService<Classe, Long, ClasseRepository
 
     // TODO: nao é permitido excluir uma classe relacionada a titulos
     @Override
-    public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException {
+    public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
         super.deletar(id);
     }
 }

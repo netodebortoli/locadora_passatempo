@@ -6,6 +6,7 @@ import com.locadora.backendlocadora.domain.Diretor;
 import com.locadora.backendlocadora.domain.entity.DiretorEntity;
 import com.locadora.backendlocadora.domain.mapper.DiretorMapper;
 import com.locadora.backendlocadora.repository.DiretorRepository;
+import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
 
 import jakarta.validation.Valid;
@@ -26,7 +27,7 @@ public class DiretorService extends GenericService<Diretor, Long, DiretorReposit
 
     //TODO adicionar regra de negocio que nao permite excluir um diretor que possui titulos associados e sobrescrever o metodo
     @Override
-    public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException {
+    public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
         super.deletar(id);
     }
 

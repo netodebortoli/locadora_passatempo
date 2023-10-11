@@ -7,6 +7,7 @@ import com.locadora.backendlocadora.domain.Titulo;
 import com.locadora.backendlocadora.domain.entity.TituloEntity;
 import com.locadora.backendlocadora.domain.mapper.TituloMapper;
 import com.locadora.backendlocadora.repository.TituloRepository;
+import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
 
 import jakarta.validation.Valid;
@@ -42,7 +43,7 @@ public class TituloService extends GenericService<Titulo, Long, TituloRepository
 
     // TODO: adicionar regra de negocio que nao permite excluir um titulo com item's associados
     @Override
-    public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException {
+    public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
         super.deletar(id);
     }
 
