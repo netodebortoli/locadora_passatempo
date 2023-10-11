@@ -27,7 +27,6 @@ public class AtorEntity {
     @Column(nullable = false)
     private String nome;
 
-    @Transient
     @JsonIgnore
     @ManyToMany(mappedBy = "atores", fetch = FetchType.LAZY)
     private List<TituloEntity> titulos = new ArrayList<>();
