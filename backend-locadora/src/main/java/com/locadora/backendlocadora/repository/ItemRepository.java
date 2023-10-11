@@ -10,7 +10,7 @@ import com.locadora.backendlocadora.domain.entity.TituloEntity;
 @Repository
 public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
 
-    ItemEntity findItemByNumSerie(String numSerie);
+    public ItemEntity findItemByNumSerie(String numSerie);
 
-    ItemEntity findFirstItemByTitulo(TituloEntity titulo);
+    public ItemEntity findFirstItemByTitulo(TituloEntity titulo);
 }

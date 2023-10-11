@@ -41,7 +41,7 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
                 .orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id));
     }
 
-    public void deletar(@Valid @NotNull K id) throws RegistroNaoEncontradoException {
+    public void deletar(@Valid @NotNull K id) throws RegistroNaoEncontradoException, NegocioException {
         repository.delete(repository.findById(id)
                 .orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id)));
     }
