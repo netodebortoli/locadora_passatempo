@@ -26,12 +26,12 @@ public class ItemService extends GenericService<Item, Long, ItemRepository, Item
     @Override
     public void validarSave(@NotNull @Valid Item model) throws RegistroNaoEncontradoException, NegocioException {
 
-        Item item = this.getMapper().toDTO(
-                repository.findItemByNumSerie(model.numSerie()));
-
         if (model.dataAquisicao().after(Date.valueOf(LocalDate.now()))) {
             throw new NegocioException("A Data de Aquisição não pode ser posterior ao dia de hoje.");
         }
+
+        Item item = this.getMapper().toDTO(
+                repository.findItemByNumSerie(model.numSerie()));
 
         if (item != null && !model.id().equals(item.id())) {
             throw new NegocioException(
@@ -39,7 +39,7 @@ public class ItemService extends GenericService<Item, Long, ItemRepository, Item
         }
     }
 
-    // TODO nao permitir excluir um item com locações associada
+    // TODO: nao permitir excluir um item com locações associada
     @Override
     public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException {
         super.deletar(id);

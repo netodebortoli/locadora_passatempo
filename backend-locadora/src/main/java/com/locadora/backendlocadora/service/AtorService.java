@@ -1,17 +1,16 @@
 package com.locadora.backendlocadora.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.locadora.backendlocadora.domain.entity.AtorEntity;
 import com.locadora.backendlocadora.domain.Ator;
+import com.locadora.backendlocadora.domain.entity.AtorEntity;
 import com.locadora.backendlocadora.domain.mapper.AtorMapper;
 import com.locadora.backendlocadora.repository.AtorRepository;
-import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -27,7 +26,7 @@ public class AtorService extends GenericService<Ator, Long, AtorRepository, Ator
         return;
     }
 
-    //TODO: adicionar regra de negocio que nao permite excluir um ator que possui titulos associados e sobrescrever o metodo
+    //TODO adicionar regra de negocio que nao permite excluir um ator que possui titulos associados e sobrescrever o metodo
     @Override
     public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException {
         super.deletar(id);

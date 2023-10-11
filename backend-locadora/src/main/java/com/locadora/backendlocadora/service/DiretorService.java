@@ -1,12 +1,11 @@
 package com.locadora.backendlocadora.service;
 
-import com.locadora.backendlocadora.domain.Diretor;
-import com.locadora.backendlocadora.domain.mapper.DiretorMapper;
 import org.springframework.stereotype.Service;
 
+import com.locadora.backendlocadora.domain.Diretor;
 import com.locadora.backendlocadora.domain.entity.DiretorEntity;
+import com.locadora.backendlocadora.domain.mapper.DiretorMapper;
 import com.locadora.backendlocadora.repository.DiretorRepository;
-import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
 
 import jakarta.validation.Valid;
@@ -25,7 +24,7 @@ public class DiretorService extends GenericService<Diretor, Long, DiretorReposit
         return;
     }
 
-    //TODO: adicionar regra de negocio que nao permite excluir um diretor que possui titulos associados e sobrescrever o metodo
+    //TODO adicionar regra de negocio que nao permite excluir um diretor que possui titulos associados e sobrescrever o metodo
     @Override
     public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException {
         super.deletar(id);
