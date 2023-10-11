@@ -29,7 +29,7 @@ public class TituloEntity {
     private String nome;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, length = 4)
     private String ano;
 
     @NotBlank
@@ -40,7 +40,6 @@ public class TituloEntity {
     @Convert(converter = CategoriaConverter.class)
     private Categoria categoria;
 
-    @Transient
     @NotNull
     @ManyToOne
     @JoinColumn(name = "id_diretor", referencedColumnName = "id", nullable = false)
@@ -51,7 +50,6 @@ public class TituloEntity {
     @JoinColumn(name = "id_classe", referencedColumnName = "id", nullable = false)
     private ClasseEntity classe;
 
-    @Transient
     @ManyToMany
     @JoinTable(name = "titulo_ator",
             joinColumns = @JoinColumn(name = "id_titulo"),
