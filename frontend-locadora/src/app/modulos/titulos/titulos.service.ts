@@ -3,21 +3,14 @@ import { Injectable } from '@angular/core';
 import { delay, first, tap } from 'rxjs';
 
 import { Titulo } from './model/titulo';
+import {BaseService} from "../../shared/base/base.service";
 
 
 @Injectable({
   providedIn: 'root',
 })
-export class TitulosService {
-
-  private readonly API = '/assets/titulos.json';
-  constructor(private httpClient: HttpClient) {}
-
-  list() {
-    return this.httpClient.get<Titulo[]>(this.API).pipe(
-      first(),
-      delay(1500),
-      tap(titulos => console.log(titulos))
-    );
+export class TitulosService extends BaseService<Titulo> {
+  constructor(protected override httpClient: HttpClient) {
+    super("/api/titulos", httpClient)
   }
 }
