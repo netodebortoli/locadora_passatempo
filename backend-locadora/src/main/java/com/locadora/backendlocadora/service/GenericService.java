@@ -31,13 +31,13 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
     public List<M> listarTodos() {
         return repository.findAll()
                 .stream()
-                .map(entity -> mapper.toDTO(entity))
+                .map(mapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     public M buscarPorId(@Positive @NotNull K id) {
         return repository.findById(id)
-                .map(entity -> mapper.toDTO(entity))
+                .map(mapper::toDTO)
                 .orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id));
     }
 
