@@ -31,14 +31,24 @@ public class TituloService extends GenericService<Titulo, Long, TituloRepository
     }
 
     @Override
-    public void validarSave(@NotNull @Valid Titulo model) throws RegistroNaoEncontradoException {
+    public void validarSave(@NotNull @Valid Titulo model) throws RegistroNaoEncontradoException, NegocioException {
+        
+        // Verificando se os relacionamentos existem
         diretorService.buscarPorId(model.diretor().id());
         classeService.buscarPorId(model.classe().id());
         model.atores().forEach(ator -> atorService.buscarPorId(ator.id()));
 
-        // TODO: nao permitir cadastrar o mesmo titulo (mesmo nome e diretor)
+        // Verificando se a tupla (diretor/nome de filme) existe
+        Titulo tituloBanco = this.getMapper().toDTO(
+                repository.findIfTituloExists(model.diretor().id(), model.nome()));
 
-        // TODO: nao permtir cadastrar um ator mais de uma vez no titulo
+        if (tituloBanco != null && !tituloBanco.id().equals(model.id())) {
+            throw new NegocioException("O título " + model.nome().toUpperCase() + ", do diretor "
+                    + model.diretor().nome().toUpperCase() + " já foi cadastrado.");
+        }
+
+        // Verificando se um mesmo ator foi cadastrado duas vezes no mesmo título
+        
     }
 
     // TODO: adicionar regra de negocio que nao permite excluir um titulo com item's associados
