@@ -14,9 +14,9 @@ import java.util.stream.Stream;
 @Component
 public class TituloMapper extends GenericMapper<Titulo, TituloEntity> {
 
-    AtorMapper atorMapper = new AtorMapper();
-    DiretorMapper diretorMapper = new DiretorMapper();
-    ClasseMapper classeMapper = new ClasseMapper();
+    private AtorMapper atorMapper = new AtorMapper();
+    private DiretorMapper diretorMapper = new DiretorMapper();
+    private ClasseMapper classeMapper = new ClasseMapper();
 
     @Override
     public Titulo toDTO(TituloEntity registro) {

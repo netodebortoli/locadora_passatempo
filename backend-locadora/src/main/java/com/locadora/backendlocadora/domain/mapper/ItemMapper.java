@@ -12,7 +12,7 @@ import com.locadora.backendlocadora.service.exception.NegocioException;
 @Component
 public class ItemMapper extends GenericMapper<Item, ItemEntity> {
 
-    TituloMapper tituloMapper = new TituloMapper();
+    private TituloMapper tituloMapper = new TituloMapper();
 
     @Override
     public Item toDTO(ItemEntity registro) {
