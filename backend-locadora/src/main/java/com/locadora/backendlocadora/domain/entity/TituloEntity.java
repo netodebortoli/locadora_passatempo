@@ -33,7 +33,7 @@ public class TituloEntity {
     private String ano;
 
     @NotBlank
-    @Column(nullable = false, length = 500)
+    @Column(nullable = false, length = 600)
     private String sinopse;
 
     @Column(nullable = false)

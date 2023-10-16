@@ -4,21 +4,17 @@ import lombok.Getter;
 
 public enum TipoItem {
     DVD("Dvd"),
-    BLU_RAY("BluRay"),
+    BLU_RAY("Blu-ray"),
     FITA("Fita");
+
     @Getter
     private String valor;
 
     private TipoItem(String valor) {
         this.valor = valor;
     }
-
-    @Override
-    public String toString() {
-        return this.valor;
+    
+    public static String[] getTiposItem() {
+        return new String[] { DVD.valor, BLU_RAY.valor, FITA.valor };
     }
-
-    public TipoItem[] getTipos() {
-        return new TipoItem[] { DVD, BLU_RAY, FITA };
-    }    
 }

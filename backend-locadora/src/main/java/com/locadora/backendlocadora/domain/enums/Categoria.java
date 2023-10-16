@@ -22,13 +22,10 @@ public enum Categoria {
         this.valor = valor;
     }
 
-    @Override
-    public String toString() {
-        return this.valor;
-    }
-
-    public Categoria[] getCategorias() {
-        return new Categoria[] { ACAO, AVENTURA, ROMANCE, COMEDIA, DRAMA, FICCAO_CIENTIFICA, DOCUMENTARIO, SUSPENSE,
-                TERROR, OUTROS };
+    public static String[] getCategorias() {
+        return new String[] {
+                ACAO.valor, AVENTURA.valor, ROMANCE.valor, COMEDIA.valor, DRAMA.valor,
+                FICCAO_CIENTIFICA.valor, DOCUMENTARIO.valor, SUSPENSE.valor,
+                TERROR.valor, OUTROS.valor };
     }
 }

@@ -35,7 +35,7 @@ public abstract class GenericController<K, M, E, MP extends GenericMapper<M, E>,
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable @Positive @NotNull K id) throws NegocioException {
         service.deletar(id);
     }
