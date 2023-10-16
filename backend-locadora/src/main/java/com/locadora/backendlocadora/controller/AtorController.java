@@ -1,10 +1,6 @@
 package com.locadora.backendlocadora.controller;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +10,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.locadora.backendlocadora.domain.Ator;
+import com.locadora.backendlocadora.domain.entity.AtorEntity;
+import com.locadora.backendlocadora.domain.mapper.AtorMapper;
+import com.locadora.backendlocadora.repository.AtorRepository;
 import com.locadora.backendlocadora.service.AtorService;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
@@ -24,42 +23,20 @@ import jakarta.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/api/atores")
-public class AtorController {
-
-    private final AtorService atorService;
-
-    public AtorController(AtorService atorService) {
-        this.atorService = atorService;
-    }
-
-    @GetMapping
-    public List<Ator> listarTodos() {
-        return atorService.listarTodos();
-    }
-
-    @GetMapping("/{id}")
-    public Ator buscarPorId(@PathVariable @NotNull @Positive Long id) {
-        return atorService.buscarPorId(id);
-    }
+public class AtorController extends GenericController<Long, Ator, AtorEntity, AtorMapper, AtorRepository, AtorService> {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Ator criarAtor(@RequestBody @Valid @NotNull Ator ator)
             throws RegistroNaoEncontradoException, NegocioException {
-        return atorService.salvar(ator);
+        return service.salvar(ator);
     }
 
     @PutMapping("/{id}")
     public Ator atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull Ator ator)
             throws RegistroNaoEncontradoException, NegocioException {
-        atorService.buscarPorId(id);
-        return atorService.salvar(new Ator(id, ator.nome()));
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deletarAtor(@PathVariable @Positive @NotNull Long id) throws NegocioException {
-        atorService.deletar(id);
+        service.buscarPorId(id);
+        return service.salvar(new Ator(id, ator.nome()));
     }
 
 }
