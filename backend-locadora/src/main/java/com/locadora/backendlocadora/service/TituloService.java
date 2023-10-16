@@ -38,11 +38,11 @@ public class TituloService extends GenericService<Titulo, Long, TituloRepository
         classeService.buscarPorId(model.classe().id());
         model.atores().forEach(ator -> atorService.buscarPorId(ator.id()));
 
-        // Verificando se a tupla (diretor/nome de filme) existe
+        // Verificando se a tupla (diretor/nome de filme) já existe
         Titulo tituloBanco = this.getMapper().toDTO(
                 repository.findIfTituloExists(model.diretor().id(), model.nome()));
 
-        if (tituloBanco != null && !tituloBanco.id().equals(model.id())) {
+        if (tituloBanco != null &&  model.id() != tituloBanco.id()) {
             throw new NegocioException("O título " + model.nome().toUpperCase() + ", do diretor "
                     + model.diretor().nome().toUpperCase() + " já foi cadastrado.");
         }

@@ -30,10 +30,10 @@ public class ItemService extends GenericService<Item, Long, ItemRepository, Item
             throw new NegocioException("A Data de Aquisição não pode ser posterior ao dia de hoje.");
         }
 
-        Item item = this.getMapper().toDTO(
+        Item itemBanco = this.getMapper().toDTO(
                 repository.findItemByNumSerie(model.numSerie()));
 
-        if (item != null && !model.id().equals(item.id())) {
+        if (itemBanco != null && model.id() != itemBanco.id()) {
             throw new NegocioException(
                     "O Número de Série " + model.numSerie() + " já foi registrado e não é aceito novamente.");
         }

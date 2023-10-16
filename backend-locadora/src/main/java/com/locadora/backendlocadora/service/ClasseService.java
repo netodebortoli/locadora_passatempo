@@ -26,7 +26,7 @@ public class ClasseService extends GenericService<Classe, Long, ClasseRepository
         Classe classeBanco = this.getMapper().toDTO(
                 this.repository.findByNome(model.nome()));
 
-        if (classeBanco != null && !model.id().equals(classeBanco.id())) {
+        if (classeBanco != null && model.id() != classeBanco.id()) {
             throw new NegocioException("Já existe a classe: " + model.nome().toUpperCase());
         }
     }
