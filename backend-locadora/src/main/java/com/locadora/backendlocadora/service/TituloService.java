@@ -1,5 +1,10 @@
 package com.locadora.backendlocadora.service;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +37,7 @@ public class TituloService extends GenericService<Titulo, Long, TituloRepository
 
     @Override
     public void validarSave(@NotNull @Valid Titulo model) throws RegistroNaoEncontradoException, NegocioException {
-        
+
         // Verificando se os relacionamentos existem
         diretorService.buscarPorId(model.diretor().id());
         classeService.buscarPorId(model.classe().id());
@@ -42,13 +47,22 @@ public class TituloService extends GenericService<Titulo, Long, TituloRepository
         Titulo tituloBanco = this.getMapper().toDTO(
                 repository.findIfTituloExists(model.diretor().id(), model.nome()));
 
-        if (tituloBanco != null &&  model.id() != tituloBanco.id()) {
+        if (tituloBanco != null && model.id() != tituloBanco.id()) {
             throw new NegocioException("O título " + model.nome().toUpperCase() + ", do diretor "
                     + model.diretor().nome().toUpperCase() + " já foi cadastrado.");
         }
 
-        // Verificando se um mesmo ator foi cadastrado duas vezes no mesmo título
-        
+        // Verificando se um mesmo ator já foi cadastrado no mesmo título
+        Set<Object> set = new HashSet<Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
+        model.atores().forEach(ator -> {
+            if (!set.add(ator))
+                map.put(ator.nome(), ator);
+        });
+        if (!map.isEmpty()) {
+            throw new NegocioException(String.format("Não é permitido cadastrar um Título com atores repetidos: %s", map.keySet()));
+        }
+
     }
 
     // TODO: adicionar regra de negocio que nao permite excluir um titulo com item's associados
