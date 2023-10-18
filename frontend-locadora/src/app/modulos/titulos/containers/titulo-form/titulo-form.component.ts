@@ -1,10 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
-import { CategoriasService } from 'src/app/modulos/categorias/categorias.service';
+import { ClassesService } from 'src/app/modulos/classes/classes.service';
+import { Classe } from 'src/app/modulos/classes/model/classe';
 
 import { BaseFormComponent } from '../../../../shared/base/components/base-form/base-form.component';
 import { AtoresService } from '../../../atores/atores.service';
@@ -13,6 +14,8 @@ import { DiretoresService } from '../../../diretores/diretores.service';
 import { Diretor } from '../../../diretores/model/diretor';
 import { Titulo } from '../../model/titulo';
 import { TitulosService } from '../../titulos.service';
+import { CategoriaService } from 'src/app/modulos/enums/categoria/categoria.service';
+import { BaseModel } from 'src/app/shared/base/base.model';
 
 @Component({
   selector: 'app-titulo-form',
@@ -25,18 +28,20 @@ export class TituloFormComponent
 {
   override form: FormGroup = this.formBuilder.group({
     _id: [''],
-    nome: [''],
-    ano: [''],
-    sinopse: [''],
-    categoria: [''],
-    diretor: [],
-    atores: [[]],
+    nome: ['', [Validators.required, Validators.maxLength(255)]],
+    ano: ['', Validators.required],
+    sinopse: ['', [Validators.required,  Validators.maxLength(2000)]],
+    categoria: ['', Validators.required],
+    classe: [, Validators.required],
+    diretor: [, Validators.required],
+    atores: [[], Validators.required],
   });
 
   atoresDisponiveis$: Observable<Ator[]> | null = null;
   diretoresDisponiveis$: Observable<Diretor[]> | null = null;
-  //categoriasDisponiveis$: Observable<Categoria[]> | null = null;
-  categoriasDisponiveis$: string[] = ['A', 'B', 'C'];
+  classesDisponiveis$: Observable<Classe[]> | null = null;
+  categoriasDisponiveis$: Observable<string[]> | null = null;
+  // categoriasDisponiveis$: string[] = ['ROMANCE', 'COMEDIA', 'DRAMA'];
 
   constructor(
     protected titulosService: TitulosService,
@@ -46,7 +51,8 @@ export class TituloFormComponent
     private formBuilder: FormBuilder,
     private atoresService: AtoresService,
     private diretoresService: DiretoresService,
-    private categoriaService: CategoriasService
+    private classesService: ClassesService,
+    private categoriaService: CategoriaService
   ) {
     super('Título', titulosService, snackBar, location);
   }
@@ -59,14 +65,11 @@ export class TituloFormComponent
       ano: titulo.ano,
       sinopse: titulo.sinopse,
       categoria: titulo.categoria,
+      classe: titulo.classe,
       diretor: titulo.diretor,
       atores: titulo.atores,
     });
     this.loadOptionsForSelect();
-  }
-
-  compareAtores(a: Ator, b: Ator) {
-    return a._id === b._id;
   }
 
   loadOptionsForSelect() {
@@ -82,11 +85,17 @@ export class TituloFormComponent
         return of([]);
       })
     );
-    /* this.categoriasDisponiveis$ = this.categoriaService.list().pipe(
+    this.classesDisponiveis$ = this.classesService.list().pipe(
+      catchError(() => {
+        this.onError('Erro ao carregar classes.');
+        return of([]);
+      })
+    );
+    this.categoriasDisponiveis$ = this.categoriaService.list().pipe(
       catchError(() => {
         this.onError('Erro ao carregar categorias.');
         return of([]);
       })
-    ); */
+    );
   }
 }

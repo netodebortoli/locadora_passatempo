@@ -10,7 +10,11 @@ import { TitulosComponent } from './containers/titulos/titulos.component';
 import { TitulosRoutingModule } from './titulos-routing.module';
 
 @NgModule({
-  declarations: [TitulosComponent, TitulosListComponent, TituloFormComponent],
+  declarations: [
+    TitulosComponent,
+    TitulosListComponent,
+    TituloFormComponent
+  ],
   imports: [
     CommonModule,
     TitulosRoutingModule,

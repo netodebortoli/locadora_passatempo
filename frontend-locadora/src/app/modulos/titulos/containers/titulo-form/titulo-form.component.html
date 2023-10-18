@@ -2,68 +2,74 @@
   <mat-toolbar color="primary">Detalhes de título</mat-toolbar>
   <mat-card-content>
     <form [formGroup]="form" class="min-width-form">
+      <mat-grid-list cols="12" rowHeight="80" gutterSize="10px">
 
-      <mat-form-field class="full-width">
-        <mat-label>Nome</mat-label>
-        <input matInput formControlName="nome" #nome>
-        <mat-hint align="end">{{nome.value.length}}/255</mat-hint>
-        <mat-error *ngIf="form.get('nome')?.invalid">
-          {{ getErrorMessage(this.form, "nome") }}
-        </mat-error>
-      </mat-form-field>
+        <mat-grid-tile [colspan]="10" [rowspan]="1">
+          <mat-form-field class="full-width">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" #nome>
+            <mat-hint align="end">{{nome.value.length}}/255</mat-hint>
+          </mat-form-field>
+        </mat-grid-tile>
 
-      <mat-form-field class="full-width">
-        <mat-label>Categoria</mat-label>
-        <mat-select formControlName="categoria">
-          <!-- <mat-option *ngFor="let categoria of (categoriasDisponiveis$ | async)" [value]="categoria">
-            {{categoria}}
-          </mat-option> -->
-          <mat-option *ngFor="let categoria of (categoriasDisponiveis$)" [value]="categoria">
-            {{categoria}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <mat-form-field class="full-width">
+            <mat-label>Ano</mat-label>
+            <input matInput formControlName="ano" #ano mask="0000">
+          </mat-form-field>
+        </mat-grid-tile>
 
-      <mat-form-field class="full-width">
-        <mat-label>Ano</mat-label>
-        <input matInput formControlName="ano" #ano>
-        <mat-error *ngIf="form.get('ano')?.invalid">
-          {{ getErrorMessage(this.form, "ano") }}
-        </mat-error>
-      </mat-form-field>
+        <mat-grid-tile [colspan]="12" [rowspan]="2">
+          <mat-form-field class="full-width text-area">
+            <mat-label>Sinopse</mat-label>
+            <textarea matInput formControlName="sinopse" #sinopse></textarea>
+            <mat-hint align="end">{{sinopse.value.length}}/600</mat-hint>
+          </mat-form-field>
+        </mat-grid-tile>
 
-      <mat-form-field class="full-width">
-        <mat-label>Sinopse</mat-label>
-        <input matInput formControlName="sinopse" #sinopse>
-        <mat-hint align="end">{{nome.value.length}}/600</mat-hint>
-        <mat-error *ngIf="form.get('sinopse')?.invalid">
-          {{ getErrorMessage(this.form, "sinopse") }}
-        </mat-error>
-      </mat-form-field>
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="full-width">
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="categoria">
+              <mat-option *ngFor="let categoria of (categoriasDisponiveis$ | async)" [value]="categoria">
+                {{categoria}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
 
-      <mat-form-field class="full-width">
-        <mat-label>Diretor</mat-label>
-        <mat-select formControlName="diretor">
-          <mat-option *ngFor="let diretor of (diretoresDisponiveis$ | async)" [value]="diretor">
-            {{diretor.nome}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="full-width">
+            <mat-label>Classe</mat-label>
+            <mat-select formControlName="classe" [compareWith]="compareObjetos">
+              <mat-option *ngFor="let classe of (classesDisponiveis$ | async)" [value]="classe">
+                {{classe.nome}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
 
-      <mat-form-field class="full-width">
-        <mat-label>Atores</mat-label>
-        <mat-select formControlName="atores" multiple [compareWith]="compareAtores">
-          <!-- <mat-select-trigger>
-            {{this.form.atores.value?.[0]}}
-            <span *ngIf="(atores.value?.length || 0) > 1" class="additional-selection">
-        (+{{(atores.value?.length || 0) - 1}} {{atores.value?.length === 2 ? 'outro' : 'outros'}})
-      </span>
-          </mat-select-trigger> -->
-          <mat-option *ngFor="let ator of (atoresDisponiveis$ | async)" [value]="ator">{{ator.nome}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-grid-tile [colspan]="4" [rowspan]="1">
+          <mat-form-field class="full-width">
+            <mat-label>Diretor</mat-label>
+            <mat-select formControlName="diretor" [compareWith]="compareObjetos">
+              <mat-option *ngFor="let diretor of (diretoresDisponiveis$ | async)" [value]="diretor">
+                {{diretor.nome}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
 
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
+          <mat-form-field class="full-width">
+            <mat-label>Atores</mat-label>
+            <mat-select formControlName="atores" multiple [compareWith]="compareObjetos">
+              <mat-option *ngFor="let ator of (atoresDisponiveis$ | async)" [value]="ator">{{ator.nome}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
 
+      </mat-grid-list>
     </form>
   </mat-card-content>
 

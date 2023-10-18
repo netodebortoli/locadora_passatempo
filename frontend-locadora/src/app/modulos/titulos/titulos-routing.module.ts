@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'editar/:id',
     component: TituloFormComponent,
-    resolve: { diretor: tituloResolver },
+    resolve: { titulo: tituloResolver },
   },
 ];
 
