@@ -13,7 +13,7 @@ public interface ClasseRepository extends JpaRepository<ClasseEntity, Long> {
     @Query("from ClasseEntity WHERE lower(nome) LIKE lower(:nome)")
     public ClasseEntity findByNome(@Param("nome") String nome);
 
-    @Query("from ClasseEntity c, TituloEntity t "
-            + "WHERE c.id = t.classe.id AND c.id = :idClasse")
+    @Query("from ClasseEntity c INNER JOIN TituloEntity t ON c.id = t.classe.id "
+            + "WHERE c.id = :idClasse")
     public ClasseEntity findSeClasseTemTitulos(@Param("idClasse") Long idClasse);
 }

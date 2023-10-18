@@ -16,7 +16,6 @@ public interface TituloRepository extends JpaRepository<TituloEntity, Long> {
             + " AND lower(nome) = lower(:nomeFilme)")
     public TituloEntity findSeTituloExiste(@Param("idDiretor") Long idDiretor, @Param("nomeFilme") String nomeFilme);
 
-    @Query("From TituloEntity t, ItemEntity i WHERE t.id = i.titulo.id"
-            + " AND t.id = :idTitulo")
-    public List<TituloEntity> findSeTituloPossuiItens(@Param("idTitulo") Long idTitulo);
+    @Query("From TituloEntity t INNER JOIN ItemEntity i ON t.id = i.titulo.id WHERE t.id = :idTitulo")
+    public TituloEntity findSeTituloPossuiItens(@Param("idTitulo") Long idTitulo);
 }

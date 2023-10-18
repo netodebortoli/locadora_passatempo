@@ -12,7 +12,6 @@ import com.locadora.backendlocadora.domain.entity.DiretorEntity;
 @Repository
 public interface DiretorRepository extends JpaRepository<DiretorEntity, Long> {
 
-    @Query("From DiretorEntity d, TituloEntity t "
-            + "WHERE d.id = t.diretor.id AND d.id = :idDiretor")
-    public List<DiretorEntity> findSeDiretorTemTitulos(@Param("idDiretor") Long idDiretor);
+    @Query("From DiretorEntity d INNER JOIN TituloEntity t ON d.id = t.diretor.id WHERE d.id = :idDiretor")
+    public DiretorEntity findSeDiretorTemTitulos(@Param("idDiretor") Long idDiretor);
 }
