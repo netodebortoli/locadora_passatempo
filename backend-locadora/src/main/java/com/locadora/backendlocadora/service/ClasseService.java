@@ -31,9 +31,13 @@ public class ClasseService extends GenericService<Classe, Long, ClasseRepository
         }
     }
 
-    // TODO: nao é permitido excluir uma classe relacionada a titulos
     @Override
     public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
+
+        if (this.repository.findSeClasseTemTitulos(id) != null) {
+            throw new NegocioException("Nao é possível excluir uma Classe com Títulos associados.");
+        }
+
         super.deletar(id);
     }
 }
