@@ -3,7 +3,6 @@ package com.locadora.backendlocadora.domain.enums;
 import lombok.Getter;
 
 public enum Categoria {
-
     ACAO("Ação"),
     AVENTURA("Aventura"),
     ROMANCE("Romance"),

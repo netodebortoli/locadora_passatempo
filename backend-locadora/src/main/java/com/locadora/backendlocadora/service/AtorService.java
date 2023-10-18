@@ -1,5 +1,7 @@
 package com.locadora.backendlocadora.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +29,13 @@ public class AtorService extends GenericService<Ator, Long, AtorRepository, Ator
         return;
     }
 
-    //TODO adicionar regra de negocio que nao permite excluir um ator que possui titulos associados e sobrescrever o metodo
     @Override
     public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
+
+        if (this.repository.findSeAtorTemTitulos(id) != null) {
+            throw new NegocioException("Não é possível excluir um Ator com Títulos associados.");
+        }
+
         super.deletar(id);
     }
 

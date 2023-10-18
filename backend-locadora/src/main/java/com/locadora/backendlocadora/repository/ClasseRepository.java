@@ -1,7 +1,5 @@
 package com.locadora.backendlocadora.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +15,5 @@ public interface ClasseRepository extends JpaRepository<ClasseEntity, Long> {
 
     @Query("from ClasseEntity c, TituloEntity t "
             + "WHERE c.id = t.classe.id AND c.id = :idClasse")
-    public List<ClasseEntity> findSeClasseTemTitulos(@Param("idClasse") Long idClasse);
+    public ClasseEntity findSeClasseTemTitulos(@Param("idClasse") Long idClasse);
 }
