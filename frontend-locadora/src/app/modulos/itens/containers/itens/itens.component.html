@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-content>
+    <mat-toolbar color="primary">
+      <span>Itens disponíveis</span>
+    </mat-toolbar>
+    <div class="mat-elevation-z8">
+      <app-itens-list *ngIf="registros$ | async as itens; else loading"
+      [arrayModel]="itens"
+      (add)="onAdd()"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)">
+      </app-itens-list>
+
+      <ng-template #loading>
+        <div class="loading-spinner">
+          <mat-spinner></mat-spinner>
+        </div>
+      </ng-template>
+
+    </div>
+  </mat-card-content>
+</mat-card>

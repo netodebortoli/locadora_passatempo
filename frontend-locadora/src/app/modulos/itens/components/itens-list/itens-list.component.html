@@ -1,0 +1,44 @@
+<mat-table [dataSource]="arrayModel" class="mat-table-list">
+
+  <ng-container matColumnDef="numSerie">
+    <mat-header-cell *matHeaderCellDef> Número de série </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.numSerie}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dataAquisicao">
+    <mat-header-cell *matHeaderCellDef> Data de aquisição </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.dataAquisicao | date:'shortDate'}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="tipoItem">
+    <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.tipoItem}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="titulo">
+    <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.titulo.nome}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="acoes">
+    <mat-header-cell *matHeaderCellDef class="action-column-list">
+      <button (click)="onAdd()" mat-mini-fab color="accent" aria-label="Adicionar um item">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let element" class="action-column-list">
+      <button (click)="onEdit(element)" mat-icon-button color="primary" aria-label="Editar um item">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button (click)="onDelete(element)" mat-icon-button color="warn" aria-label="Remover um item">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+
+  </ng-container>
+
+  <!-- Header and Row Declarations -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
