@@ -1,2 +1,14 @@
-<h1>Erro 404.</h1>
-<h2>Página não encontrada!</h2>
+<div class="container mt-5 corpo">
+  <mat-card>
+    <mat-card-header align="center">
+      <mat-card-title>Erro 404.</mat-card-title>
+      <mat-card-subtitle>Página não encontrada.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="m-2">
+      <mat-icon>not_listed_location</mat-icon>
+    </mat-card-content>
+    <mat-card-actions class="botao-centralizado">
+      <button mat-raised-button color="primary" (click)="navigateToHome()">Voltar para página inicial</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
