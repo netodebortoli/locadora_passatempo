@@ -84,6 +84,11 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
       return `Tamanho máximo excedido de ${requiredLength} caracteres.`;
     }
 
+    if (field?.hasError('min')) {
+      const requiredValue: number = field.errors ? field.errors['min']['min'] : 0;
+      return `Valor mínimo é ${requiredValue}.`;
+    }
+
     return 'Campo Inválido';
   }
 

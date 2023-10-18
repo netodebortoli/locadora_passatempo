@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { ClassesService } from 'src/app/modulos/classes/classes.service';
 import { Classe } from 'src/app/modulos/classes/model/classe';
+import { CategoriaService } from 'src/app/modulos/enums/categoria/categoria.service';
 
 import { BaseFormComponent } from '../../../../shared/base/components/base-form/base-form.component';
 import { AtoresService } from '../../../atores/atores.service';
@@ -14,8 +15,6 @@ import { DiretoresService } from '../../../diretores/diretores.service';
 import { Diretor } from '../../../diretores/model/diretor';
 import { Titulo } from '../../model/titulo';
 import { TitulosService } from '../../titulos.service';
-import { CategoriaService } from 'src/app/modulos/enums/categoria/categoria.service';
-import { BaseModel } from 'src/app/shared/base/base.model';
 
 @Component({
   selector: 'app-titulo-form',
@@ -29,7 +28,7 @@ export class TituloFormComponent
   override form: FormGroup = this.formBuilder.group({
     _id: [''],
     nome: ['', [Validators.required, Validators.maxLength(255)]],
-    ano: ['', Validators.required],
+    ano: ['', [Validators.required, Validators.min(1800)]],
     sinopse: ['', [Validators.required,  Validators.maxLength(2000)]],
     categoria: ['', Validators.required],
     classe: [, Validators.required],

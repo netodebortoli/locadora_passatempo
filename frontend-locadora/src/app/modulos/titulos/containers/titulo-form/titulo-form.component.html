@@ -9,6 +9,9 @@
             <mat-label>Nome</mat-label>
             <input matInput formControlName="nome" #nome>
             <mat-hint align="end">{{nome.value.length}}/255</mat-hint>
+            <mat-error *ngIf="form.get('nome')?.invalid">
+              {{ getErrorMessage(this.form, "nome") }}
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 
@@ -16,6 +19,9 @@
           <mat-form-field class="full-width">
             <mat-label>Ano</mat-label>
             <input matInput formControlName="ano" #ano mask="0000">
+            <mat-error *ngIf="form.get('ano')?.invalid">
+              {{ getErrorMessage(this.form, "ano") }}
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 
@@ -23,7 +29,10 @@
           <mat-form-field class="full-width text-area">
             <mat-label>Sinopse</mat-label>
             <textarea matInput formControlName="sinopse" #sinopse></textarea>
-            <mat-hint align="end">{{sinopse.value.length}}/600</mat-hint>
+            <mat-hint align="end">{{sinopse.value.length}}/2000</mat-hint>
+            <mat-error *ngIf="form.get('sinopse')?.invalid">
+              {{ getErrorMessage(this.form, "sinopse") }}
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 
@@ -35,6 +44,9 @@
                 {{categoria}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('categoria')?.invalid">
+              {{ getErrorMessage(this.form, "categoria") }}
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 
@@ -46,6 +58,9 @@
                 {{classe.nome}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('classe')?.invalid">
+              {{ getErrorMessage(this.form, "classe") }}
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 
@@ -57,6 +72,9 @@
                 {{diretor.nome}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('diretor')?.invalid">
+              {{ getErrorMessage(this.form, "diretor") }}
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 
@@ -66,6 +84,9 @@
             <mat-select formControlName="atores" multiple [compareWith]="compareObjetos">
               <mat-option *ngFor="let ator of (atoresDisponiveis$ | async)" [value]="ator">{{ator.nome}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('atores')?.invalid">
+              {{ getErrorMessage(this.form, "atores") }}
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
 

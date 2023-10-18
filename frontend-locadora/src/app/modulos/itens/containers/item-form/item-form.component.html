@@ -23,6 +23,9 @@
               #dataAquisicao placeholder="dd/MM/aaaa">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form.get('dataAquisicao')?.invalid">
+              {{ getErrorMessage(this.form, "dataAquisicao") }}
+            </mat-error>
           </mat-form-field>
 
         </mat-grid-tile>
@@ -36,6 +39,9 @@
                 {{tipoItem}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('tipoItem')?.invalid">
+              {{ getErrorMessage(this.form, "tipoItem") }}
+            </mat-error>
           </mat-form-field>
 
         </mat-grid-tile>
@@ -49,6 +55,9 @@
                 {{titulo.nome}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('titulo')?.invalid">
+              {{ getErrorMessage(this.form, "titulo") }}
+            </mat-error>
           </mat-form-field>
 
         </mat-grid-tile>
