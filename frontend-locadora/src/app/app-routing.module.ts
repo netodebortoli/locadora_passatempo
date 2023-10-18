@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modulos/classes/classes.module').then((m) => m.ClassesModule),
   },
+  {
+    path: 'itens',
+    loadChildren: () =>
+      import('./modulos/itens/itens.module').then((m) => m.ItensModule),
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 

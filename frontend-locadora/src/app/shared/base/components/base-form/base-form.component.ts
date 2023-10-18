@@ -13,7 +13,7 @@ import { BaseService } from '../../base.service';
 })
 export abstract class BaseFormComponent<Type extends BaseModel> {
 
-  abstract form: FormGroup;
+  abstract form: UntypedFormGroup;
 
   constructor(
     @Inject(String) protected humanReadbleName: string,
@@ -21,6 +21,10 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
     protected snackBar: MatSnackBar,
     protected location: Location,
   ) { }
+
+  compareObjetos(a: BaseModel, b: BaseModel): boolean {
+    return a._id === b._id;
+  }
 
   onSubmit() {
     if (this.form.valid) {
