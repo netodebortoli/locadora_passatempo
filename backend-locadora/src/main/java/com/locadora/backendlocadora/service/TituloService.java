@@ -2,6 +2,7 @@ package com.locadora.backendlocadora.service;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -45,7 +46,7 @@ public class TituloService extends GenericService<Titulo, Long, TituloRepository
 
         // Verificando se a tupla (diretor/nome de filme) já existe
         Titulo tituloBanco = this.getMapper().toDTO(
-                repository.findIfTituloExists(model.diretor().id(), model.nome()));
+                repository.findSeTituloExiste(model.diretor().id(), model.nome()));
 
         if (tituloBanco != null && model.id() != tituloBanco.id()) {
             throw new NegocioException("O título " + model.nome().toUpperCase() + ", do diretor "
@@ -60,14 +61,19 @@ public class TituloService extends GenericService<Titulo, Long, TituloRepository
                 map.put(ator.nome(), ator);
         });
         if (!map.isEmpty()) {
-            throw new NegocioException(String.format("Não é permitido cadastrar um Título com atores repetidos: %s", map.keySet()));
+            throw new NegocioException(
+                    String.format("Não é permitido cadastrar um Título com atores repetidos: %s", map.keySet()));
         }
 
     }
 
-    // TODO: adicionar regra de negocio que nao permite excluir um titulo com item's associados
     @Override
     public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
+
+        if (this.repository.findSeTituloPossuiItens(id) != null) {
+            throw new NegocioException("Não é permitido excluir um Título com Itens associados.");
+        }
+
         super.deletar(id);
     }
 
