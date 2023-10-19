@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, delay, finalize, forkJoin, Observable, of } from 'rxjs';
 import { ClassesService } from 'src/app/modulos/classes/classes.service';
 import { Classe } from 'src/app/modulos/classes/model/classe';
 import { CategoriaService } from 'src/app/modulos/enums/categoria/categoria.service';
@@ -29,17 +29,17 @@ export class TituloFormComponent
     _id: [''],
     nome: ['', [Validators.required, Validators.maxLength(255)]],
     ano: ['', [Validators.required, Validators.min(1800)]],
-    sinopse: ['', [Validators.required,  Validators.maxLength(2000)]],
+    sinopse: ['', [Validators.required, Validators.maxLength(2000)]],
     categoria: ['', Validators.required],
     classe: [, Validators.required],
     diretor: [, Validators.required],
     atores: [[], Validators.required],
   });
 
-  atoresDisponiveis$: Observable<Ator[]> | null = null;
-  diretoresDisponiveis$: Observable<Diretor[]> | null = null;
-  classesDisponiveis$: Observable<Classe[]> | null = null;
-  categoriasDisponiveis$: Observable<string[]> | null = null;
+  atoresDisponiveis: Ator[] = [];
+  diretoresDisponiveis: Diretor[] = [];
+  classesDisponiveis: Classe[] = [];
+  categoriasDisponiveis: string[] = [];
   // categoriasDisponiveis$: string[] = ['ROMANCE', 'COMEDIA', 'DRAMA'];
 
   constructor(
@@ -56,7 +56,13 @@ export class TituloFormComponent
     super('Título', titulosService, snackBar, location);
   }
 
+  isLoading: boolean = false;
+
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
     const titulo: Titulo = this.route.snapshot.data['titulo'];
     this.form.patchValue({
       _id: titulo._id,
@@ -68,33 +74,41 @@ export class TituloFormComponent
       diretor: titulo.diretor,
       atores: titulo.atores,
     });
-    this.loadOptionsForSelect();
-  }
+    this.isLoading = true;
 
-  loadOptionsForSelect() {
-    this.atoresDisponiveis$ = this.atoresService.list().pipe(
-      catchError(() => {
-        this.onError('Erro ao carregar atores.');
-        return of([]);
-      })
-    );
-    this.diretoresDisponiveis$ = this.diretoresService.list().pipe(
-      catchError(() => {
-        this.onError('Erro ao carregar diretores.');
-        return of([]);
-      })
-    );
-    this.classesDisponiveis$ = this.classesService.list().pipe(
-      catchError(() => {
-        this.onError('Erro ao carregar classes.');
-        return of([]);
-      })
-    );
-    this.categoriasDisponiveis$ = this.categoriaService.list().pipe(
-      catchError(() => {
-        this.onError('Erro ao carregar categorias.');
-        return of([]);
-      })
-    );
+    forkJoin({
+      atores: this.atoresService.list().pipe(
+        catchError(() => {
+          this.onError('Erro ao carregar atores.');
+          return of([]);
+        })
+      ),
+      diretores: this.diretoresService.list().pipe(
+        catchError(() => {
+          this.onError('Erro ao carregar diretores.');
+          return of([]);
+        })
+      ),
+      classes: this.classesService.list().pipe(
+        catchError(() => {
+          this.onError('Erro ao carregar classes.');
+          return of([]);
+        })
+      ),
+      categorias: this.categoriaService.list().pipe(
+        catchError(() => {
+          this.onError('Erro ao carregar categorias.');
+          return of([]);
+        })
+      ),
+    })
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe((result) => {
+        this.atoresDisponiveis = result.atores;
+        this.diretoresDisponiveis = result.diretores;
+        this.classesDisponiveis = result.classes;
+        this.categoriasDisponiveis = result.categorias;
+      });
+
   }
 }

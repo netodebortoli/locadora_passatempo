@@ -3,14 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, finalize, forkJoin, of } from 'rxjs';
+import { TipoItemService } from 'src/app/modulos/enums/tipoItem/tipo-item.service';
 import { Titulo } from 'src/app/modulos/titulos/model/titulo';
 import { TitulosService } from 'src/app/modulos/titulos/titulos.service';
 import { BaseFormComponent } from 'src/app/shared/base/components/base-form/base-form.component';
 
 import { ItensService } from '../../itens.service';
 import { Item } from '../../model/item';
-import { TipoItemService } from 'src/app/modulos/enums/tipoItem/tipo-item.service';
 
 @Component({
   selector: 'app-item-form',
@@ -30,8 +30,8 @@ export class ItemFormComponent
   });
 
   dataMaxAquisicao: Date;
-  titulosDisponiveis$: Observable<Titulo[]> | null = null;
-  tiposDisponiveis$: Observable<string[]> | null = null;
+  titulosDisponiveis: Titulo[] = [];
+  tiposDisponiveis: string[] = [];
 
   constructor(
     protected itensService: ItensService,
@@ -46,7 +46,13 @@ export class ItemFormComponent
     this.dataMaxAquisicao = new Date();
   }
 
+  isLoading: boolean = false;
+
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
     const item: Item = this.route.snapshot.data['item'];
     this.form.patchValue({
       _id: item._id,
@@ -55,22 +61,27 @@ export class ItemFormComponent
       tipoItem: item.tipoItem,
       titulo: item.titulo,
     });
-    this.loadOptionsForSelect();
-  }
 
-  loadOptionsForSelect() {
-    this.titulosDisponiveis$ = this.titulosService.list().pipe(
-      catchError(() => {
-        this.onError('Erro ao carregar títulos.');
-        return of([]);
-      })
-    );
-    this.tiposDisponiveis$ = this.tipoItemService.list().pipe(
-      catchError(() => {
-        this.onError('Erro ao carregar tipos de itens.');
-        return of([]);
-      })
-    );
-  }
+    this.isLoading = true;
 
+    forkJoin({
+      titulos: this.titulosService.list().pipe(
+        catchError(() => {
+          this.onError('Erro ao carregar títulos.');
+          return of([]);
+        })
+      ),
+      tipos: this.tipoItemService.list().pipe(
+        catchError(() => {
+          this.onError('Erro ao carregar tipos de itens.');
+          return of([]);
+        })
+      ),
+    })
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe((result) => {
+        this.titulosDisponiveis = result.titulos;
+        this.tiposDisponiveis = result.tipos;
+      });
+  }
 }
