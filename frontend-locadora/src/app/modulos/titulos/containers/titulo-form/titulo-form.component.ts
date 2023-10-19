@@ -78,26 +78,26 @@ export class TituloFormComponent
 
     forkJoin({
       atores: this.atoresService.list().pipe(
-        catchError(() => {
-          this.onError('Erro ao carregar atores.');
+        catchError((erro) => {
+          this.onError('Erro ao carregar atores.', erro);
           return of([]);
         })
       ),
       diretores: this.diretoresService.list().pipe(
-        catchError(() => {
-          this.onError('Erro ao carregar diretores.');
+        catchError((erro) => {
+          this.onError('Erro ao carregar diretores.', erro);
           return of([]);
         })
       ),
       classes: this.classesService.list().pipe(
-        catchError(() => {
-          this.onError('Erro ao carregar classes.');
+        catchError((erro) => {
+          this.onError('Erro ao carregar classes.', erro);
           return of([]);
         })
       ),
       categorias: this.categoriaService.list().pipe(
-        catchError(() => {
-          this.onError('Erro ao carregar categorias.');
+        catchError((erro) => {
+          this.onError('Erro ao carregar categorias.', erro);
           return of([]);
         })
       ),

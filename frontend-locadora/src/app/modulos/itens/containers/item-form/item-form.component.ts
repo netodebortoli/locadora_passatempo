@@ -66,14 +66,14 @@ export class ItemFormComponent
 
     forkJoin({
       titulos: this.titulosService.list().pipe(
-        catchError(() => {
-          this.onError('Erro ao carregar títulos.');
+        catchError((erro) => {
+          this.onError('Erro ao carregar títulos.', erro);
           return of([]);
         })
       ),
       tipos: this.tipoItemService.list().pipe(
-        catchError(() => {
-          this.onError('Erro ao carregar tipos de itens.');
+        catchError((erro) => {
+          this.onError('Erro ao carregar tipos de itens.', erro);
           return of([]);
         })
       ),

@@ -1,3 +1,4 @@
+import { ServerResponse } from './../../../components/error-dialog/response';
 import { Component, Inject, OnInit } from '@angular/core';
 import { BaseModel } from '../../base.model';
 import { Observable, catchError, of } from 'rxjs';
@@ -7,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-base-container',
@@ -34,8 +36,8 @@ export class BaseContainerComponent<Type extends BaseModel> implements OnInit {
 
   refresh() {
     this.registros$ = this.service.list().pipe(
-      catchError(() => {
-        this.onError(`Erro ao carregar ${this.humanReadbleName}`);
+      catchError((erro) => {
+        this.onError(`Erro ao carregar ${this.humanReadbleName}`, erro);
         return of([]);
       })
     );
@@ -56,7 +58,7 @@ export class BaseContainerComponent<Type extends BaseModel> implements OnInit {
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.service.delete(registro._id).subscribe({
-          error: () => this.onError(`Erro ao tentar remover ${this.humanReadbleName}.`),
+          error: (erro) => this.onError(`Erro ao tentar remover ${this.humanReadbleName}.`, erro),
           complete: () => {
             this.refresh();
             this.snackBar.open(`${this.humanReadbleName} removido(a) com sucesso.`, 'X', {
@@ -70,7 +72,7 @@ export class BaseContainerComponent<Type extends BaseModel> implements OnInit {
     });
   }
 
-  onError(mensagem: string) {
-    this.dialog.open(ErrorDialogComponent, { data: mensagem });
+  onError(mensagem: string, err: HttpErrorResponse) {
+    this.dialog.open(ErrorDialogComponent, { data: {mensagemDaOperacao: mensagem, serverResponse: err.error} });
   }
 }

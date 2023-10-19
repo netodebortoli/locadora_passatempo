@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { BaseModel } from '../../base.model';
 import { BaseService } from '../../base.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-base-form',
@@ -30,7 +31,7 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
     if (this.form.valid) {
       this.service.save(this.form.value as Type).subscribe({
         next: () => this.onSuccess(),
-        error: () => this.onError(`Erro ao salvar o(a) ${this.humanReadbleName}.`),
+        error: (erro) => this.onError(`Erro ao salvar o(a) ${this.humanReadbleName}.`, erro),
       });
     } else {
       this.validateAllFormFields(this.form)
@@ -46,8 +47,8 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
     this.onCancel();
   }
 
-  protected onError(mensagem: string) {
-    this.snackBar.open(mensagem,  '', { duration: 3500 });
+  protected onError(mensagem: string, err: HttpErrorResponse) {
+    this.snackBar.open(mensagem + ` ${err.error.mensagem}`,  'OK'/* , { duration: 3500 } */);
   }
 
   private validateAllFormFields(formGroup: UntypedFormGroup | UntypedFormArray) {
