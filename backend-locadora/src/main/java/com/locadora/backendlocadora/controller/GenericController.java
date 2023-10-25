@@ -25,47 +25,47 @@ import jakarta.validation.constraints.Positive;
 @Controller
 public abstract class GenericController<K, M, E, MP extends GenericMapper<M, E>, R extends JpaRepository<E, K>, S extends GenericService<M, K, R, E, MP>> {
 
-    @Autowired
-    protected S service;
+        @Autowired
+        protected S service;
 
-    @Operation(description = "Obtem uma lista de todos os objetos desta entidade.", responses = {
-            @ApiResponse(responseCode = "200", description = "Lista dos objetos desta entidade.", content = {
-                    @Content(mediaType = "application/json")
-            }),
-            @ApiResponse(responseCode = "400", description = "Erro ao obter lista de objetos da entidade.", content = {
-                    @Content(mediaType = "application/json")
-            })
-    })
-    @GetMapping
-    public List<M> listarTodos() {
-        return service.listarTodos();
-    }
+        @Operation(description = "Obtem uma lista de todos os objetos desta entidade.", responses = {
+                        @ApiResponse(responseCode = "200", description = "Lista dos objetos desta entidade.", content = {
+                                        @Content(mediaType = "application/json")
+                        }),
+                        @ApiResponse(responseCode = "400", description = "Erro ao obter lista de objetos da entidade.", content = {
+                                        @Content(mediaType = "application/json")
+                        })
+        })
+        @GetMapping
+        public List<M> listarTodos() {
+                return service.listarTodos();
+        }
 
-    @Operation(description = "Obtem um objeto desta entidade buscando pelo ID passado na requisição.", responses = {
-            @ApiResponse(responseCode = "200", description = "Objeto encontrado.", content = {
-                    @Content(mediaType = "application/json")
-            }),
-            @ApiResponse(responseCode = "400", description = "Erro ao atualizar os dados da entidade.", content = {
-                    @Content(mediaType = "application/json")
-            }),
-            @ApiResponse(responseCode = "404", description = "Objeto não encontrado.", content = {
-                    @Content(mediaType = "application/json")
-            })
-    })
-    @GetMapping("/{id}")
-    public M buscarPorId(@PathVariable @NotNull @Positive K id) {
-        return service.buscarPorId(id);
-    }
+        @Operation(description = "Obtem um objeto desta entidade buscando pelo ID passado na requisição.", responses = {
+                        @ApiResponse(responseCode = "200", description = "Objeto encontrado.", content = {
+                                        @Content(mediaType = "application/json")
+                        }),
+                        @ApiResponse(responseCode = "400", description = "Erro ao atualizar os dados da entidade.", content = {
+                                        @Content(mediaType = "application/json")
+                        }),
+                        @ApiResponse(responseCode = "404", description = "Objeto não encontrado.", content = {
+                                        @Content(mediaType = "application/json")
+                        })
+        })
+        @GetMapping("/{id}")
+        public M buscarPorId(@PathVariable @NotNull @Positive K id) {
+                return service.buscarPorId(id);
+        }
 
-    @Operation(description = "Exclui o objeto desta entidade pelo ID passado na requisição.", responses = {
-            @ApiResponse(responseCode = "204", description = "Objeto excluido com sucesso."),
-            @ApiResponse(responseCode = "400", description = "Ocorreu um erro ao excluir."),
-            @ApiResponse(responseCode = "404", description = "Objeto não encontrado.")
-    })
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable @Positive @NotNull K id) throws NegocioException {
-        service.deletar(id);
-    }
+        @Operation(description = "Exclui o objeto desta entidade pelo ID passado na requisição.", responses = {
+                        @ApiResponse(responseCode = "204", description = "Objeto excluido com sucesso."),
+                        @ApiResponse(responseCode = "400", description = "Ocorreu um erro ao excluir."),
+                        @ApiResponse(responseCode = "404", description = "Objeto não encontrado.")
+        })
+        @DeleteMapping("/{id}")
+        @ResponseStatus(HttpStatus.NO_CONTENT)
+        public void deletar(@PathVariable @Positive @NotNull K id) throws NegocioException {
+                service.deletar(id);
+        }
 
 }
