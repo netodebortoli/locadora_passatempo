@@ -27,12 +27,12 @@ import jakarta.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/api/diretores")
-@Tag(name = "Controladora de Diretor", description = "Fornece serviços REST para acesso e manipualação de dados de diretores")
+@Tag(name = "Controladora de Diretor", description = "Fornece serviços REST para acesso e manipualação de dados de diretores.")
 public class DiretorController
         extends GenericController<Long, Diretor, DiretorEntity, DiretorMapper, DiretorRepository, DiretorService> {
 
     @Operation(description = "Cria um objeto do tipo Diretor", responses = {
-            @ApiResponse(responseCode = "201", description = "Diretor criador com sucesso.", content = {
+            @ApiResponse(responseCode = "201", description = "Diretor criado com sucesso.", content = {
                     @Content(mediaType = "application/json")
             }),
             @ApiResponse(responseCode = "400", description = "Erro ao criar Diretor.", content = {
