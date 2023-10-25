@@ -30,10 +30,14 @@ import jakarta.validation.constraints.Positive;
 @Tag(name = "Controladora de Ator", description = "Fornece serviços REST para acesso e manipulação de dados de atores.")
 public class AtorController extends GenericController<Long, Ator, AtorEntity, AtorMapper, AtorRepository, AtorService> {
 
-    @Operation(description = "Cria um objeto do tipo Ator.", responses = {
-            @ApiResponse(responseCode = "201", description = "Ator criado com sucesso.", content = {
-                    @Content(mediaType = "application/json")
-    })})
+    @Operation(description = "Cria um objeto do tipo Ator", responses = {
+        @ApiResponse(responseCode = "201", description = "Ator criador com sucesso.", content = {
+                @Content(mediaType = "application/json")
+        }),
+        @ApiResponse(responseCode = "400", description = "Erro ao criar Ator.", content = {
+                @Content(mediaType = "application/json")
+        }),
+})
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Ator criarAtor(@RequestBody @Valid @NotNull Ator ator)
@@ -41,9 +45,17 @@ public class AtorController extends GenericController<Long, Ator, AtorEntity, At
         return service.salvar(ator);
     }
 
-    @Operation(description = "Atualiza um objeto do tipo Ator.", responses = {
-            @ApiResponse(responseCode = "200", description = "Ator atualizado com sucesso."),
-            @ApiResponse(responseCode = "404", description = "Ator não encontrado.")})
+    @Operation(description = "Atualiza um objeto do tipo Ator pelo ID fornecido.", responses = {
+        @ApiResponse(responseCode = "200", description = "Ator atualizado com sucesso.", content = {
+                @Content(mediaType = "application/json")
+        }),
+        @ApiResponse(responseCode = "400", description = "Erro ao atualizar Ator.", content = {
+                @Content(mediaType = "application/json")
+        }),
+        @ApiResponse(responseCode = "404", description = "Ator não encontrado.", content = {
+                @Content(mediaType = "application/json")
+        })
+})
     @PutMapping("/{id}")
     public Ator atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull Ator ator)
             throws RegistroNaoEncontradoException, NegocioException {
