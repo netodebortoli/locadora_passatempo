@@ -1,5 +1,9 @@
 package com.locadora.backendlocadora.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +27,13 @@ import jakarta.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/api/atores")
+@Tag(name = "Controladora de Ator", description = "Fornece serviços REST para acesso e manipulação de dados de atores.")
 public class AtorController extends GenericController<Long, Ator, AtorEntity, AtorMapper, AtorRepository, AtorService> {
 
+    @Operation(description = "Cria um objeto do tipo Ator.", responses = {
+            @ApiResponse(responseCode = "201", description = "Ator criado com sucesso.", content = {
+                    @Content(mediaType = "application/json")
+    })})
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Ator criarAtor(@RequestBody @Valid @NotNull Ator ator)
@@ -32,6 +41,9 @@ public class AtorController extends GenericController<Long, Ator, AtorEntity, At
         return service.salvar(ator);
     }
 
+    @Operation(description = "Atualiza um objeto do tipo Ator.", responses = {
+            @ApiResponse(responseCode = "200", description = "Ator atualizado com sucesso."),
+            @ApiResponse(responseCode = "404", description = "Ator não encontrado.")})
     @PutMapping("/{id}")
     public Ator atualizarAtor(@PathVariable @Positive @NotNull Long id, @RequestBody @Valid @NotNull Ator ator)
             throws RegistroNaoEncontradoException, NegocioException {
