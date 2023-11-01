@@ -1,7 +1,6 @@
 package com.locadora.backendlocadora.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.locadora.backendlocadora.utils.View;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -42,7 +41,6 @@ public class AtorController extends GenericController<Long, Ator, AtorEntity, At
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @JsonView(View.OnCreate.class)
     public Ator criarAtor(@RequestBody @Valid @NotNull Ator ator)
             throws RegistroNaoEncontradoException, NegocioException {
         return service.salvar(ator);
