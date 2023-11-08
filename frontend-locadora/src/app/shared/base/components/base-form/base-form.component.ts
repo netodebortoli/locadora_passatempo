@@ -90,6 +90,11 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
       return `Valor mínimo é ${requiredValue}.`;
     }
 
+    if (field?.hasError('max')) {
+      const requiredValue: number = field.errors ? field.errors['max']['max'] : 0;
+      return `Valor máximo é ${requiredValue}.`;
+    }
+
     return 'Campo Inválido';
   }
 

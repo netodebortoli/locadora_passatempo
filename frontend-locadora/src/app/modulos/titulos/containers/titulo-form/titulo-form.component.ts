@@ -28,7 +28,7 @@ export class TituloFormComponent
   override form: FormGroup = this.formBuilder.group({
     _id: [''],
     nome: ['', [Validators.required, Validators.maxLength(255)]],
-    ano: ['', [Validators.required, Validators.min(1800)]],
+    ano: ['', [Validators.required, Validators.min(1800), Validators.max(new Date().getFullYear())]],
     sinopse: ['', [Validators.required, Validators.maxLength(2000)]],
     categoria: ['', Validators.required],
     classe: [, Validators.required],
