@@ -19,10 +19,10 @@ public class ErrorResponse {
     private LocalDateTime timestamp;
 
     private String error;
+    
+    private HttpStatus status;
+    
+    private Integer codigo;
 
     private String mensagem;
-
-    private HttpStatus status;
-
-    private Integer codigo;
 }
