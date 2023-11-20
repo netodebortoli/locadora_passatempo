@@ -1,5 +1,13 @@
 package com.locadora.backendlocadora.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.locadora.backendlocadora.domain.Paginacao;
 import com.locadora.backendlocadora.domain.mapper.GenericMapper;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
@@ -9,10 +17,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP extends GenericMapper<M, E>> {
@@ -28,11 +32,10 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
         this.mapper = mapper;
     }
 
-    public List<M> listarTodos() {
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDTO)
-                .collect(Collectors.toList());
+    public Paginacao<M> listarTodos(int pageNumber, int pageSize) {
+        Page<E> page = this.repository.findAll(PageRequest.of(pageNumber, pageSize));
+        List<M> result = page.get().map(mapper::toDTO).collect(Collectors.toList());
+        return new Paginacao<M>(result, page.getTotalElements(), page.getTotalPages());
     }
 
     public M buscarPorId(@Positive @NotNull K id) {
@@ -48,7 +51,7 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
 
     public abstract void validarSave(@NotNull @Valid M model) throws RegistroNaoEncontradoException, NegocioException;
 
-    @Transactional(rollbackOn = {Exception.class})
+    @Transactional(rollbackOn = { Exception.class })
     public M salvar(@Valid @NotNull M model) throws RegistroNaoEncontradoException, NegocioException {
         validarSave(model);
         return mapper.toDTO(this.repository.saveAndFlush(mapper.toEntity(model)));

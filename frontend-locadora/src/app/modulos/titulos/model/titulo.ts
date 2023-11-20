@@ -1,9 +1,9 @@
-import {Ator} from "../../atores/model/ator";
-import {Diretor} from "../../diretores/model/diretor";
-import {Classe} from "../../classes/model/classe";
+import { BaseModel } from "src/app/shared/base/base.model";
+import { Ator } from "../../atores/model/ator";
+import { Classe } from "../../classes/model/classe";
+import { Diretor } from "../../diretores/model/diretor";
 
-export interface Titulo {
-  _id: string;
+export interface Titulo extends BaseModel {
   nome: string;
   ano: string;
   sinopse: string;

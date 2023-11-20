@@ -53,7 +53,7 @@ public class ApplicationControllerAdvice {
         errorResponse.setError("Argumento inválido!");
         errorResponse.setMensagem((ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> error.getDefaultMessage() + " ")
-                .reduce("", (acc, error) -> acc + error)));
+                .reduce("", (acc, error) -> acc + error + "\n")));
         return buildResponseEntity(errorResponse);
     }
 

@@ -2,6 +2,8 @@ package com.locadora.backendlocadora;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,23 +32,31 @@ public class BackendLocadoraApplication {
 
     @Bean
     CommandLineRunner initDataBase(AtorRepository atorRepository,
-                                   DiretorRepository diretorRepository,
-                                   ClasseRepository classeRepository,
-                                   TituloRepository tituloRepository,
-                                   ItemRepository itemRepository) {
+            DiretorRepository diretorRepository,
+            ClasseRepository classeRepository,
+            TituloRepository tituloRepository,
+            ItemRepository itemRepository) {
         return args -> {
             atorRepository.deleteAll();
             diretorRepository.deleteAll();
             classeRepository.deleteAll();
             tituloRepository.deleteAll();
             itemRepository.deleteAll();
-            
+
             AtorEntity ator1 = new AtorEntity();
             ator1.setNome("Christoph Waltz");
             AtorEntity ator2 = new AtorEntity();
             ator2.setNome("Brad Pitt");
             atorRepository.save(ator1);
             atorRepository.save(ator2);
+
+            List<AtorEntity> atores = new ArrayList<>();
+            for (int i = 0; i < 19; i++) {
+                AtorEntity ator = new AtorEntity();
+                ator.setNome("Ator " + i);
+                atores.add(ator);
+            }
+            atorRepository.saveAll(atores);
 
             DiretorEntity diretor1 = new DiretorEntity();
             diretor1.setNome("Quentin Tarantino");
@@ -63,7 +73,8 @@ public class BackendLocadoraApplication {
             titulo1.setAno("2009");
             titulo1.setClasse(classe1);
             titulo1.setSinopse("Durante a Segunda Guerra Mundial, na França, judeus americanos espalham o terror" +
-                    " entre o terceiro Reich. Ao mesmo tempo, Shosanna, uma judia que fugiu dos nazistas, planeja vingança" +
+                    " entre o terceiro Reich. Ao mesmo tempo, Shosanna, uma judia que fugiu dos nazistas, planeja vingança"
+                    +
                     " quando um evento em seu cinema reunirá os líderes do partido.");
             titulo1.setCategoria(Categoria.ACAO);
             titulo1.setDiretor(diretor1);
