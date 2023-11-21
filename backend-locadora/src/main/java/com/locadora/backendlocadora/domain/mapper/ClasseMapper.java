@@ -8,28 +8,28 @@ import org.springframework.stereotype.Component;
 public class ClasseMapper extends GenericMapper<Classe, ClasseEntity> {
 
     @Override
-    public Classe toDTO(ClasseEntity registro) {
+    public Classe toModel(ClasseEntity entity) {
 
-        if (registro == null)
+        if (entity == null)
             return null;
 
-        return new Classe(registro.getId(), registro.getNome(), registro.getValor(), registro.getPrazoDevolucao());
+        return new Classe(entity.getId(), entity.getNome(), entity.getValor(), entity.getPrazoDevolucao());
     }
 
     @Override
-    public ClasseEntity toEntity(Classe registro) {
+    public ClasseEntity toEntity(Classe model) {
 
-        if (registro == null)
+        if (model == null)
             return null;
 
         ClasseEntity entity = new ClasseEntity();
 
-        if (registro.id() != null)
-            entity.setId(registro.id());
+        if (model.id() != null)
+            entity.setId(model.id());
 
-        entity.setNome(registro.nome());
-        entity.setValor(registro.valor());
-        entity.setPrazoDevolucao(registro.prazoDevolucao());
+        entity.setNome(model.nome());
+        entity.setValor(model.valor());
+        entity.setPrazoDevolucao(model.prazoDevolucao());
 
         return entity;
     }

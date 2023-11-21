@@ -25,7 +25,7 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
 
     private String humanReadableName;
 
-    private MP mapper;
+    protected MP mapper;
 
     protected GenericService(R repository, MP mapper) {
         this.repository = repository;
@@ -34,13 +34,13 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
 
     public Paginacao<M> listarTodos(int pageNumber, int pageSize) {
         Page<E> page = this.repository.findAll(PageRequest.of(pageNumber, pageSize));
-        List<M> result = page.get().map(mapper::toDTO).collect(Collectors.toList());
+        List<M> result = page.get().map(mapper::toModel).collect(Collectors.toList());
         return new Paginacao<M>(result, page.getTotalElements(), page.getTotalPages());
     }
 
     public M buscarPorId(@Positive @NotNull K id) {
         return repository.findById(id)
-                .map(mapper::toDTO)
+                .map(mapper::toModel)
                 .orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id));
     }
 
@@ -54,7 +54,7 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
     @Transactional(rollbackOn = { Exception.class })
     public M salvar(@Valid @NotNull M model) throws RegistroNaoEncontradoException, NegocioException {
         validarSave(model);
-        return mapper.toDTO(this.repository.saveAndFlush(mapper.toEntity(model)));
+        return mapper.toModel(this.repository.saveAndFlush(mapper.toEntity(model)));
     }
 
 }

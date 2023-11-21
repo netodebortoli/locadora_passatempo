@@ -23,7 +23,7 @@ public class ClasseService extends GenericService<Classe, Long, ClasseRepository
     @Override
     public void validarSave(@NotNull @Valid Classe model) throws RegistroNaoEncontradoException, NegocioException {
 
-        Classe classeBanco = this.getMapper().toDTO(
+        Classe classeBanco = this.getMapper().toModel(
                 this.repository.findByNome(model.nome()));
 
         if (classeBanco != null && model.id() != classeBanco.id()) {

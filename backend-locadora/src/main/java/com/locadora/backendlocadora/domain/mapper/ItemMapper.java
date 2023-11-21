@@ -15,39 +15,39 @@ public class ItemMapper extends GenericMapper<Item, ItemEntity> {
     private TituloMapper tituloMapper = new TituloMapper();
 
     @Override
-    public Item toDTO(ItemEntity registro) {
+    public Item toModel(ItemEntity entity) {
 
-        if (registro == null)
+        if (entity == null)
             return null;
 
         return new Item(
-                registro.getId(),
-                registro.getNumSerie(),
-                registro.getTipoItem().getValor(),
-                registro.getDataAquisicao(),
-                tituloMapper.toDTO(registro.getTitulo()));
+                entity.getId(),
+                entity.getNumSerie(),
+                entity.getTipoItem().getValor(),
+                entity.getDataAquisicao(),
+                tituloMapper.toModel(entity.getTitulo()));
     }
 
     @Override
-    public ItemEntity toEntity(Item registro) throws NegocioException {
+    public ItemEntity toEntity(Item model) throws NegocioException {
         
-        if (registro == null) {
+        if (model == null) {
             return null;
         }
 
         ItemEntity entity = new ItemEntity();
 
-        if (registro.id() != null)
-            entity.setId(registro.id());
+        if (model.id() != null)
+            entity.setId(model.id());
 
-        entity.setNumSerie(registro.numSerie());
+        entity.setNumSerie(model.numSerie());
         entity.setTipoItem(
                 Stream.of(TipoItem.values())
-                        .filter(tipoItem -> tipoItem.getValor().equals(registro.tipoItem()))
+                        .filter(tipoItem -> tipoItem.getValor().equals(model.tipoItem()))
                         .findFirst()
                         .orElseThrow(() -> new NegocioException("Tipo de Item inválido!")));
-        entity.setDataAquisicao(registro.dataAquisicao());
-        entity.setTitulo(tituloMapper.toEntity(registro.titulo()));
+        entity.setDataAquisicao(model.dataAquisicao());
+        entity.setTitulo(tituloMapper.toEntity(model.titulo()));
 
         return entity;
     }
