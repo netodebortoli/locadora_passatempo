@@ -1,6 +1,7 @@
 package com.locadora.backendlocadora;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,11 @@ import org.springframework.context.annotation.Bean;
 
 import com.locadora.backendlocadora.domain.entity.AtorEntity;
 import com.locadora.backendlocadora.domain.entity.ClasseEntity;
+import com.locadora.backendlocadora.domain.entity.DependenteEntity;
 import com.locadora.backendlocadora.domain.entity.DiretorEntity;
+import com.locadora.backendlocadora.domain.entity.EnderecoEntity;
 import com.locadora.backendlocadora.domain.entity.ItemEntity;
+import com.locadora.backendlocadora.domain.entity.SocioEntity;
 import com.locadora.backendlocadora.domain.entity.TituloEntity;
 import com.locadora.backendlocadora.domain.enums.Categoria;
 import com.locadora.backendlocadora.domain.enums.TipoItem;
@@ -21,6 +25,7 @@ import com.locadora.backendlocadora.repository.AtorRepository;
 import com.locadora.backendlocadora.repository.ClasseRepository;
 import com.locadora.backendlocadora.repository.DiretorRepository;
 import com.locadora.backendlocadora.repository.ItemRepository;
+import com.locadora.backendlocadora.repository.SocioRepository;
 import com.locadora.backendlocadora.repository.TituloRepository;
 
 @SpringBootApplication
@@ -35,7 +40,9 @@ public class BackendLocadoraApplication {
             DiretorRepository diretorRepository,
             ClasseRepository classeRepository,
             TituloRepository tituloRepository,
-            ItemRepository itemRepository) {
+            ItemRepository itemRepository,
+            SocioRepository socioRepository) {
+
         return args -> {
             atorRepository.deleteAll();
             diretorRepository.deleteAll();
@@ -95,6 +102,60 @@ public class BackendLocadoraApplication {
             item2.setTipoItem(TipoItem.BLU_RAY);
             item2.setTitulo(titulo1);
             itemRepository.save(item2);
+
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date dataUtil = formato.parse("23/11/1985");
+            java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
+
+            EnderecoEntity endereco1 = new EnderecoEntity();
+            EnderecoEntity endereco2 = new EnderecoEntity();
+            endereco1.setLogradouro("Luiz Pancieri");
+            endereco1.setNumero("157");
+            endereco1.setBairro("Vila Amélia");
+            endereco1.setCep("29706290");
+            endereco1.setLocalidade("Colatina");
+            endereco1.setUf("ES");
+            endereco2.setLogradouro("Rua Belarmino Pinto");
+            endereco2.setNumero("374");
+            endereco2.setBairro("Sapucaia");
+            endereco2.setCep("29730000");
+            endereco2.setLocalidade("Baixo Guandu");
+            endereco2.setUf("ES");
+
+            SocioEntity socio1 = new SocioEntity();
+            SocioEntity socio2 = new SocioEntity();
+            socio1.setNome("Luis Inácio Lula");
+            socio1.setDataNascimento(dataSql);
+            socio1.setEndereco(endereco1);
+            socio1.setSexo("M");
+            socio1.setNumInscricao("00");
+            socio1.setCpf("56264994073");
+            socio1.setTelefone("27996445522");
+            socio2.setNome("Barack Obama");
+            socio2.setDataNascimento(dataSql);
+            socio2.setEndereco(endereco2);
+            socio2.setSexo("M");
+            socio2.setNumInscricao("03");
+            socio2.setCpf("65448759025");
+            socio2.setTelefone("27999223311");
+
+            DependenteEntity dp1 = new DependenteEntity();
+            DependenteEntity dp2 = new DependenteEntity();
+            dp1.setNome("Dilma");
+            dp1.setNumInscricao("01");
+            dp1.setSexo("F");
+            dp1.setDataNascimento(dataSql);
+            dp2.setNome("Bonaro");
+            dp2.setNumInscricao("02");
+            dp2.setSexo("M");
+            dp2.setDataNascimento(dataSql);
+            socio1.getDependentes().add(dp1);
+            socio1.getDependentes().add(dp2);
+            dp1.setSocio(socio1);
+            dp2.setSocio(socio1);
+            socioRepository.save(socio1);
+            socioRepository.save(socio2);
+
         };
     }
 
