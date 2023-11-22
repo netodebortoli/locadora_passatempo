@@ -3,11 +3,8 @@ package com.locadora.backendlocadora.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.locadora.backendlocadora.domain.Paginacao;
 import com.locadora.backendlocadora.domain.mapper.GenericMapper;
 import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
@@ -32,10 +29,17 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
         this.mapper = mapper;
     }
 
-    public Paginacao<M> listarTodos(int pageNumber, int pageSize) {
-        Page<E> page = this.repository.findAll(PageRequest.of(pageNumber, pageSize));
-        List<M> result = page.get().map(mapper::toModel).collect(Collectors.toList());
-        return new Paginacao<M>(result, page.getTotalElements(), page.getTotalPages());
+    // public Paginacao<M> listarTodos(int pageNumber, int pageSize) {
+    //     Page<E> page = this.repository.findAll(PageRequest.of(pageNumber, pageSize));
+    //     List<M> result = page.get().map(mapper::toModel).collect(Collectors.toList());
+    //     return new Paginacao<M>(result, page.getTotalElements(), page.getTotalPages());
+    // }
+
+    public List<M> listarTodos() {
+        return repository.findAll()
+                .stream()
+                .map(mapper::toModel)
+                .collect(Collectors.toList());
     }
 
     public M buscarPorId(@Positive @NotNull K id) {
