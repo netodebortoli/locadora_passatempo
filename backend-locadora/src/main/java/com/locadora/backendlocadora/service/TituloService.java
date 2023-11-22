@@ -44,7 +44,7 @@ public class TituloService extends GenericService<Titulo, Long, TituloRepository
         model.atores().forEach(ator -> atorService.buscarPorId(ator.id()));
 
         // Verificando se a tupla (diretor/nome de filme) já existe
-        Titulo tituloBanco = this.getMapper().toDTO(
+        Titulo tituloBanco = this.getMapper().toModel(
                 repository.findSeTituloExiste(model.diretor().id(), model.nome()));
 
         if (tituloBanco != null && model.id() != tituloBanco.id()) {

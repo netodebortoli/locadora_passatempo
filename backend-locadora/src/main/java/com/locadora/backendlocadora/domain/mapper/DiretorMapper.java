@@ -8,26 +8,26 @@ import org.springframework.stereotype.Component;
 public class DiretorMapper extends GenericMapper<Diretor, DiretorEntity> {
 
     @Override
-    public Diretor toDTO(DiretorEntity registro) {
+    public Diretor toModel(DiretorEntity entity) {
 
-        if (registro == null)
+        if (entity == null)
             return null;
 
-        return new Diretor(registro.getId(), registro.getNome());
+        return new Diretor(entity.getId(), entity.getNome());
     }
 
     @Override
-    public DiretorEntity toEntity(Diretor registro) {
+    public DiretorEntity toEntity(Diretor model) {
 
-        if (registro == null)
+        if (model == null)
             return null;
 
         DiretorEntity entity = new DiretorEntity();
 
-        if (registro.id() != null)
-            entity.setId(registro.id());
+        if (model.id() != null)
+            entity.setId(model.id());
 
-        entity.setNome(registro.nome());
+        entity.setNome(model.nome());
 
         return entity;
     }

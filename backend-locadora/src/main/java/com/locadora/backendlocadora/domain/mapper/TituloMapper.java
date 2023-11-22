@@ -19,13 +19,13 @@ public class TituloMapper extends GenericMapper<Titulo, TituloEntity> {
     private ClasseMapper classeMapper = new ClasseMapper();
 
     @Override
-    public Titulo toDTO(TituloEntity registro) {
+    public Titulo toModel(TituloEntity registro) {
         if (registro == null)
             return null;
 
         List<Ator> atores = registro.getAtores()
                 .stream()
-                .map(atorMapper::toDTO)
+                .map(atorMapper::toModel)
                 .collect(Collectors.toList());
 
         return new Titulo(
@@ -34,8 +34,8 @@ public class TituloMapper extends GenericMapper<Titulo, TituloEntity> {
                 registro.getAno(),
                 registro.getSinopse(),
                 registro.getCategoria().getValor(),
-                diretorMapper.toDTO(registro.getDiretor()),
-                classeMapper.toDTO(registro.getClasse()),
+                diretorMapper.toModel(registro.getDiretor()),
+                classeMapper.toModel(registro.getClasse()),
                 atores
         );
     }

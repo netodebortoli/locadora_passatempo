@@ -8,28 +8,28 @@ import com.locadora.backendlocadora.domain.Ator;
 @Component
 public class AtorMapper extends GenericMapper<Ator, AtorEntity> {
 
-    public Ator toDTO(AtorEntity registro) {
+    public Ator toModel(AtorEntity entity) {
 
-        if (registro == null) {
+        if (entity == null) {
             return null;
         }
 
-        return new Ator(registro.getId(), registro.getNome());
+        return new Ator(entity.getId(), entity.getNome());
     }
 
-    public AtorEntity toEntity(Ator registro) {
+    public AtorEntity toEntity(Ator model) {
 
-        if (registro == null) {
+        if (model == null) {
             return null;
         }
 
         AtorEntity entity = new AtorEntity();
 
-        if (registro.id() != null) {
-            entity.setId(registro.id());
+        if (model.id() != null) {
+            entity.setId(model.id());
         }
         
-        entity.setNome(registro.nome());
+        entity.setNome(model.nome());
 
         return entity;
     }
