@@ -10,6 +10,8 @@ import {ErrorDialogComponent} from './components/error-dialog/error-dialog.compo
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {RouterModule} from '@angular/router';
 import {ArraySortPipe} from './pipes/array-sort.pipe';
+import { CpfPipe } from './pipes/cpf.pipe';
+import { TelefonePipe } from './pipes/telefone.pipe';
 
 @NgModule({
     declarations: [
@@ -20,6 +22,8 @@ import {ArraySortPipe} from './pipes/array-sort.pipe';
         BaseListComponent,
         BaseContainerComponent,
         ArraySortPipe,
+        CpfPipe,
+        TelefonePipe,
     ],
     imports: [
         //módulos
@@ -32,6 +36,8 @@ import {ArraySortPipe} from './pipes/array-sort.pipe';
         ErrorDialogComponent,
         ConfirmationDialogComponent,
         ArraySortPipe,
+        CpfPipe,
+        TelefonePipe,
         NgxMaskModule
     ]
 })
