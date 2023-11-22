@@ -2,7 +2,7 @@ package com.locadora.backendlocadora.domain.entity;
 
 import java.sql.Date;
 
-import com.locadora.backendlocadora.domain.enums.Status;
+import com.locadora.backendlocadora.domain.enums.TipoStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
@@ -52,5 +52,5 @@ public abstract class ClienteEntity {
     @NotNull
     @Column(length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
-    protected Status status = Status.ATIVO;
+    protected TipoStatus status = TipoStatus.ATIVO;
 }

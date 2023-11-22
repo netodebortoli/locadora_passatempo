@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Positive;
 public class RegistroNaoEncontradoException extends RuntimeException {
 
     public <K> RegistroNaoEncontradoException(String nomeEntidade, @Positive @NotNull K id) {
-        super(nomeEntidade + " de ID " + id + " não encontrado.");
+        super(nomeEntidade + " de id: " + id + " não existe.");
     }
 
 }

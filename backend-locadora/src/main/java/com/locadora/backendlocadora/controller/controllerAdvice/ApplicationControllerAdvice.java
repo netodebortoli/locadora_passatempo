@@ -87,4 +87,15 @@ public class ApplicationControllerAdvice {
         return buildResponseEntity(errorResponse);
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<Object> handleArgumentoStateInvalido(IllegalStateException ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST);
+        errorResponse.setError("Ocorreu um erro!");
+        errorResponse.setTimestamp(LocalDateTime.now());
+        errorResponse.setCodigo(errorResponse.getStatus().value());
+        errorResponse.setMensagem(ex.getMessage());
+        return buildResponseEntity(errorResponse);
+    }
+
 }

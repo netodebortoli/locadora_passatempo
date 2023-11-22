@@ -1,9 +1,12 @@
 package com.locadora.backendlocadora.domain.mapper;
 
+import java.util.stream.Stream;
+
 import org.springframework.stereotype.Component;
 
 import com.locadora.backendlocadora.domain.Dependente;
 import com.locadora.backendlocadora.domain.entity.DependenteEntity;
+import com.locadora.backendlocadora.domain.enums.TipoStatus;
 
 @Component
 public class DependenteMapper extends GenericMapper<Dependente, DependenteEntity> {
@@ -22,7 +25,7 @@ public class DependenteMapper extends GenericMapper<Dependente, DependenteEntity
         model.setDataNascimento(entity.getDataNascimento());
         model.setSexo(entity.getSexo());
         model.setNumInscricao(entity.getNumInscricao());
-        model.setStatus(entity.getStatus());
+        model.setStatus(entity.getStatus().getValor());
 
         return model;
     }
@@ -34,12 +37,14 @@ public class DependenteMapper extends GenericMapper<Dependente, DependenteEntity
 
         DependenteEntity entity = new DependenteEntity();
 
-        if (model.getId() != null) {
+        if (model.getId() != null)
             entity.setId(model.getId());
-        }
 
         if (model.getStatus() != null)
-            entity.setStatus(model.getStatus());
+            entity.setStatus(Stream.of(TipoStatus.values())
+                    .filter(status -> status.getValor().equals(model.getStatus()))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("Status inválido: " + model.getStatus())));
 
         entity.setNome(model.getNome());
         entity.setDataNascimento(model.getDataNascimento());

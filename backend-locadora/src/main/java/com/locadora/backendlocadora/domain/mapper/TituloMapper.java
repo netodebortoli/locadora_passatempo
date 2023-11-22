@@ -1,15 +1,15 @@
 package com.locadora.backendlocadora.domain.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.stereotype.Component;
+
 import com.locadora.backendlocadora.domain.Ator;
 import com.locadora.backendlocadora.domain.Titulo;
 import com.locadora.backendlocadora.domain.entity.TituloEntity;
 import com.locadora.backendlocadora.domain.enums.Categoria;
-import com.locadora.backendlocadora.service.exception.NegocioException;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 public class TituloMapper extends GenericMapper<Titulo, TituloEntity> {
@@ -20,8 +20,10 @@ public class TituloMapper extends GenericMapper<Titulo, TituloEntity> {
 
     @Override
     public Titulo toModel(TituloEntity registro) {
-        if (registro == null)
+
+        if (registro == null) {
             return null;
+        }
 
         List<Ator> atores = registro.getAtores()
                 .stream()
@@ -36,36 +38,34 @@ public class TituloMapper extends GenericMapper<Titulo, TituloEntity> {
                 registro.getCategoria().getValor(),
                 diretorMapper.toModel(registro.getDiretor()),
                 classeMapper.toModel(registro.getClasse()),
-                atores
-        );
+                atores);
     }
 
     @Override
-    public TituloEntity toEntity(Titulo registro) throws NegocioException {
-        if (registro == null)
+    public TituloEntity toEntity(Titulo model) {
+
+        if (model == null) {
             return null;
+        }
 
         TituloEntity entity = new TituloEntity();
 
-        if (registro.id() != null)
-            entity.setId(registro.id());
+        if (model.id() != null)
+            entity.setId(model.id());
 
-        entity.setNome(registro.nome());
-        entity.setAno(registro.ano());
-        entity.setSinopse(registro.sinopse());
-        entity.setCategoria(
-                Stream.of(Categoria.values())
-                        .filter(categoria -> categoria.getValor().equals(registro.categoria()))
-                        .findFirst()
-                        .orElseThrow(() -> new NegocioException("Categoria inválida!")));
-        entity.setClasse(classeMapper.toEntity(registro.classe()));
-        entity.setDiretor(diretorMapper.toEntity(registro.diretor()));
-        entity.setAtores(
-                registro.atores()
-                        .stream()
-                        .map(atorMapper::toEntity)
-                        .collect(Collectors.toList())
-        );
+        entity.setNome(model.nome());
+        entity.setAno(model.ano());
+        entity.setSinopse(model.sinopse());
+        entity.setCategoria(Stream.of(Categoria.values())
+                .filter(categoria -> categoria.getValor().equals(model.categoria()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Categoria inválida: " + model.categoria())));
+        entity.setClasse(classeMapper.toEntity(model.classe()));
+        entity.setDiretor(diretorMapper.toEntity(model.diretor()));
+        entity.setAtores(model.atores()
+                .stream()
+                .map(atorMapper::toEntity)
+                .collect(Collectors.toList()));
 
         return entity;
     }
