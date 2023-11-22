@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
-import { HomeComponent } from './shared/components/home/home.component';
-import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import {HomeComponent} from './shared/components/home/home.component';
+import {PageNotFoundComponent} from './shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: HomeComponent },
+  {path: '', pathMatch: 'full', component: HomeComponent},
   {
     path: 'titulos',
     loadChildren: () =>
@@ -33,11 +33,17 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modulos/itens/itens.module').then((m) => m.ItensModule),
   },
-  { path: '**', component: PageNotFoundComponent },
+  {
+    path: 'clientes',
+    loadChildren: () =>
+      import('./modulos/clientes/socios.module').then((m) => m.SociosModule),
+  },
+  {path: '**', component: PageNotFoundComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

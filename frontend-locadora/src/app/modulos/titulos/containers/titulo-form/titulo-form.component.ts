@@ -40,7 +40,6 @@ export class TituloFormComponent
   diretoresDisponiveis: Diretor[] = [];
   classesDisponiveis: Classe[] = [];
   categoriasDisponiveis: string[] = [];
-  // categoriasDisponiveis$: string[] = ['ROMANCE', 'COMEDIA', 'DRAMA'];
 
   constructor(
     protected titulosService: TitulosService,

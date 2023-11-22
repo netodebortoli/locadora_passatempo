@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   exports: [
@@ -39,7 +40,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatLuxonDateModule,
     MatGridListModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTabsModule
   ],
 })
 export class AppMaterialModule {}

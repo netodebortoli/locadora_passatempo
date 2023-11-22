@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
-import { Component, Inject } from '@angular/core';
-import { FormGroup, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { Component, Inject, ViewChild } from '@angular/core';
+import {FormGroup, FormGroupDirective, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { BaseModel } from '../../base.model';
@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export abstract class BaseFormComponent<Type extends BaseModel> {
 
   abstract form: UntypedFormGroup;
+  @ViewChild(FormGroupDirective) formDirective?: FormGroupDirective;
 
   constructor(
     @Inject(String) protected humanReadbleName: string,
@@ -28,14 +29,16 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
   }
 
   onSubmit() {
+    this.formDirective?.onSubmit(null as any);
     if (this.form.valid) {
       this.service.save(this.form.value as Type).subscribe({
         next: () => this.onSuccess(),
         error: (erro) => this.onError(`Erro ao salvar o(a) ${this.humanReadbleName}.`, erro),
       });
-    } else {
-      this.validateAllFormFields(this.form)
     }
+    // else {
+    //   this.validateAllFormFields(this.form)
+    // }
   }
 
   onCancel() {
@@ -48,7 +51,7 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
   }
 
   protected onError(mensagem: string, err: HttpErrorResponse) {
-    this.snackBar.open(mensagem + ` ${err.error.mensagem}`,  'OK'/* , { duration: 3500 } */);
+    this.snackBar.open(mensagem + ` ${err.error.mensagem}`,  'OK');
   }
 
   private validateAllFormFields(formGroup: UntypedFormGroup | UntypedFormArray) {
