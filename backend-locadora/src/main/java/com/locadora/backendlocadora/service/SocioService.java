@@ -42,7 +42,6 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
         if (model.getDataNascimento().after(Date.valueOf(LocalDate.now()))) {
             throw new NegocioException("A data de nascimento não pode ser superior a data atual.");
         }
-
     }
 
     /*

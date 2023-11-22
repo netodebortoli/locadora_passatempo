@@ -27,7 +27,7 @@ public class SocioEntity extends ClienteEntity {
     protected String telefone;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_endereco", referencedColumnName = "id")
     protected EnderecoEntity endereco;
 

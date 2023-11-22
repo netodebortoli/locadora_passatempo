@@ -26,7 +26,7 @@ public abstract class Cliente<K, M> implements Serializable {
     @Schema(type = "long", example = "1")
     protected K id;
 
-    @Schema(type = "string", example = "0099221", description = "Número de inscrição do cliente.")
+    @Hidden
     protected String numInscricao;
 
     @NotBlank(message = "O campo nome é obrigatório.")

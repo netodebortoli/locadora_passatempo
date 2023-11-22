@@ -32,6 +32,7 @@ public abstract class ClienteEntity {
     @Column(name = "id")
     protected Long id;
 
+    @NotNull
     @Column(name = "numero_inscricao", nullable = false)
     protected String numInscricao;
 
