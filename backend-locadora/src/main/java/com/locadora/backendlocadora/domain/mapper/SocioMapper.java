@@ -69,9 +69,9 @@ public class SocioMapper extends GenericMapper<Socio, SocioEntity> {
 
         entity.setNome(model.getNome());
         entity.setDataNascimento(model.getDataNascimento());
-        entity.setNumInscricao(model.getNumInscricao());
         entity.setSexo(model.getSexo());
         entity.setCpf(model.getCpf());
+        entity.setNumInscricao(model.getNumInscricao());
         entity.setTelefone(model.getTelefone());
         entity.setEndereco(enderecoMapper.toEntity(model.getEndereco()));
         entity.setDependentes(new ArrayList<>());

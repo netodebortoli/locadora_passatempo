@@ -33,7 +33,7 @@ public abstract class ClienteEntity {
     protected Long id;
 
     @NotNull
-    @Column(name = "numero_inscricao", nullable = false)
+    @Column(name = "numero_inscricao", nullable = false, updatable = false)
     protected String numInscricao;
 
     @NotBlank
@@ -53,4 +53,5 @@ public abstract class ClienteEntity {
     @Column(length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
     protected TipoStatus status = TipoStatus.ATIVO;
+
 }

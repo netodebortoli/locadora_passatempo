@@ -77,6 +77,5 @@ public class SocioController
         model.setDependentes(socio.getDependentes());
 
         return service.salvar(model);
-
     }
 }
