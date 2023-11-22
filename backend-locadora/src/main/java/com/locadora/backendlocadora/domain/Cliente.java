@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.locadora.backendlocadora.domain.enums.Status;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -45,6 +44,6 @@ public abstract class Cliente<K, M> implements Serializable {
     protected String sexo;
 
     @Hidden
-    protected Status status;
+    protected String status;
 
 }

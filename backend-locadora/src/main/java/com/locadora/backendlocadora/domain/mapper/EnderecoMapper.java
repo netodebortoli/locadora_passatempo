@@ -32,9 +32,8 @@ public class EnderecoMapper extends GenericMapper<Endereco, EnderecoEntity> {
 
         EnderecoEntity entity = new EnderecoEntity();
 
-        if (model.id() != null) {
+        if (model.id() != null)
             entity.setId(model.id());
-        }
 
         entity.setLogradouro(model.logradouro());
         entity.setNumero(model.numero());

@@ -4,10 +4,9 @@ import java.util.stream.Stream;
 
 import org.springframework.stereotype.Component;
 
-import com.locadora.backendlocadora.domain.entity.ItemEntity;
 import com.locadora.backendlocadora.domain.Item;
+import com.locadora.backendlocadora.domain.entity.ItemEntity;
 import com.locadora.backendlocadora.domain.enums.TipoItem;
-import com.locadora.backendlocadora.service.exception.NegocioException;
 
 @Component
 public class ItemMapper extends GenericMapper<Item, ItemEntity> {
@@ -17,8 +16,9 @@ public class ItemMapper extends GenericMapper<Item, ItemEntity> {
     @Override
     public Item toModel(ItemEntity entity) {
 
-        if (entity == null)
+        if (entity == null) {
             return null;
+        }
 
         return new Item(
                 entity.getId(),
@@ -29,8 +29,8 @@ public class ItemMapper extends GenericMapper<Item, ItemEntity> {
     }
 
     @Override
-    public ItemEntity toEntity(Item model) throws NegocioException {
-        
+    public ItemEntity toEntity(Item model) {
+
         if (model == null) {
             return null;
         }
@@ -41,11 +41,10 @@ public class ItemMapper extends GenericMapper<Item, ItemEntity> {
             entity.setId(model.id());
 
         entity.setNumSerie(model.numSerie());
-        entity.setTipoItem(
-                Stream.of(TipoItem.values())
-                        .filter(tipoItem -> tipoItem.getValor().equals(model.tipoItem()))
-                        .findFirst()
-                        .orElseThrow(() -> new NegocioException("Tipo de Item inválido!")));
+        entity.setTipoItem(Stream.of(TipoItem.values())
+                .filter(tipoItem -> tipoItem.getValor().equals(model.tipoItem()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Tipo do Item inválido: " + model.tipoItem())));
         entity.setDataAquisicao(model.dataAquisicao());
         entity.setTitulo(tituloMapper.toEntity(model.titulo()));
 

@@ -3,6 +3,7 @@ package com.locadora.backendlocadora.domain.mapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import com.locadora.backendlocadora.domain.Dependente;
 import com.locadora.backendlocadora.domain.Socio;
 import com.locadora.backendlocadora.domain.entity.DependenteEntity;
 import com.locadora.backendlocadora.domain.entity.SocioEntity;
+import com.locadora.backendlocadora.domain.enums.TipoStatus;
 
 @Component
 public class SocioMapper extends GenericMapper<Socio, SocioEntity> {
@@ -33,7 +35,7 @@ public class SocioMapper extends GenericMapper<Socio, SocioEntity> {
         model.setCpf(entity.getCpf());
         model.setTelefone(entity.getTelefone());
         model.setEndereco(enderecoMapper.toModel(entity.getEndereco()));
-        model.setStatus(entity.getStatus());
+        model.setStatus(entity.getStatus().getValor());
         model.setDependentes(new ArrayList<>());
 
         if (entity.getDependentes() != null && !entity.getDependentes().isEmpty()) {
@@ -60,7 +62,10 @@ public class SocioMapper extends GenericMapper<Socio, SocioEntity> {
             entity.setId(model.getId());
 
         if (model.getStatus() != null)
-            entity.setStatus(model.getStatus());
+            entity.setStatus(Stream.of(TipoStatus.values())
+                    .filter(status -> status.getValor().equals(model.getStatus()))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("Status inválido: " + model.getStatus())));
 
         entity.setNome(model.getNome());
         entity.setDataNascimento(model.getDataNascimento());

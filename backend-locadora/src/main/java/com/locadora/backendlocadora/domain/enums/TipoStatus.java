@@ -2,14 +2,14 @@ package com.locadora.backendlocadora.domain.enums;
 
 import lombok.Getter;
 
-public enum Status {
+public enum TipoStatus {
     ATIVO("Ativo"),
     INATIVO("Inativo");
 
     @Getter
-    private String status;
+    private String valor;
 
-    Status(String status) {
-        this.status = status;
+    TipoStatus(String valor) {
+        this.valor = valor;
     }
 }
