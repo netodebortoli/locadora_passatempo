@@ -35,7 +35,7 @@ public abstract class Cliente<K, M> implements Serializable {
 
     @NotNull(message = "O campo data de nascimento é obrigatório.")
     @PastOrPresent(message = "O campo data de nascimento não pode ser um valor futuro.")
-    @Schema(type = "string", example = "1945-10-27", description = "Data de nascimento do cliente.")
+    @Schema(type = "string", example = "2000-10-27", description = "Data de nascimento do cliente.")
     protected Date dataNascimento;
 
     @NotBlank(message = "O campo sexo é obrigatório.")

@@ -1,6 +1,7 @@
 package com.locadora.backendlocadora.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,16 +83,50 @@ public class SocioController
         return service.salvar(model);
     }
 
+    @Operation(description = "Atualiza o status do Sócio pelo ID fornecido.", responses = {
+            @ApiResponse(responseCode = "200", description = "Status do sócio alterado com sucesso.", content = {
+                    @Content(mediaType = "application/json")
+            }),
+            @ApiResponse(responseCode = "400", description = "Erro ao alterar status do sócio.", content = {
+                    @Content(mediaType = "application/json")
+            }),
+            @ApiResponse(responseCode = "404", description = "Sócio não encontrado.", content = {
+                    @Content(mediaType = "application/json")
+            })
+    })
     @PatchMapping("/{id}/status")
     @ResponseStatus(HttpStatus.OK)
     public Socio atualizarStatusSocio(@PathVariable @Positive @NotNull Long id, @RequestBody @NotBlank String status) {
         return service.atualizarSocio(id, status);
     }
 
+    @Operation(description = "Atualiza o status do Dependente pelo ID fornecido.", responses = {
+            @ApiResponse(responseCode = "200", description = "Status do dependente alterado com sucesso.", content = {
+                    @Content(mediaType = "application/json")
+            }),
+            @ApiResponse(responseCode = "400", description = "Erro ao alterar status do dependente.", content = {
+                    @Content(mediaType = "application/json")
+            }),
+            @ApiResponse(responseCode = "404", description = "Dependente não encontrado.", content = {
+                    @Content(mediaType = "application/json")
+            })
+    })
     @PatchMapping("/dependentes/{id}/status")
     @ResponseStatus(HttpStatus.OK)
-    public Dependente atualizarStatusDependente(@PathVariable @Positive @NotNull Long id, @RequestBody @NotBlank String status) {
+    public Dependente atualizarStatusDependente(@PathVariable @Positive @NotNull Long id,
+            @RequestBody @NotBlank String status) throws NegocioException {
         return service.atualizarDependente(id, status);
+    }
+
+    @Operation(description = "Exclui o dependente pelo ID passado na requisição.", responses = {
+            @ApiResponse(responseCode = "204", description = "Dependente excluido com sucesso."),
+            @ApiResponse(responseCode = "400", description = "Ocorreu um erro ao excluir."),
+            @ApiResponse(responseCode = "404", description = "Dependente não encontrado.")
+    })
+    @DeleteMapping("/dependentes/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar(@PathVariable @Positive @NotNull Long id) throws NegocioException {
+        service.deletarDependente(id);
     }
 
 }

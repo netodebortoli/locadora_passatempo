@@ -30,20 +30,6 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
         this.setHumanReadableName("Sócio");
     }
 
-    private String gerarNumInscricao(Cliente c) {
-        String ano = String.valueOf(LocalDate.now().getYear());
-        String semestre = "01";
-        if (LocalDate.now().getMonthValue() > 6) {
-            semestre = "02";
-        }
-        String numRamString = String.valueOf((Math.random()) * 10).substring(0, 4);
-        String diaNascimento = String.valueOf(c.getDataNascimento().toLocalDate().getDayOfMonth());
-        String diaAtual = String.valueOf(LocalDate.now().getDayOfMonth());
-        String mesNascimento = String.valueOf(c.getDataNascimento().toLocalDate().getMonthValue());
-        String mesAtual = String.valueOf(LocalDate.now().getMonthValue());
-        return (ano + semestre + numRamString + diaNascimento + diaAtual + mesNascimento + mesAtual).replace(".", "");
-    }
-
     @Transactional(rollbackOn = { Exception.class })
     @Override
     public Socio salvar(@Valid @NotNull Socio model) throws RegistroNaoEncontradoException, NegocioException {
@@ -53,7 +39,7 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
         if (model.getId() == null) {
             model.setNumInscricao(gerarNumInscricao(model));
         } else {
-            model.setNumInscricao(this.repository.findBySocio(model.getId()).getNumInscricao());
+            model.setNumInscricao(this.buscarPorId(model.getId()).getNumInscricao());
         }
 
         if (model.getDependentes() != null && !model.getDependentes().isEmpty()) {
@@ -61,7 +47,7 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
                 if (dependente.getId() == null) {
                     dependente.setNumInscricao(gerarNumInscricao(dependente));
                 } else {
-                    model.setNumInscricao(this.repository.findByDependente(dependente.getId()).getNumInscricao());
+                    dependente.setNumInscricao(this.dependenteService.buscarPorId(dependente.getId()).getNumInscricao());
                 }
             });
         }
@@ -87,30 +73,48 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
     }
 
     @Transactional(rollbackOn = { Exception.class })
-    public Socio atualizarSocio(@NotNull @Valid Long id, @NotBlank @Valid String status) {
+    public Socio atualizarSocio(@NotNull @Valid Long id, @NotBlank @Valid String novoStatus) {
 
         Socio socioFromDB = buscarPorId(id);
 
-        socioFromDB.setStatus(status);
+        socioFromDB.setStatus(novoStatus);
 
         if (socioFromDB.getDependentes() != null && !socioFromDB.getDependentes().isEmpty()) {
-            socioFromDB.getDependentes().forEach(d -> d.setStatus(status));
+            socioFromDB.getDependentes().forEach(d -> d.setStatus(novoStatus));
         }
 
         return mapper.toModel(this.repository.saveAndFlush(mapper.toEntity(socioFromDB)));
     }
 
-    public Dependente atualizarDependente(@NotNull @Valid Long id, @NotBlank @Valid String status) throws NegocioException {
-        return this.dependenteService.atualizarDependente(id, status);
+    public Dependente atualizarDependente(@NotNull @Valid Long id, @NotBlank @Valid String novoStatus)
+            throws NegocioException {
+        return this.dependenteService.atualizarDependente(id, novoStatus);
+    }
+
+    private String gerarNumInscricao(Cliente<Long, ?> c) {
+        String ano = String.valueOf(LocalDate.now().getYear());
+        String semestre = "01";
+        if (LocalDate.now().getMonthValue() > 6)
+            semestre = "02";
+        String numRamString = String.valueOf((Math.random()) * 10).substring(0, 4);
+        String diaNascimento = String.valueOf(c.getDataNascimento().toLocalDate().getDayOfMonth());
+        String diaAtual = String.valueOf(LocalDate.now().getDayOfMonth());
+        String mesNascimento = String.valueOf(c.getDataNascimento().toLocalDate().getMonthValue());
+        String mesAtual = String.valueOf(LocalDate.now().getMonthValue());
+        return (ano + semestre + numRamString + diaNascimento + diaAtual + mesNascimento + mesAtual).replace(".", "");
     }
 
     /*
      * TODO: Não é permitida a exclusão de um cliente que tenha locações
-     * Na exclusão de um cliente, devem ser excluídas tambémas suas reservas.
+     * Na exclusão de um cliente, devem ser excluídas tambémas suas reservas (locações?).
      */
     @Override
     public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
         super.deletar(id);
+    }
+
+    public void deletarDependente(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
+        this.dependenteService.deletar(id);
     }
 
 }

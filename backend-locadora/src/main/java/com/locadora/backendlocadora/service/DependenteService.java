@@ -39,15 +39,25 @@ public class DependenteService
                 .orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id));
 
         if (dependenteFromDB != null && !dependenteFromDB.getSocio().getStatus().equals(TipoStatus.ATIVO)) {
-            throw new NegocioException("Não é possível ativar um dependente de um sócio inativo.");
+            throw new NegocioException(
+                    "Não é possível alterar o status de um dependente relacionado a um sócio inativo.");
         }
 
         dependenteFromDB.setStatus(Stream.of(TipoStatus.values())
                 .filter(status -> status.getValor().equals(novoStatus))
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException("Status inválido: " + dependenteFromDB.getStatus())));
+                .orElseThrow(() -> new IllegalStateException("Status inválido: " + novoStatus)));
 
         return mapper.toModel(this.repository.save(dependenteFromDB));
+    }
+
+    /*
+     * TODO: Não é permitida a exclusão de um cliente que tenha locações
+     * Na exclusão de um cliente, devem ser excluídas tambémas suas reservas (locações?).
+     */
+    @Override
+    public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
+        super.deletar(id);
     }
 
 }
