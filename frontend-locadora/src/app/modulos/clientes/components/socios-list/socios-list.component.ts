@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {BaseListComponent} from "../../../../shared/base/components/base-list/base-list.component";
 import {Cliente} from "../../model/cliente";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {Socio} from "../../model/socio";
 
 @Component({
   selector: 'app-socios-list',
@@ -15,12 +16,23 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     ]),
   ],
 })
-export class SociosListComponent extends BaseListComponent<Cliente> {
+export class SociosListComponent extends BaseListComponent<Socio> {
+
+  @Output() changeStatusSocio = new EventEmitter(false);
+  @Output() changeStatusDependente = new EventEmitter(false);
 
   constructor() {
-    super(['numInscricao', 'nome', 'dataNascimento', 'sexo', 'acoes']);
+    super(['numInscricao', 'nome', 'telefone', 'status', 'acoes']);
   }
 
   expandedElement!: Cliente | null;
   colunasParaExibirAoExpandir = [...this.displayedColumns, 'expand'];
+
+  onChangeStatusSocio(registro: Socio){
+    this.changeStatusSocio.emit(registro);
+  }
+
+  onChangeStatusDependente(registro: Socio){
+    this.changeStatusDependente.emit(registro);
+  }
 }

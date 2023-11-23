@@ -5,7 +5,9 @@
     </mat-toolbar>
     <div class="mat-elevation-z8">
       <app-socios-list *ngIf="registros$ | async as socios; else loading" [arrayModel]="socios" (add)="onAdd()"
-                        (edit)="onEdit($event)" (delete)="onDelete($event)">
+                       (edit)="onEdit($event)" (delete)="onDelete($event)"
+                       (changeStatusSocio)="mudarStatusSocio($event)"
+                       (changeStatusDependente)="mudarStatusDependente($event)">
       </app-socios-list>
 
       <ng-template #loading>

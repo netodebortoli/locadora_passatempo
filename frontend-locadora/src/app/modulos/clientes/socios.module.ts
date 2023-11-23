@@ -8,6 +8,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {SociosComponent} from './containers/socios/socios.component';
 import {SociosListComponent} from './components/socios-list/socios-list.component';
 import {SocioFormComponent} from './containers/socio-form/socio-form.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -15,13 +16,14 @@ import {SocioFormComponent} from './containers/socio-form/socio-form.component';
     SociosListComponent,
     SocioFormComponent
   ],
-  imports: [
-    CommonModule,
-    SociosRoutingModule,
-    AppMaterialModule,
-    SharedModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        SociosRoutingModule,
+        AppMaterialModule,
+        SharedModule,
+        ReactiveFormsModule,
+        MatTooltipModule
+    ]
 })
 export class SociosModule {
 }
