@@ -8,6 +8,7 @@ import { AtorFormComponent } from './containers/ator-form/ator-form.component';
 import { AtoresRoutingModule } from './atores-routing.module';
 import { AtoresComponent } from './containers/atores/atores.component';
 import { AtoresListComponent } from './components/atores-list/atores-list.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -15,12 +16,13 @@ import { AtoresListComponent } from './components/atores-list/atores-list.compon
     AtorFormComponent,
     AtoresListComponent
   ],
-  imports: [
-    CommonModule,
-    AtoresRoutingModule,
-    AppMaterialModule,
-    SharedModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        AtoresRoutingModule,
+        AppMaterialModule,
+        SharedModule,
+        ReactiveFormsModule,
+        MatTooltipModule
+    ]
 })
 export class AtoresModule { }

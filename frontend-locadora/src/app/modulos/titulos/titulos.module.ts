@@ -8,6 +8,7 @@ import { TitulosListComponent } from './components/titulos-list/titulos-list.com
 import { TituloFormComponent } from './containers/titulo-form/titulo-form.component';
 import { TitulosComponent } from './containers/titulos/titulos.component';
 import { TitulosRoutingModule } from './titulos-routing.module';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -15,12 +16,13 @@ import { TitulosRoutingModule } from './titulos-routing.module';
     TitulosListComponent,
     TituloFormComponent
   ],
-  imports: [
-    CommonModule,
-    TitulosRoutingModule,
-    AppMaterialModule,
-    SharedModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        TitulosRoutingModule,
+        AppMaterialModule,
+        SharedModule,
+        ReactiveFormsModule,
+        MatTooltipModule
+    ],
 })
 export class TitulosModule {}
