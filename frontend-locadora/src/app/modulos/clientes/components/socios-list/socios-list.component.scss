@@ -39,6 +39,12 @@ tr.example-element-row:not(.example-expanded-row):active {
   align-items: center;
 }
 
+.informacoes-expansao-itens{
+  text-align: start;
+  margin: 0 0 5px 0;
+  align-items: center;
+}
+
 .titulo-info{
   font-weight: 500;
   margin-right: 5px;
@@ -51,10 +57,24 @@ tr.example-element-row:not(.example-expanded-row):active {
   margin-bottom: 10px;
 }
 
+.titulo-divisao-dependentes{
+  font-weight: 500;
+  font-size: 16px;
+  color: #673AB7;
+}
+
 mat-divider {
   margin: 20px 0;
 }
 
 .inactive{
   background-color: #e3e3e3;
+}
+
+.cor-botao-cinza{
+  color: darkgrey;
+}
+
+.cor-botao-azul{
+  color: dodgerblue;
 }

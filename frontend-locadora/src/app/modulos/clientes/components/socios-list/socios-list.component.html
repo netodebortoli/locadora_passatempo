@@ -31,7 +31,8 @@
   <ng-container matColumnDef="acoes">
     <th mat-header-cell *matHeaderCellDef>
       <div class="action-column-list-title">
-        <button matTooltip="Adicionar sócio" (click)="onAdd()" mat-mini-fab color="accent" aria-label="Adicionar um sócio.">
+        <button matTooltip="Adicionar sócio" (click)="onAdd()" mat-mini-fab color="accent"
+                aria-label="Adicionar um sócio.">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -49,8 +50,10 @@
       </button>
       <button [matTooltip]="element.status == 'Ativo' ? 'Desativar' : 'Ativar'" (click)="onChangeStatusSocio(element)"
               mat-icon-button
-              [color]="element.status == 'Ativo' ? 'warn' : 'primary'" aria-label="Alterar status do sócio.">
-        <mat-icon>{{element.status == 'Ativo' ? 'block' : 'check'}}</mat-icon>
+              [class.cor-botao-cinza]="element.status === 'Ativo'"
+              [class.cor-botao-azul]="element.status !== 'Ativo'"
+              aria-label="Alterar status do sócio.">
+        <mat-icon>{{element.status === 'Ativo' ? 'person_off' : 'how_to_reg'}}</mat-icon>
       </button>
     </td>
   </ng-container>
@@ -91,40 +94,54 @@
               - {{element.endereco.uf}}
             </div>
             <mat-divider></mat-divider>
-            <span class="titulo-divisao">Dependentes: </span>
           </div>
 
-
-          <div *ngFor="let dep of (element.dependentes)">
+          <div *ngIf="element.dependentes.length === 0">
             <div class="row informacoes-expansao">
-              <div class="col-1">
-                <span class="titulo-info">Inscrição:</span> {{dep.numInscricao}}
-              </div>
-              <div class="col-3">
-                <span class="titulo-info">Nome:</span> {{dep.nome}}
-              </div>
-              <div class="col-3">
-                <span class="titulo-info">Data de nascimento:</span> {{dep.dataNascimento | date:'shortDate'}}
-              </div>
-              <div class="col-2">
-                <span class="titulo-info">Sexo:</span> {{ dep.sexo == 'F' ? 'Feminino' : 'Masculino'}}
-              </div>
-              <div class="col-2">
-                <span class="titulo-info">Status:</span> {{dep.status}}
-              </div>
-              <div class="col-1">
-                <button matTooltip="Remover dependente" (click)="onDeleteDependente(dep)" mat-icon-button color="warn"
-                        aria-label="Remover um dependente.">
-                  <mat-icon>delete</mat-icon>
-                </button>
-                <button [matTooltip]="dep.status == 'Ativo' ? 'Desativar dependente' : 'Ativar dependente'" (click)="onChangeStatusDependente(dep)"
-                        mat-icon-button
-                        [color]="element.status == 'Ativo' ? 'warn' : 'primary'" aria-label="Alterar status do dependente.">
-                  <mat-icon>{{element.status == 'Ativo' ? 'block' : 'check'}}</mat-icon>
-                </button>
+              <span class="titulo-divisao">Sem dependentes cadastrados.</span>
+            </div>
+          </div>
+
+          <div *ngIf="element.dependentes.length !== 0">
+            <div class="row informacoes-expansao">
+              <span class="titulo-divisao-dependentes">Dependentes: </span>
+            </div>
+            <div *ngFor="let dep of (element.dependentes)">
+              <div class="row informacoes-expansao-itens">
+                <div class="col-2">
+                  <span class="titulo-info">Inscrição:</span> {{dep.numInscricao}}
+                </div>
+                <div class="col-3">
+                  <span class="titulo-info">Nome:</span> {{dep.nome}}
+                </div>
+                <div class="col-3">
+                  <span class="titulo-info">Data de nascimento:</span> {{dep.dataNascimento | date:'shortDate'}}
+                </div>
+                <div class="col-1">
+                  <span class="titulo-info">Sexo:</span> {{dep.sexo}}
+                </div>
+                <div class="col-2">
+                  <span class="titulo-info">Status:</span> {{dep.status}}
+                </div>
+                <div class="col-1">
+                  <button matTooltip="Remover dependente" (click)="onDeleteDependente(dep)" mat-icon-button color="warn"
+                          aria-label="Remover um dependente.">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <button [matTooltip]="dep.status == 'Ativo' ? 'Desativar dependente' : 'Ativar dependente'"
+                          (click)="onChangeStatusDependente(dep)"
+                          mat-icon-button
+                          [class.cor-botao-cinza]="dep.status === 'Ativo'"
+                          [class.cor-botao-azul]="dep.status !== 'Ativo'"
+                          aria-label="Alterar status do dependente.">
+                    <mat-icon>{{dep.status === 'Ativo' ? 'person_off' : 'how_to_reg'}}</mat-icon>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+
+
         </div>
         <!--        &#45;&#45;&#45;&#45; FIM DO CONTEUDO DO EXPAND &#45;&#45;&#45;&#45;-->
 

@@ -7,7 +7,11 @@
       <form [formGroup]="form" class="min-width-form">
 
         <mat-tab-group>
-          <mat-tab label="Sócio">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              Sócio&nbsp;
+              <mat-icon class="example-tab-icon">person</mat-icon>
+            </ng-template>
 
             <mat-grid-list cols="12" rowHeight="90" gutterSize="15px">
 
@@ -130,7 +134,11 @@
             </mat-grid-list>
           </mat-tab>
 
-          <mat-tab label="Dependentes">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              Dependentes&nbsp;
+              <mat-icon class="example-tab-icon">groups</mat-icon>
+            </ng-template>
             <mat-grid-list cols="12" rowHeight="90" gutterSize="15px">
 
               <mat-grid-tile class="cabecalho-dependentes" [colspan]="12" [rowspan]="1">
