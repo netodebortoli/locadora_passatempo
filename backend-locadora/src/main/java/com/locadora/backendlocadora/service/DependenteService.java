@@ -32,10 +32,15 @@ public class DependenteService
     }
 
     @Transactional(rollbackOn = { Exception.class })
-    public Dependente atualizarDependente(@NotNull @Valid Long id, @NotBlank @Valid String novoStatus) {
+    public Dependente atualizarDependente(@NotNull @Valid Long id, @NotBlank @Valid String novoStatus)
+            throws NegocioException {
 
         DependenteEntity dependenteFromDB = this.repository.findById(id)
                 .orElseThrow(() -> new RegistroNaoEncontradoException(humanReadableName, id));
+
+        if (dependenteFromDB != null && !dependenteFromDB.getSocio().getStatus().equals(TipoStatus.ATIVO)) {
+            throw new NegocioException("Não é possível ativar um dependente de um sócio inativo.");
+        }
 
         dependenteFromDB.setStatus(Stream.of(TipoStatus.values())
                 .filter(status -> status.getValor().equals(novoStatus))

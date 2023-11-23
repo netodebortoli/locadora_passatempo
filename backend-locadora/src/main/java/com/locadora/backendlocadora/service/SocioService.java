@@ -100,7 +100,7 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
         return mapper.toModel(this.repository.saveAndFlush(mapper.toEntity(socioFromDB)));
     }
 
-    public Dependente atualizarDependente(@NotNull @Valid Long id, @NotBlank @Valid String status) {
+    public Dependente atualizarDependente(@NotNull @Valid Long id, @NotBlank @Valid String status) throws NegocioException {
         return this.dependenteService.atualizarDependente(id, status);
     }
 
