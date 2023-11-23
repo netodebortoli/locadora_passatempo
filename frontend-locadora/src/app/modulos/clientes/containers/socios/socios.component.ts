@@ -28,6 +28,29 @@ export class SociosComponent extends BaseContainerComponent<Socio> {
     super('Cliente', sociosService, router, route, dialog, snackBar);
   }
 
+  onDeleteDependente(registro: Dependente) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: `Tem certeza que deseja remover este Dependente?`,
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.sociosService.deleteDependente(registro._id).subscribe({
+            error: (erro) => this.onError('Erro ao remover Dependente.', erro),
+            complete: () => {
+              this.refresh();
+              this.snackBar.open('Dependente removido com sucesso.', 'X', {
+                duration: 3500,
+                verticalPosition: 'bottom',
+                horizontalPosition: 'center',
+              });
+            },
+          }
+        )
+      }
+    });
+  }
+
   mudarStatusSocio(registro: Socio) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: `Tem certeza que deseja alterar o status desse Socio?`,

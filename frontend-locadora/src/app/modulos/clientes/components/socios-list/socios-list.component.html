@@ -31,7 +31,7 @@
   <ng-container matColumnDef="acoes">
     <th mat-header-cell *matHeaderCellDef>
       <div class="action-column-list-title">
-        <button (click)="onAdd()" mat-mini-fab color="accent" aria-label="Adicionar um sócio.">
+        <button matTooltip="Adicionar sócio" (click)="onAdd()" mat-mini-fab color="accent" aria-label="Adicionar um sócio.">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -113,9 +113,15 @@
                 <span class="titulo-info">Status:</span> {{dep.status}}
               </div>
               <div class="col-1">
-                <button mat-raised-button
-                        [matTooltip]="dep.status == 'Ativo' ? 'Desativar dependente' : 'Ativar dependente'"
-                        (click)="onChangeStatusDependente(dep)">{{dep.status == 'Ativo' ? 'Desativar' : 'Ativar'}}</button>
+                <button matTooltip="Remover dependente" (click)="onDeleteDependente(dep)" mat-icon-button color="warn"
+                        aria-label="Remover um dependente.">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button [matTooltip]="dep.status == 'Ativo' ? 'Desativar dependente' : 'Ativar dependente'" (click)="onChangeStatusDependente(dep)"
+                        mat-icon-button
+                        [color]="element.status == 'Ativo' ? 'warn' : 'primary'" aria-label="Alterar status do dependente.">
+                  <mat-icon>{{element.status == 'Ativo' ? 'block' : 'check'}}</mat-icon>
+                </button>
               </div>
             </div>
           </div>

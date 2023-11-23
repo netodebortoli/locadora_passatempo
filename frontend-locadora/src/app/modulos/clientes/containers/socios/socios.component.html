@@ -7,7 +7,9 @@
       <app-socios-list *ngIf="registros$ | async as socios; else loading" [arrayModel]="socios" (add)="onAdd()"
                        (edit)="onEdit($event)" (delete)="onDelete($event)"
                        (changeStatusSocio)="mudarStatusSocio($event)"
-                       (changeStatusDependente)="mudarStatusDependente($event)">
+                       (changeStatusDependente)="mudarStatusDependente($event)"
+                       (deleteDependente)="onDeleteDependente($event)"
+      >
       </app-socios-list>
 
       <ng-template #loading>
