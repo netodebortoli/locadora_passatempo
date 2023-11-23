@@ -20,7 +20,7 @@ public abstract class GenericService<M, K, R extends JpaRepository<E, K>, E, MP 
 
     protected R repository;
 
-    private String humanReadableName;
+    protected String humanReadableName;
 
     protected MP mapper;
 

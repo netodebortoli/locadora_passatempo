@@ -2,9 +2,11 @@ package com.locadora.backendlocadora.service;
 
 import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.locadora.backendlocadora.domain.Cliente;
+import com.locadora.backendlocadora.domain.Dependente;
 import com.locadora.backendlocadora.domain.Socio;
 import com.locadora.backendlocadora.domain.entity.SocioEntity;
 import com.locadora.backendlocadora.domain.mapper.SocioMapper;
@@ -14,10 +16,14 @@ import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoExcep
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Service
 public class SocioService extends GenericService<Socio, Long, SocioRepository, SocioEntity, SocioMapper> {
+
+    @Autowired
+    private DependenteService dependenteService;
 
     public SocioService(SocioRepository repository, SocioMapper mapper) {
         super(repository, mapper);
@@ -47,7 +53,7 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
         if (model.getId() == null) {
             model.setNumInscricao(gerarNumInscricao(model));
         } else {
-            model.setNumInscricao(this.repository.findNumInscricaoBySocio(model.getId()));
+            model.setNumInscricao(this.repository.findBySocio(model.getId()).getNumInscricao());
         }
 
         if (model.getDependentes() != null && !model.getDependentes().isEmpty()) {
@@ -55,7 +61,7 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
                 if (dependente.getId() == null) {
                     dependente.setNumInscricao(gerarNumInscricao(dependente));
                 } else {
-                    model.setNumInscricao(this.repository.findNumInscricaoByDependente(dependente.getId()));
+                    model.setNumInscricao(this.repository.findByDependente(dependente.getId()).getNumInscricao());
                 }
             });
         }
@@ -78,6 +84,24 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
                 throw new NegocioException("Não é permitido alterar o número de CPF.");
             }
         }
+    }
+
+    @Transactional(rollbackOn = { Exception.class })
+    public Socio atualizarSocio(@NotNull @Valid Long id, @NotBlank @Valid String status) {
+
+        Socio socioFromDB = buscarPorId(id);
+
+        socioFromDB.setStatus(status);
+
+        if (socioFromDB.getDependentes() != null && !socioFromDB.getDependentes().isEmpty()) {
+            socioFromDB.getDependentes().forEach(d -> d.setStatus(status));
+        }
+
+        return mapper.toModel(this.repository.saveAndFlush(mapper.toEntity(socioFromDB)));
+    }
+
+    public Dependente atualizarDependente(@NotNull @Valid Long id, @NotBlank @Valid String status) {
+        return this.dependenteService.atualizarDependente(id, status);
     }
 
     /*
