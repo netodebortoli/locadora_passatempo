@@ -21,7 +21,9 @@ import com.locadora.backendlocadora.service.exception.NegocioException;
 import com.locadora.backendlocadora.service.exception.RegistroNaoEncontradoException;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -31,7 +33,7 @@ import jakarta.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/api/socios")
-@Tag(name = "Controladora de Sócios", description = "Fornece serviços REST para acesso e manipulação de dados de sócios.")
+@Tag(name = "Controladora de Clientes", description = "Fornece serviços REST para acesso e manipulação de dados de Clientes.")
 public class SocioController
         extends GenericController<Long, Socio, SocioEntity, SocioMapper, SocioRepository, SocioService> {
 
@@ -96,7 +98,8 @@ public class SocioController
     })
     @PatchMapping("/{id}/status")
     @ResponseStatus(HttpStatus.OK)
-    public Socio atualizarStatusSocio(@PathVariable @Positive @NotNull Long id, @RequestBody @NotBlank String status) {
+    public Socio atualizarStatusSocio(@PathVariable @Positive @NotNull Long id,
+            @Parameter(schema = @Schema(type = "string", example = "Inativo", description = "Novo status a ser alterado no sócio.")) @RequestBody @NotBlank String status) {
         return service.atualizarSocio(id, status);
     }
 
@@ -114,7 +117,8 @@ public class SocioController
     @PatchMapping("/dependentes/{id}/status")
     @ResponseStatus(HttpStatus.OK)
     public Dependente atualizarStatusDependente(@PathVariable @Positive @NotNull Long id,
-            @RequestBody @NotBlank String status) throws NegocioException {
+            @Parameter(schema = @Schema(type = "string", example = "Inativo", description = "Novo status a ser alterado no dependente.")) @RequestBody @NotBlank String status)
+            throws NegocioException {
         return service.atualizarDependente(id, status);
     }
 
@@ -125,7 +129,7 @@ public class SocioController
     })
     @DeleteMapping("/dependentes/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable @Positive @NotNull Long id) throws NegocioException {
+    public void deletarDependente(@PathVariable @Positive @NotNull Long id) throws NegocioException {
         service.deletarDependente(id);
     }
 
