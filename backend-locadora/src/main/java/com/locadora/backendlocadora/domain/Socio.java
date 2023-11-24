@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Socio extends Cliente<Long, Socio> {
+public class Socio extends Cliente<Socio> {
 
     @NotBlank(message = "O campo CPF é obrigatório.")
     @CPF(message = "O formato do CPF é inválido.")
