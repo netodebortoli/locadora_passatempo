@@ -59,9 +59,15 @@ public class TituloController
     public Titulo atualizarTitulo(@RequestBody @Valid @NotNull Titulo titulo, @PathVariable @Positive @NotNull Long id)
             throws NegocioException {
         service.buscarPorId(id);
-        return service.salvar(
-                new Titulo(id, titulo.nome(), titulo.ano(), titulo.sinopse(), titulo.categoria(), titulo.diretor(),
-                        titulo.classe(), titulo.atores()));
+        return service.salvar(new Titulo(
+                id,
+                titulo.nome(),
+                titulo.ano(),
+                titulo.sinopse(),
+                titulo.categoria(),
+                titulo.diretor(),
+                titulo.classe(),
+                titulo.atores()));
     }
 
 }

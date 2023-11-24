@@ -38,7 +38,7 @@ public class SocioController
         extends GenericController<Long, Socio, SocioEntity, SocioMapper, SocioRepository, SocioService> {
 
     @Operation(description = "Cria um objeto do tipo Sócio", responses = {
-            @ApiResponse(responseCode = "201", description = "Sócio criador com sucesso.", content = {
+            @ApiResponse(responseCode = "201", description = "Sócio criado com sucesso.", content = {
                     @Content(mediaType = "application/json")
             }),
             @ApiResponse(responseCode = "400", description = "Erro ao criar Sócio.", content = {
