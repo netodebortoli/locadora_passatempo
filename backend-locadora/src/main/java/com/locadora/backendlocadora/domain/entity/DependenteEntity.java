@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "dependentes")
-public class DependenteEntity extends ClienteEntity {
+public class DependenteEntity extends ClienteEntity<DependenteEntity> {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_socio", referencedColumnName = "id")
