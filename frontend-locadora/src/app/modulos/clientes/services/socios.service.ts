@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {BaseService} from "../../shared/base/base.service";
-import {Cliente} from "./model/cliente";
+import {BaseService} from "../../../shared/base/base.service";
+import {Cliente} from "../model/cliente";
 import {HttpClient} from "@angular/common/http";
-import {Socio} from "./model/socio";
-import {Dependente} from "./model/dependente";
+import {Socio} from "../model/socio";
+import {Dependente} from "../model/dependente";
 
 @Injectable({
   providedIn: 'root'

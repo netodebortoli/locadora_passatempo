@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {SociosRoutingModule} from './socios-routing.module';
+import {ClientesRoutingModule} from './clientes-routing.module';
 import {AppMaterialModule} from "../../shared/app-material/app-material.module";
 import {SharedModule} from "../../shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -18,12 +18,12 @@ import {MatTooltipModule} from "@angular/material/tooltip";
   ],
     imports: [
         CommonModule,
-        SociosRoutingModule,
+        ClientesRoutingModule,
         AppMaterialModule,
         SharedModule,
         ReactiveFormsModule,
         MatTooltipModule
     ]
 })
-export class SociosModule {
+export class ClientesModule {
 }
