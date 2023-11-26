@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public abstract class Cliente<M> implements Serializable {
+public class Cliente implements Serializable {
 
     @JsonProperty("_id")
     @Schema(type = "long", example = "1")

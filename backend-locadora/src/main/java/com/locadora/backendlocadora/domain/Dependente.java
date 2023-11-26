@@ -5,6 +5,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Dependente extends Cliente<Dependente> {
+public class Dependente extends Cliente {
 
 }

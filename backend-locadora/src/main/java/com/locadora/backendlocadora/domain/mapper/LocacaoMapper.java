@@ -2,34 +2,20 @@ package com.locadora.backendlocadora.domain.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.locadora.backendlocadora.domain.Cliente;
-import com.locadora.backendlocadora.domain.Dependente;
 import com.locadora.backendlocadora.domain.Locacao;
-import com.locadora.backendlocadora.domain.Socio;
-import com.locadora.backendlocadora.domain.entity.ClienteEntity;
-import com.locadora.backendlocadora.domain.entity.DependenteEntity;
 import com.locadora.backendlocadora.domain.entity.LocacaoEntity;
-import com.locadora.backendlocadora.domain.entity.SocioEntity;
 
 @Component
 public class LocacaoMapper extends GenericMapper<Locacao, LocacaoEntity> {
 
     private ItemMapper itemMapper = new ItemMapper();
-    private SocioMapper socioMapper = new SocioMapper();
-    private DependenteMapper dependenteMapper = new DependenteMapper();
+    private ClienteMapper clienteMapper = new ClienteMapper();
 
     public Locacao toModel(LocacaoEntity entity) {
 
         if (entity == null) {
             return null;
         }
-
-        Cliente<?> cliente;
-
-        if (entity.getCliente() instanceof SocioEntity)
-            cliente = socioMapper.toModel((SocioEntity) entity.getCliente());
-        else
-            cliente = dependenteMapper.toModel((DependenteEntity) entity.getCliente());
 
         return new Locacao(
                 entity.getId(),
@@ -38,7 +24,7 @@ public class LocacaoMapper extends GenericMapper<Locacao, LocacaoEntity> {
                 entity.getDataDevolucaoEfetiva(),
                 entity.getValorCobrado(),
                 entity.getMultaCobrada(),
-                cliente,
+                clienteMapper.toModel(entity.getCliente()),
                 itemMapper.toModel(entity.getItem()));
     }
 
@@ -49,12 +35,6 @@ public class LocacaoMapper extends GenericMapper<Locacao, LocacaoEntity> {
         }
 
         LocacaoEntity entity = new LocacaoEntity();
-        ClienteEntity<?> cliente;
-
-        if (model.cliente() instanceof Socio)
-            cliente = socioMapper.toEntity((Socio) model.cliente());
-        else
-            cliente = dependenteMapper.toEntity((Dependente) model.cliente());
 
         if (model.id() != null)
             entity.setId(model.id());
@@ -64,7 +44,7 @@ public class LocacaoMapper extends GenericMapper<Locacao, LocacaoEntity> {
         entity.setDataDevolucaoEfetiva(model.dataDevolucaoEfetiva());
         entity.setValorCobrado(model.valorCobrado());
         entity.setMultaCobrada(model.multaCobrada());
-        entity.setCliente(cliente);
+        entity.setCliente(clienteMapper.toEntity(model.cliente()));
         entity.setItem(itemMapper.toEntity(model.item()));
 
         return entity;

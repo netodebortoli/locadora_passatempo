@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "locações")
+@Table(name = "locacoes")
 public class LocacaoEntity {
 
     @Id
@@ -50,7 +50,7 @@ public class LocacaoEntity {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "id_cliente", referencedColumnName = "id", nullable = false)
-    private ClienteEntity<?> cliente;
+    private ClienteEntity cliente;
 
     @NotNull
     @ManyToOne

@@ -91,7 +91,7 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
         return this.dependenteService.atualizarDependente(id, novoStatus);
     }
 
-    private String gerarNumInscricao(Cliente<?> c) {
+    private String gerarNumInscricao(Cliente c) {
         String ano = String.valueOf(LocalDate.now().getYear());
         String semestre = "01";
         if (LocalDate.now().getMonthValue() > 6)

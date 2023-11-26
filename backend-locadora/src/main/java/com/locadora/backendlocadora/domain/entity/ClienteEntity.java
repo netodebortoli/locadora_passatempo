@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "clientes")
-public abstract class ClienteEntity<E> {
+public class ClienteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
