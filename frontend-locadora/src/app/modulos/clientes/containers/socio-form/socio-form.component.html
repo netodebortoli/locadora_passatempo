@@ -191,9 +191,11 @@
                   </mat-grid-tile>
 
                   <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <ng-container *ngIf="!getDependentesFormArray()[i].get('_id')?.value">
                     <button mat-flat-button color="warn" style="margin-top: -20px" (click)="removerDependente(i)" aria-label="Remover dependente.">
                       Remover
                     </button>
+                    </ng-container>
                   </mat-grid-tile>
                 </div>
               </div>
