@@ -25,7 +25,7 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
   ) { }
 
   compareObjetos(a: BaseModel, b: BaseModel): boolean {
-    return a._id === b._id;
+    return a?._id === b?._id;
   }
 
   onSubmit() {

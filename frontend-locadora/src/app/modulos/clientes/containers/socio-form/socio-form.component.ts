@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {BaseFormComponent} from "../../../../shared/base/components/base-form/base-form.component";
 import {Socio} from "../../model/socio";
-import {SociosService} from "../../socios.service";
+import {SociosService} from "../../services/socios.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";

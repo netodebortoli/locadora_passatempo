@@ -36,7 +36,12 @@ const routes: Routes = [
   {
     path: 'clientes',
     loadChildren: () =>
-      import('./modulos/clientes/socios.module').then((m) => m.SociosModule),
+      import('./modulos/clientes/clientes.module').then((m) => m.ClientesModule),
+  },
+  {
+    path: 'locacoes',
+    loadChildren: () =>
+      import('./modulos/locacoes/locacoes.module').then((m) => m.LocacoesModule),
   },
   {path: '**', component: PageNotFoundComponent},
 ];
