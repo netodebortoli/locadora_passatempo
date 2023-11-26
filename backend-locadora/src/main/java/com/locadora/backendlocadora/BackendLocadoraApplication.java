@@ -17,6 +17,7 @@ import com.locadora.backendlocadora.domain.entity.DependenteEntity;
 import com.locadora.backendlocadora.domain.entity.DiretorEntity;
 import com.locadora.backendlocadora.domain.entity.EnderecoEntity;
 import com.locadora.backendlocadora.domain.entity.ItemEntity;
+import com.locadora.backendlocadora.domain.entity.LocacaoEntity;
 import com.locadora.backendlocadora.domain.entity.SocioEntity;
 import com.locadora.backendlocadora.domain.entity.TituloEntity;
 import com.locadora.backendlocadora.domain.enums.Categoria;
@@ -25,6 +26,7 @@ import com.locadora.backendlocadora.repository.AtorRepository;
 import com.locadora.backendlocadora.repository.ClasseRepository;
 import com.locadora.backendlocadora.repository.DiretorRepository;
 import com.locadora.backendlocadora.repository.ItemRepository;
+import com.locadora.backendlocadora.repository.LocacaoRepository;
 import com.locadora.backendlocadora.repository.SocioRepository;
 import com.locadora.backendlocadora.repository.TituloRepository;
 
@@ -41,7 +43,8 @@ public class BackendLocadoraApplication {
             ClasseRepository classeRepository,
             TituloRepository tituloRepository,
             ItemRepository itemRepository,
-            SocioRepository socioRepository) {
+            SocioRepository socioRepository,
+            LocacaoRepository locacaoRepository) {
 
         return args -> {
             atorRepository.deleteAll();
@@ -155,6 +158,30 @@ public class BackendLocadoraApplication {
             dp2.setSocio(socio1);
             socioRepository.save(socio1);
             socioRepository.save(socio2);
+
+            LocacaoEntity locacaoEntity = new LocacaoEntity();
+            LocacaoEntity locacaoEntity2 = new LocacaoEntity();
+            locacaoEntity.setCliente(socio1);
+            locacaoEntity2.setCliente(socio2);
+
+            dataUtil = formato.parse("25/11/2023");
+            dataSql = new java.sql.Date(dataUtil.getTime());
+
+            locacaoEntity.setDataLocacao(dataSql);
+            locacaoEntity2.setDataLocacao(dataSql);
+
+            dataUtil = formato.parse("15/12/2023");
+            dataSql = new java.sql.Date(dataUtil.getTime());
+
+            locacaoEntity.setDataDevolucaoPrevista(dataSql);
+            locacaoEntity2.setDataDevolucaoPrevista(dataSql);
+            locacaoEntity.setItem(item);
+            locacaoEntity2.setItem(item2);
+            locacaoEntity.setValorCobrado(50.00);
+            locacaoEntity2.setValorCobrado(50.00);
+
+            locacaoRepository.save(locacaoEntity);
+            locacaoRepository.save(locacaoEntity2);
 
         };
     }
