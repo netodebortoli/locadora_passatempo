@@ -1,7 +1,6 @@
 package com.locadora.backendlocadora.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -120,17 +119,6 @@ public class SocioController
             @Parameter(schema = @Schema(type = "string", example = "Inativo", description = "Novo status a ser alterado no dependente.")) @RequestBody @NotBlank String status)
             throws NegocioException {
         return service.atualizarDependente(id, status);
-    }
-
-    @Operation(description = "Exclui o dependente pelo ID passado na requisição.", responses = {
-            @ApiResponse(responseCode = "204", description = "Dependente excluido com sucesso."),
-            @ApiResponse(responseCode = "400", description = "Ocorreu um erro ao excluir."),
-            @ApiResponse(responseCode = "404", description = "Dependente não encontrado.")
-    })
-    @DeleteMapping("/dependentes/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletarDependente(@PathVariable @Positive @NotNull Long id) throws NegocioException {
-        service.deletarDependente(id);
     }
 
 }

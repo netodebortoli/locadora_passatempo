@@ -51,13 +51,4 @@ public class DependenteService
         return mapper.toModel(this.repository.save(dependenteFromDB));
     }
 
-    /*
-     * TODO: Não é permitida a exclusão de um cliente que tenha locações
-     * Na exclusão de um cliente, devem ser excluídas tambémas suas reservas (locações?).
-     */
-    @Override
-    public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
-        super.deletar(id);
-    }
-
 }

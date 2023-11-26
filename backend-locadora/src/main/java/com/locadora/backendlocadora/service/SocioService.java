@@ -1,11 +1,8 @@
 package com.locadora.backendlocadora.service;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.locadora.backendlocadora.domain.Cliente;
 import com.locadora.backendlocadora.domain.Dependente;
 import com.locadora.backendlocadora.domain.Socio;
 import com.locadora.backendlocadora.domain.entity.SocioEntity;
@@ -25,6 +22,9 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
     @Autowired
     private DependenteService dependenteService;
 
+    @Autowired
+    private ClienteService clienteService;
+
     public SocioService(SocioRepository repository, SocioMapper mapper) {
         super(repository, mapper);
         this.setHumanReadableName("Sócio");
@@ -37,17 +37,20 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
         validarSave(model);
 
         if (model.getId() == null) {
-            model.setNumInscricao(gerarNumInscricao(model));
+            model.setNumInscricao(clienteService.gerarNumInscricao(model));
         } else {
-            model.setNumInscricao(this.buscarPorId(model.getId()).getNumInscricao());
+            model.setNumInscricao(buscarPorId(model.getId()).getNumInscricao());
         }
 
         if (model.getDependentes() != null && !model.getDependentes().isEmpty()) {
             model.getDependentes().forEach(dependente -> {
                 if (dependente.getId() == null) {
-                    dependente.setNumInscricao(gerarNumInscricao(dependente));
+                    dependente.setNumInscricao(clienteService.gerarNumInscricao(dependente));
                 } else {
-                    dependente.setNumInscricao(this.dependenteService.buscarPorId(dependente.getId()).getNumInscricao());
+                    dependente.setNumInscricao(
+                            dependenteService.buscarPorId(
+                                    dependente.getId())
+                                    .getNumInscricao());
                 }
             });
         }
@@ -91,30 +94,9 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
         return this.dependenteService.atualizarDependente(id, novoStatus);
     }
 
-    private String gerarNumInscricao(Cliente c) {
-        String ano = String.valueOf(LocalDate.now().getYear());
-        String semestre = "01";
-        if (LocalDate.now().getMonthValue() > 6)
-            semestre = "02";
-        String numRamString = String.valueOf((Math.random()) * 10).substring(0, 4);
-        String diaNascimento = String.valueOf(c.getDataNascimento().toLocalDate().getDayOfMonth());
-        String diaAtual = String.valueOf(LocalDate.now().getDayOfMonth());
-        String mesNascimento = String.valueOf(c.getDataNascimento().toLocalDate().getMonthValue());
-        String mesAtual = String.valueOf(LocalDate.now().getMonthValue());
-        return (ano + semestre + numRamString + diaNascimento + diaAtual + mesNascimento + mesAtual).replace(".", "");
-    }
-
-    /*
-     * TODO: Não é permitida a exclusão de um cliente que tenha locações
-     * Na exclusão de um cliente, devem ser excluídas tambémas suas reservas (locações?).
-     */
     @Override
     public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
-        super.deletar(id);
-    }
-
-    public void deletarDependente(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
-        this.dependenteService.deletar(id);
+        clienteService.deletar(id);
     }
 
 }
