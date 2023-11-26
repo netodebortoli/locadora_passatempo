@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {BaseListComponent} from "../../../../shared/base/components/base-list/base-list.component";
-import {Cliente} from "../../model/cliente";
-import {animate, state, style, transition, trigger} from "@angular/animations";
-import {Socio} from "../../model/socio";
-import {Dependente} from "../../model/dependente";
+import { animate, state, style, transition, trigger } from "@angular/animations";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { BaseListComponent } from "../../../../shared/base/components/base-list/base-list.component";
+import { Cliente } from "../../model/cliente";
+import { Dependente } from "../../model/dependente";
+import { Socio } from "../../model/socio";
 
 @Component({
   selector: 'app-socios-list',
@@ -11,8 +11,8 @@ import {Dependente} from "../../model/dependente";
   styleUrls: ['./socios-list.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
@@ -21,7 +21,6 @@ export class SociosListComponent extends BaseListComponent<Socio> {
 
   @Output() changeStatusSocio = new EventEmitter(false);
   @Output() changeStatusDependente = new EventEmitter(false);
-  @Output() deleteDependente = new EventEmitter(false);
 
   constructor() {
     super(['numInscricao', 'nome', 'telefone', 'status', 'acoes']);
@@ -38,7 +37,4 @@ export class SociosListComponent extends BaseListComponent<Socio> {
     this.changeStatusDependente.emit(registro);
   }
 
-  onDeleteDependente(registro: Dependente) {
-    this.deleteDependente.emit(registro);
-  }
 }

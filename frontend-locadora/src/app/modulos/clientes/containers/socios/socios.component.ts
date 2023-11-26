@@ -1,15 +1,14 @@
-import {Component} from '@angular/core';
-import {BaseContainerComponent} from "../../../../shared/base/components/base-container/base-container.component";
-import {SociosService} from "../../services/socios.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {MatDialog} from "@angular/material/dialog";
-import {Socio} from "../../model/socio";
-import {Cliente} from "../../model/cliente";
-import {Dependente} from "../../model/dependente";
+import { Component } from '@angular/core';
+import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { ActivatedRoute, Router } from "@angular/router";
+import { BaseContainerComponent } from "../../../../shared/base/components/base-container/base-container.component";
 import {
   ConfirmationDialogComponent
 } from "../../../../shared/components/confirmation-dialog/confirmation-dialog.component";
+import { Dependente } from "../../model/dependente";
+import { Socio } from "../../model/socio";
+import { SociosService } from "../../services/socios.service";
 
 @Component({
   selector: 'app-clientes',
@@ -26,29 +25,6 @@ export class SociosComponent extends BaseContainerComponent<Socio> {
     protected override snackBar: MatSnackBar
   ) {
     super('Cliente', sociosService, router, route, dialog, snackBar);
-  }
-
-  onDeleteDependente(registro: Dependente) {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: `Tem certeza que deseja remover este Dependente?`,
-    });
-
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-        this.sociosService.deleteDependente(registro._id).subscribe({
-            error: (erro) => this.onError('Erro ao remover Dependente.', erro),
-            complete: () => {
-              this.refresh();
-              this.snackBar.open('Dependente removido com sucesso.', 'X', {
-                duration: 3500,
-                verticalPosition: 'bottom',
-                horizontalPosition: 'center',
-              });
-            },
-          }
-        )
-      }
-    });
   }
 
   mudarStatusSocio(registro: Socio) {

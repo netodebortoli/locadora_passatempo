@@ -14,10 +14,6 @@ export class SociosService extends BaseService<Socio> {
     super("/api/socios", httpClient);
   }
 
-  deleteDependente(id: string) {
-    return this.httpClient.delete<Dependente>(`${this.apiUrl}/dependentes/${id}`);
-  }
-
   ativarSocio(id: string) {
     return this.httpClient.patch<Socio>(`${this.apiUrl}/${id}/status`, 'Ativo');
   }
