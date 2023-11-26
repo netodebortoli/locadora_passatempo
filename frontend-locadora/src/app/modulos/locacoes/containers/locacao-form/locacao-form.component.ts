@@ -1,16 +1,16 @@
-import { Location } from "@angular/common";
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { ActivatedRoute } from "@angular/router";
-import { Observable, catchError, finalize, forkJoin, map, of, retry, startWith } from "rxjs";
-import { BaseFormComponent } from "../../../../shared/base/components/base-form/base-form.component";
-import { Cliente } from "../../../clientes/model/cliente";
-import { ClientesService } from "../../../clientes/services/clientes.service";
-import { ItensService } from "../../../itens/itens.service";
-import { Item } from "../../../itens/model/item";
-import { LocacoesService } from "../../locacoes.service";
-import { Locacao } from './../../model/locacao';
+import {Location} from "@angular/common";
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {ActivatedRoute} from "@angular/router";
+import {Observable, catchError, finalize, forkJoin, map, of, retry, startWith} from "rxjs";
+import {BaseFormComponent} from "../../../../shared/base/components/base-form/base-form.component";
+import {Cliente} from "../../../clientes/model/cliente";
+import {ClientesService} from "../../../clientes/services/clientes.service";
+import {ItensService} from "../../../itens/itens.service";
+import {Item} from "../../../itens/model/item";
+import {LocacoesService} from "../../locacoes.service";
+import {Locacao} from './../../model/locacao';
 
 @Component({
   selector: 'app-locacao-form',
@@ -26,12 +26,13 @@ export class LocacaoFormComponent extends BaseFormComponent<Locacao> {
   protected currentDate: Date;
   protected isLoading: boolean = false;
   filteredItensOptions!: Observable<Item[]>;
+  filteredClientsOptions!: Observable<Cliente[]>;
 
   override form: FormGroup = this.formBuilder.group({
     _id: [''],
     item: ['', Validators.required],
     cliente: ['', Validators.required],
-    dataLocacao: [{ value: '', disabled: true }, Validators.required,],
+    dataLocacao: [{value: '', disabled: true}, Validators.required,],
     dataDevolucaoPrevista: ['', Validators.required],
     valorCobrado: ['', Validators.required],
     dataEvolucaoEfetiva: [''],
@@ -61,13 +62,22 @@ export class LocacaoFormComponent extends BaseFormComponent<Locacao> {
         return this._filterItens('');
       }),
     );
+    this.filteredClientsOptions = this.form.get('cliente')!.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        if (!value || typeof value === 'string') {
+          return this._filterClients(value || '');
+        }
+        return this._filterClients('');
+      }),
+    );
   }
 
-  checkItem() {
+  check(control: string) {
     setTimeout(() => {
-      const value = this.form.get('item')!.value;
+      const value = this.form.get(control)!.value;
       if (!value || typeof value === 'string') {
-        this.form.get('item')!.setValue(null);
+        this.form.get(control)!.setValue(null);
       }
     });
   }
@@ -77,6 +87,11 @@ export class LocacaoFormComponent extends BaseFormComponent<Locacao> {
     return this.itensDisponiveis.filter(item => item.numSerie.toLowerCase().includes(filterValue));
   }
 
+  private _filterClients(value: string): Cliente[] {
+    const filterValue = value.toLowerCase();
+    return this.clientesDisponiveis.filter(cliente => cliente.nome.toLowerCase().includes(filterValue));
+  }
+
   itemClick(event: any) {
     this.form.get('item')?.setValue(event.option.value);
     this.getDataPrevistaEValorPeloItem();
@@ -84,6 +99,14 @@ export class LocacaoFormComponent extends BaseFormComponent<Locacao> {
 
   displayItemSeriesNumber(item: Item) {
     return item?.numSerie ?? '';
+  }
+
+  displayClientName(client: Cliente) {
+    return client?.nome ?? '';
+  }
+
+  clientClick(event: any) {
+    this.form.get('cliente')?.setValue(event.option.value);
   }
 
   protected getDataPrevistaEValorPeloItem() {
@@ -137,4 +160,5 @@ export class LocacaoFormComponent extends BaseFormComponent<Locacao> {
       });
   }
 
+  protected readonly origin = origin;
 }

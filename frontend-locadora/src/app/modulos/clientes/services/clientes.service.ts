@@ -11,4 +11,6 @@ export class ClientesService extends BaseService<Cliente> {
   constructor(protected override httpClient: HttpClient) {
     super('/api/socios', httpClient);
   }
+
+
 }
