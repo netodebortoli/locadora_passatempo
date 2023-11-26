@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {BaseContainerComponent} from "../../../../shared/base/components/base-container/base-container.component";
-import {SociosService} from "../../socios.service";
+import {SociosService} from "../../services/socios.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";

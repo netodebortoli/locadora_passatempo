@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SociosComponent} from "./containers/socios/socios.component";
-import {socioResolver} from "./guards/socio.resolver";
+import {clienteResolver} from "./guards/cliente.resolver";
 import {SocioFormComponent} from "./containers/socio-form/socio-form.component";
 
 const routes: Routes = [
@@ -9,12 +9,12 @@ const routes: Routes = [
     {
         path: 'novo',
         component: SocioFormComponent,
-        resolve: {socio: socioResolver}
+        resolve: {socio: clienteResolver}
     },
     {
         path: 'editar/:id',
         component: SocioFormComponent,
-        resolve: {socio: socioResolver}
+        resolve: {socio: clienteResolver}
     }
 ];
 
@@ -22,5 +22,5 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class SociosRoutingModule {
+export class ClientesRoutingModule {
 }
