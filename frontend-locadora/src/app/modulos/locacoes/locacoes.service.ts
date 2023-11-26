@@ -19,11 +19,9 @@ export class LocacoesService extends BaseService<Locacao> {
             let diasEmAtraso = currentDate.getDate() - expectedReturnDate.getDate();
             let multa = parseInt(record.item!.titulo.classe.valor) * diasEmAtraso;
             record.multaCobrada = multa.toString();
-        } else {
-            record.multaCobrada = '0';
         }
 
         record.dataDevolucaoEfetiva = currentDate.toISOString();
-        return this.httpClient.put<Locacao>(`${this.apiUrl}/devolucao/${record._id}`, record);
+        return this.httpClient.put<Locacao>(`${this.apiUrl}/${record._id}`, record);
     }
 }
