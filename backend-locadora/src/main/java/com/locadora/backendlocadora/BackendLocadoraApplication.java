@@ -161,8 +161,8 @@ public class BackendLocadoraApplication {
 
             LocacaoEntity locacaoEntity = new LocacaoEntity();
             LocacaoEntity locacaoEntity2 = new LocacaoEntity();
-            locacaoEntity.setCliente(socio1);
-            locacaoEntity2.setCliente(socio2);
+            locacaoEntity.setCliente(socio2);
+            locacaoEntity2.setCliente(dp1);
 
             dataUtil = formato.parse("25/11/2023");
             dataSql = new java.sql.Date(dataUtil.getTime());
@@ -177,7 +177,7 @@ public class BackendLocadoraApplication {
             locacaoEntity2.setDataDevolucaoPrevista(dataSql);
             locacaoEntity.setItem(item);
             locacaoEntity2.setItem(item2);
-            locacaoEntity.setValorCobrado(50.00);
+            locacaoEntity.setValorCobrado(100.00);
             locacaoEntity2.setValorCobrado(50.00);
 
             locacaoRepository.save(locacaoEntity);

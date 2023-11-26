@@ -30,14 +30,6 @@ public class LocacaoService extends GenericService<Locacao, Long, LocacaoReposit
     }
 
     @Override
-    public Locacao salvar(@Valid @NotNull Locacao model) throws RegistroNaoEncontradoException, NegocioException {
-
-        validarSave(model);
-
-        return mapper.toModel(this.repository.saveAndFlush(mapper.toEntity(model)));
-    }
-
-    @Override
     public void validarSave(@NotNull @Valid Locacao model) throws NegocioException {
 
         itemService.buscarPorId(model.item().id());
