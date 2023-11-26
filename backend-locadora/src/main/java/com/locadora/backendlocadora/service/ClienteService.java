@@ -1,6 +1,8 @@
 package com.locadora.backendlocadora.service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,13 @@ public class ClienteService extends GenericService<Cliente, Long, ClienteReposit
         }
 
         super.deletar(id);
+    }
+
+    public List<Cliente> buscarTodosClientesAtivos(){
+        return repository.findAllActiveClients()
+                .stream()
+                .map(mapper::toModel)
+                .collect(Collectors.toList());
     }
 
 }

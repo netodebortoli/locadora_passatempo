@@ -1,5 +1,6 @@
 package com.locadora.backendlocadora.service;
 
+import com.locadora.backendlocadora.domain.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class SocioService extends GenericService<Socio, Long, SocioRepository, SocioEntity, SocioMapper> {
 
@@ -30,7 +34,7 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
         this.setHumanReadableName("Sócio");
     }
 
-    @Transactional(rollbackOn = { Exception.class })
+    @Transactional(rollbackOn = {Exception.class})
     @Override
     public Socio salvar(@Valid @NotNull Socio model) throws RegistroNaoEncontradoException, NegocioException {
 
@@ -49,7 +53,7 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
                 } else {
                     dependente.setNumInscricao(
                             dependenteService.buscarPorId(
-                                    dependente.getId())
+                                            dependente.getId())
                                     .getNumInscricao());
                 }
             });
@@ -75,7 +79,7 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
         }
     }
 
-    @Transactional(rollbackOn = { Exception.class })
+    @Transactional(rollbackOn = {Exception.class})
     public Socio atualizarSocio(@NotNull @Valid Long id, @NotBlank @Valid String novoStatus) {
 
         Socio socioFromDB = buscarPorId(id);
@@ -97,6 +101,10 @@ public class SocioService extends GenericService<Socio, Long, SocioRepository, S
     @Override
     public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
         clienteService.deletar(id);
+    }
+
+    public List<Cliente> buscarTodosClientesAtivos() {
+        return this.clienteService.buscarTodosClientesAtivos();
     }
 
 }
