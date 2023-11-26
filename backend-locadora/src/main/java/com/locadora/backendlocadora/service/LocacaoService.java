@@ -48,12 +48,13 @@ public class LocacaoService extends GenericService<Locacao, Long, LocacaoReposit
             throw new NegocioException("O cliente está em débito e não é possível realizar a locação.");
         }
 
+        if (model.dataDevolucaoPrevista().before(model.dataLocacao())) {
+            throw new NegocioException("A data de devoulução prevista precisa ser posterior a data de locação.");
+        }
+
         if (model.dataDevolucaoEfetiva() != null) {
             if (model.dataDevolucaoEfetiva().compareTo(model.dataLocacao()) < 0) {
                 throw new NegocioException("A data de devolução efetiva precisa ser maior ou igual a data de locação.");
-            }
-            if (model.dataDevolucaoPrevista().before(model.dataLocacao())) {
-                throw new NegocioException("A data de devoulução prevista precisa ser posterior a data de locação.");
             }
             if (model.dataDevolucaoEfetiva().after(model.dataDevolucaoPrevista()) && model.multaCobrada() == null) {
                 throw new NegocioException("O valor da multa é obrigatório pois o cliente atrasou a devolução.");
