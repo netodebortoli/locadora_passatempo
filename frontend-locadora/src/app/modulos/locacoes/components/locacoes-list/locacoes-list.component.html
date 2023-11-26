@@ -53,7 +53,7 @@
               aria-label="Remover uma locação.">
         <mat-icon>delete</mat-icon>
       </button>
-      <button matTooltip="Devolução" (click)="onReturnLocation(element)" mat-icon-button color="primary"
+      <button matTooltip="Devolução" [disabled]="element.dataDevolucaoEfetiva !== null" (click)="onReturnLocation(element)" mat-icon-button color="primary"
               aria-label="Realizar devolução.">
         <mat-icon>change_circle</mat-icon>
       </button>

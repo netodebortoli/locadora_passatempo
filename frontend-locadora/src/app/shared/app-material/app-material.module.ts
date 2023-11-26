@@ -20,6 +20,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   exports: [
@@ -43,7 +44,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatListModule,
     MatDividerModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatAutocompleteModule
   ],
 })
 export class AppMaterialModule {

@@ -39,7 +39,7 @@ export class LocacoesListComponent extends BaseListComponent<Locacao> {
     if (registro.dataDevolucaoEfetiva == null) {
       if (currentDate.getTime() > expectedReturnDate.getTime()) {
         diasEmAtraso = currentDate.getDate() - expectedReturnDate.getDate();
-        mensagem = `Devolução atrasada em ${diasEmAtraso} dia(s).`;
+        mensagem = `Devolução atrasada em ${diasEmAtraso - 1} dia(s).`;
       }
     } else {
       let dataDevolucao = new Date(registro.dataDevolucaoEfetiva);

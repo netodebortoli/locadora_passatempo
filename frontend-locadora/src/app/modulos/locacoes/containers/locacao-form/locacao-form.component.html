@@ -1,96 +1,121 @@
 <script src="../../../itens/guards/item.resolver.spec.ts"></script>
 <mat-card class="mat-card-form">
-  <mat-toolbar color="primary">Detalhes de locação</mat-toolbar>
+    <mat-toolbar color="primary">Detalhes de locação</mat-toolbar>
 
-  <div *ngIf="!isLoading; else loading">
+    <div *ngIf="!isLoading; else loading">
 
-    <mat-card-content>
-      <form [formGroup]="form" class="min-width-form">
-        <mat-grid-list cols="12" rowHeight="80" gutterSize="10px">
+        <mat-card-content>
+            <form [formGroup]="form" class="min-width-form">
+                <mat-grid-list cols="12" rowHeight="80" gutterSize="10px">
 
-          <mat-grid-tile [colspan]="6" [rowspan]="1">
-            <mat-form-field class="full-width">
-              <mat-label>Item</mat-label>
-              <mat-select formControlName="item" [compareWith]="compareObjetos" (ngModelChange)="getDataPrevistaEValorPeloItem()">
-                <mat-option *ngFor="let item of (itensDisponiveis )" [value]="item">
-                  {{item.numSerie}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="form.get('item')?.invalid">
-                {{ getErrorMessage(this.form, "item") }}
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
+                    <!--          <mat-grid-tile [colspan]="6" [rowspan]="1">-->
+                    <!--            <mat-form-field class="full-width">-->
+                    <!--              <mat-label>Item</mat-label>-->
+                    <!--              <mat-select formControlName="item" [compareWith]="compareObjetos" (ngModelChange)="getDataPrevistaEValorPeloItem()">-->
+                    <!--                <mat-option *ngFor="let item of (itensDisponiveis )" [value]="item">-->
+                    <!--                  {{item.numSerie}}-->
+                    <!--                </mat-option>-->
+                    <!--              </mat-select>-->
+                    <!--              <mat-error *ngIf="form.get('item')?.invalid">-->
+                    <!--                {{ getErrorMessage(this.form, "item") }}-->
+                    <!--              </mat-error>-->
+                    <!--            </mat-form-field>-->
+                    <!--          </mat-grid-tile>-->
+                    <mat-grid-tile [colspan]="6" [rowspan]="1">
+                        <mat-form-field class="full-width">
+                            <mat-label>Item</mat-label>
+                                                        <input matInput
+                                                               placeholder="Escolha um item"
+                                                               aria-label="Escolher item"
+                                                               formControlName="item"
+                                                               (blur)="checkItem()"
 
-          <mat-grid-tile [colspan]="6" [rowspan]="1">
-            <mat-form-field class="full-width">
-              <mat-label>Cliente</mat-label>
-              <mat-select formControlName="cliente" [compareWith]="compareObjetos">
-                <mat-option *ngFor="let cliente of (clientesDisponiveis)" [value]="cliente">
-                  {{cliente.nome}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="form.get('cliente')?.invalid">
-                {{ getErrorMessage(this.form, "cliente") }}
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
+                                                               [matAutocomplete]="auto">
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                                              [displayWith]="displayItemSeriesNumber"
+                                                (optionSelected)="itemClick($event)">
+                                <mat-option *ngFor="let item of filteredItensOptions | async" [value]="item">
+                                    {{item.numSerie}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="form.get('item')?.invalid">
+                                {{ getErrorMessage(this.form, "item") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="3" [rowspan]="1">
-            <mat-form-field class="full-width">
-              <mat-label>Data de locação</mat-label>
-              <input matInput [matDatepicker]="pickerDataLocacao" [min]="currentDate" formControlName="dataLocacao"
-                     #dataLocacao placeholder="dd/MM/aaaa">
-              <mat-datepicker-toggle matIconSuffix [for]="pickerDataLocacao"></mat-datepicker-toggle>
-              <mat-datepicker #pickerDataLocacao></mat-datepicker>
-              <mat-error *ngIf="form.get('dataLocacao')?.invalid">
-                {{ getErrorMessage(this.form, "dataLocacao") }}
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
+                    <mat-grid-tile [colspan]="6" [rowspan]="1">
+                        <mat-form-field class="full-width">
+                            <mat-label>Cliente</mat-label>
+                            <mat-select formControlName="cliente" [compareWith]="compareObjetos">
+                                <mat-option *ngFor="let cliente of (clientesDisponiveis)" [value]="cliente">
+                                    {{cliente.nome}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="form.get('cliente')?.invalid">
+                                {{ getErrorMessage(this.form, "cliente") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="3" [rowspan]="1">
-            <mat-form-field class="full-width">
-              <mat-label>Previsão de devolução</mat-label>
-              <input matInput [matDatepicker]="pickerDataPrevista" [min]="currentDate" formControlName="dataDevolucaoPrevista"
-                     placeholder="dd/MM/aaaa">
-              <mat-datepicker-toggle matIconSuffix [for]="pickerDataPrevista"></mat-datepicker-toggle>
-              <mat-datepicker #pickerDataPrevista></mat-datepicker>
-              <mat-error *ngIf="form.get('dataDevolucaoPrevista')?.invalid">
-                {{ getErrorMessage(this.form, "dataDevolucaoPrevista") }}
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
+                    <mat-grid-tile [colspan]="3" [rowspan]="1">
+                        <mat-form-field class="full-width">
+                            <mat-label>Data de locação</mat-label>
+                            <input matInput [matDatepicker]="pickerDataLocacao" [min]="currentDate"
+                                   formControlName="dataLocacao"
+                                   #dataLocacao placeholder="dd/MM/aaaa">
+                            <mat-datepicker-toggle matIconSuffix [for]="pickerDataLocacao"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerDataLocacao></mat-datepicker>
+                            <mat-error *ngIf="form.get('dataLocacao')?.invalid">
+                                {{ getErrorMessage(this.form, "dataLocacao") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="6" [rowspan]="1">
-            <mat-form-field class="full-width">
-              <mat-label>Valor cobrado</mat-label>
-              <input matInput
-                     formControlName="valorCobrado"
-                     [allowNegativeNumbers]="false"
-                     prefix="R$ " mask="separator.2">
-              <mat-error *ngIf="form.get('valorCobrado')?.invalid">
-                {{ getErrorMessage(this.form, "valorCobrado") }}
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
+                    <mat-grid-tile [colspan]="3" [rowspan]="1">
+                        <mat-form-field class="full-width">
+                            <mat-label>Previsão de devolução</mat-label>
+                            <input matInput [matDatepicker]="pickerDataPrevista" [min]="currentDate"
+                                   formControlName="dataDevolucaoPrevista"
+                                   placeholder="dd/MM/aaaa">
+                            <mat-datepicker-toggle matIconSuffix [for]="pickerDataPrevista"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerDataPrevista></mat-datepicker>
+                            <mat-error *ngIf="form.get('dataDevolucaoPrevista')?.invalid">
+                                {{ getErrorMessage(this.form, "dataDevolucaoPrevista") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
 
-        </mat-grid-list>
-      </form>
+                    <mat-grid-tile [colspan]="6" [rowspan]="1">
+                        <mat-form-field class="full-width">
+                            <mat-label>Valor cobrado</mat-label>
+                            <input matInput
+                                   formControlName="valorCobrado"
+                                   [allowNegativeNumbers]="false"
+                                   prefix="R$ " mask="separator.2">
+                            <mat-error *ngIf="form.get('valorCobrado')?.invalid">
+                                {{ getErrorMessage(this.form, "valorCobrado") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
 
-    </mat-card-content>
+                </mat-grid-list>
+            </form>
 
-    <mat-card-actions>
-      <button mat-raised-button (click)="onSubmit()" color="primary">Salvar</button>
-      <button mat-raised-button (click)="onCancel()">Cancelar</button>
-    </mat-card-actions>
+        </mat-card-content>
 
-  </div>
+        <mat-card-actions>
+            <button mat-raised-button (click)="onSubmit()" color="primary">Salvar</button>
+            <button mat-raised-button (click)="onCancel()">Cancelar</button>
+        </mat-card-actions>
+
+    </div>
 
 </mat-card>
 
 <ng-template #loading>
-  <div class="loading-spinner">
-    <mat-spinner></mat-spinner>
-  </div>
+    <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+    </div>
 </ng-template>
+{{this.form.value | json}}
