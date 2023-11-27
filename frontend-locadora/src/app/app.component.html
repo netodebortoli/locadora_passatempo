@@ -1,13 +1,14 @@
 <mat-toolbar color="primary">
+  <mat-icon>movie</mat-icon>&nbsp;
   <span>Locadora Passatempo</span>
   <span class="example-spacer"></span>
-  <button mat-icon-button aria-label="Voltar para página inicial." routerLink="/">
+  <button mat-icon-button matTooltip="Página inicial" aria-label="Voltar para página inicial." routerLink="/">
     <mat-icon>home</mat-icon>
   </button>
-  <button mat-icon-button aria-label="Navegar para locações." routerLink="/locacoes">
-    <mat-icon matTooltip="Locações">shop</mat-icon>
+  <button mat-icon-button matTooltip="Locações" aria-label="Navegar para locações." routerLink="/locacoes">
+    <mat-icon>shop</mat-icon>
   </button>
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Abrir menu de opções.">
+  <button mat-icon-button matTooltip="Menu" [matMenuTriggerFor]="menu" aria-label="Abrir menu de opções.">
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
