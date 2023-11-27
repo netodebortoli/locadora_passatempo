@@ -34,8 +34,7 @@ export class LocacaoFormComponent extends BaseFormComponent<Locacao> {
     cliente: ['', Validators.required],
     dataLocacao: [{value: '', disabled: true}, Validators.required,],
     dataDevolucaoPrevista: ['', Validators.required],
-    valorCobrado: ['', Validators.required],
-    dataEvolucaoEfetiva: [''],
+    valorCobrado: ['', Validators.required]
   });
 
   constructor(
@@ -147,7 +146,7 @@ export class LocacaoFormComponent extends BaseFormComponent<Locacao> {
           return of([]);
         })
       ),
-      clientes: this.clienteService.list().pipe(
+      clientes: this.clienteService.listAllActiveClients().pipe(
         catchError((erro) => {
           this.onError('Erro ao carregar clientes.', erro);
           return of([]);
