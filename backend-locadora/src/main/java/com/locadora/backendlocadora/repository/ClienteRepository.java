@@ -1,13 +1,12 @@
 package com.locadora.backendlocadora.repository;
 
-import com.locadora.backendlocadora.domain.Cliente;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.locadora.backendlocadora.domain.entity.ClienteEntity;
-
-import java.util.List;
 
 public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
 
@@ -15,7 +14,7 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
             + " INNER JOIN LocacaoEntity l ON c.id = l.cliente.id WHERE c.id = :id AND l.cliente.id = :id AND l.dataDevolucaoEfetiva IS null")
     public boolean isClientePossuiLocacoes(@Param("id") Long id);
 
-    @Query("FROM ClienteEntity c WHERE c.status = 'ATIVO'")
+    @Query("FROM ClienteEntity c WHERE c.status = 'ATIVO' ORDER BY c.nome")
     public List<ClienteEntity> findAllActiveClients();
 
 }

@@ -1,10 +1,19 @@
 package com.locadora.backendlocadora.controller;
 
-import com.locadora.backendlocadora.domain.Cliente;
-import com.locadora.backendlocadora.service.ClienteService;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.locadora.backendlocadora.domain.Cliente;
 import com.locadora.backendlocadora.domain.Dependente;
 import com.locadora.backendlocadora.domain.Socio;
 import com.locadora.backendlocadora.domain.entity.SocioEntity;
@@ -25,19 +34,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/socios")
 @Tag(name = "Controladora de Clientes", description = "Fornece serviços REST para acesso e manipulação de dados de Clientes.")
 public class SocioController
         extends GenericController<Long, Socio, SocioEntity, SocioMapper, SocioRepository, SocioService> {
-
-    private final ClienteService clienteService;
-
-    public SocioController(ClienteService clienteService) {
-        this.clienteService = clienteService;
-    }
 
     @Operation(description = "Cria um objeto do tipo Sócio", responses = {
             @ApiResponse(responseCode = "201", description = "Sócio criado com sucesso.", content = {
