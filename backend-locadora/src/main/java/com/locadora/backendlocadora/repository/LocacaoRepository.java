@@ -14,11 +14,10 @@ public interface LocacaoRepository extends JpaRepository<LocacaoEntity, Long> {
     @Query("From LocacaoEntity ORDER BY dataLocacao DESC")
     public List<LocacaoEntity> findAll();
 
-    @Query("SELECT CASE WHEN COUNT(L) > 0 THEN true ELSE false END FROM LocacaoEntity L" +
-            " WHERE cliente.id = :id AND dataDevolucaoEfetiva IS null AND dataDevolucaoPrevista < now() ")
+    @Query("SELECT CASE WHEN COUNT(lc) > 0 THEN true ELSE false END FROM LocacaoEntity lc" +
+            " WHERE lc.cliente.id = :id AND lc.dataDevolucaoEfetiva IS null AND lc.dataDevolucaoPrevista < now() ")
     public boolean isClienteEmDebito(@Param("id") Long id);
 
-    @Query("From LocacaoEntity WHERE item.id = :idItem AND dataLocacao = :dataLocacao AND dataDevolucaoEfetiva IS null")
-    public LocacaoEntity isItemDisponivel(@Param("dataLocacao") Date dataLocacao, @Param("idItem") Long idItem);
-
+    @Query("From LocacaoEntity WHERE item.id = :idItem AND dataDevolucaoEfetiva IS null")
+    public LocacaoEntity isItemDisponivel(@Param("idItem") Long idItem);
 }

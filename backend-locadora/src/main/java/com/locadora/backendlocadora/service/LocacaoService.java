@@ -41,7 +41,7 @@ public class LocacaoService extends GenericService<Locacao, Long, LocacaoReposit
         }
 
         if (model.dataDevolucaoPrevista().before(model.dataLocacao())) {
-            throw new NegocioException("A data de devoulução prevista precisa ser posterior a data de locação.");
+            throw new NegocioException("A data de devolução prevista precisa ser posterior a data de locação.");
         }
 
         if (model.dataDevolucaoEfetiva() != null) {
@@ -54,7 +54,7 @@ public class LocacaoService extends GenericService<Locacao, Long, LocacaoReposit
         }
 
         Locacao locacoesFromDB = this.mapper.toModel(
-                this.repository.isItemDisponivel(model.dataLocacao(), model.item().id()));
+                this.repository.isItemDisponivel(model.item().id()));
 
         if (locacoesFromDB != null && model.id() != locacoesFromDB.id()) {
 
@@ -62,8 +62,8 @@ public class LocacaoService extends GenericService<Locacao, Long, LocacaoReposit
             String dtDevolucaoPrevistaFormatada = sdf.format(locacoesFromDB.dataDevolucaoPrevista());
 
             throw new NegocioException(String.format(
-                    "O item %s não está disponível na data de locação informada. Provavelmente o item estará disponível na data %s",
-                    locacoesFromDB.item().id(), dtDevolucaoPrevistaFormatada));
+                    "O item não está disponível na data de locação informada. Provavelmente o item estará disponível na data %s",
+                    dtDevolucaoPrevistaFormatada));
         }
     }
 
