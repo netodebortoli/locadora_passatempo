@@ -1,36 +1,35 @@
-
-  <mat-toolbar color="primary">
-    <span>Locadora Passatempo</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button aria-label="Voltar para página inicial." routerLink="/">
-      <mat-icon>home</mat-icon>
+<mat-toolbar color="primary">
+  <span>Locadora Passatempo</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button aria-label="Voltar para página inicial." routerLink="/">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Navegar para locações." routerLink="/locacoes">
+    <mat-icon matTooltip="Locações">shop</mat-icon>
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Abrir menu de opções.">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/atores">
+      <span>Atores</span>
     </button>
-    <button mat-icon-button aria-label="Navegar para locações." routerLink="/locacoes">
-      <mat-icon matTooltip="Locações">shop</mat-icon>
+    <button mat-menu-item routerLink="/classes">
+      <span>Classes</span>
     </button>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Abrir menu de opções.">
-      <mat-icon>menu</mat-icon>
+    <button mat-menu-item routerLink="/clientes">
+      <span>Clientes</span>
     </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/atores">
-        <span>Atores</span>
-      </button>
-      <button mat-menu-item routerLink="/diretores">
-        <span>Diretores</span>
-      </button>
-      <button mat-menu-item routerLink="/classes">
-        <span>Classes</span>
-      </button>
-      <button mat-menu-item routerLink="/titulos">
-        <span>Títulos</span>
-      </button>
-      <button mat-menu-item routerLink="/itens">
-        <span>Itens</span>
-      </button>
-      <button mat-menu-item routerLink="/clientes">
-        <span>Clientes</span>
-      </button>
-    </mat-menu>
-  </mat-toolbar>
+    <button mat-menu-item routerLink="/diretores">
+      <span>Diretores</span>
+    </button>
+    <button mat-menu-item routerLink="/itens">
+      <span>Itens</span>
+    </button>
+    <button mat-menu-item routerLink="/titulos">
+      <span>Títulos</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
