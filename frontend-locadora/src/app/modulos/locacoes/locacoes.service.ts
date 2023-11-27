@@ -13,15 +13,16 @@ export class LocacoesService extends BaseService<Locacao> {
     }
 
     realizarDevolucao(record: Partial<Locacao>) {
+        let object: Partial<Locacao> = Object.assign({}, record);
         let currentDate = new Date();
         let expectedReturnDate = new Date(record.dataDevolucaoPrevista!);
         if(currentDate.getTime() > expectedReturnDate.getTime()) {
             let diasEmAtraso = currentDate.getDate() - expectedReturnDate.getDate();
-            let multa = parseInt(record.item!.titulo.classe.valor) * diasEmAtraso;
-            record.multaCobrada = multa.toString();
+            let multa = parseInt(object.item!.titulo.classe.valor) * diasEmAtraso;
+            object.multaCobrada = multa.toString();
         }
 
-        record.dataDevolucaoEfetiva = currentDate.toISOString();
-        return this.httpClient.put<Locacao>(`${this.apiUrl}/${record._id}`, record);
+        object.dataDevolucaoEfetiva = currentDate.toISOString();
+        return this.httpClient.put<Locacao>(`${this.apiUrl}/${record._id}`, object);
     }
 }

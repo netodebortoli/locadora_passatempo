@@ -31,7 +31,7 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
   onSubmit() {
     this.formDirective?.onSubmit(null as any);
     if (this.form.valid) {
-      this.service.save(this.form.value as Type).subscribe({
+      this.service.save(this.form.getRawValue() as Type).subscribe({
         next: () => this.onSuccess(),
         error: (erro) => this.onError(`Erro ao salvar registro de ${this.humanReadbleName}.`, erro),
       });
