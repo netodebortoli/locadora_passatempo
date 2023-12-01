@@ -1,5 +1,5 @@
 import {Component, DestroyRef, inject, OnInit} from '@angular/core';
-import {catchError, debounce, debounceTime, Observable, of} from "rxjs";
+import {catchError, debounceTime, of} from "rxjs";
 import {Titulo} from "../../model/titulo";
 import {TitulosService} from "../../titulos.service";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -17,7 +17,6 @@ export class BuscaTituloComponent implements OnInit {
 
   titulosDisponiveis: Titulo[] = [];
   titulosFiltrados: Titulo[] = [];
-  opcoesFiltradas!: Observable<Titulo[]>;
   opcoesDeBusca: string[] = ['Nome', 'Ator', 'Categoria', 'Diretor'];
   filtroControl: FormControl = new FormControl();
   buscaTituloControl: FormControl = new FormControl();
