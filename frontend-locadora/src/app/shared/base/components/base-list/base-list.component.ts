@@ -15,7 +15,7 @@ export class BaseListComponent<Type extends BaseModel> {
   @Output() delete = new EventEmitter(false);
 
   constructor(
-    @Inject(String) protected readonly displayedColumns: string[]
+    @Inject(String) protected displayedColumns: string[]
   ) { }
 
   onAdd() {

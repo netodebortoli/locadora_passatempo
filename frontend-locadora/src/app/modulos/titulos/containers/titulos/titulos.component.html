@@ -5,7 +5,7 @@
     </mat-toolbar>
     <div class="mat-elevation-z8">
       <app-titulos-list *ngIf="registros$ | async as titulos; else loading" [arrayModel]="titulos" (add)="onAdd()"
-        (edit)="onEdit($event)" (delete)="onDelete($event)">
+        (edit)="onEdit($event)" (delete)="onDelete($event)" [isViewOnly]="false">
       </app-titulos-list>
 
       <ng-template #loading>

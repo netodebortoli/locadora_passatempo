@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
-import { HomeComponent } from './shared/components/home/home.component';
-import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import {HomeComponent} from './shared/components/home/home.component';
+import {PageNotFoundComponent} from './shared/components/page-not-found/page-not-found.component';
+import {BuscaTituloComponent} from "./modulos/titulos/components/busca-titulo/busca-titulo.component";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: HomeComponent },
+  {path: '', pathMatch: 'full', component: HomeComponent},
   {
     path: 'titulos',
     loadChildren: () =>
@@ -33,11 +34,23 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modulos/itens/itens.module').then((m) => m.ItensModule),
   },
-  { path: '**', component: PageNotFoundComponent },
+  {
+    path: 'clientes',
+    loadChildren: () =>
+      import('./modulos/clientes/clientes.module').then((m) => m.ClientesModule),
+  },
+  {
+    path: 'locacoes',
+    loadChildren: () =>
+      import('./modulos/locacoes/locacoes.module').then((m) => m.LocacoesModule),
+  },
+  {path: 'buscar-titulos', pathMatch: 'full', component: BuscaTituloComponent},
+  {path: '**', component: PageNotFoundComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
