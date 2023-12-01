@@ -17,16 +17,16 @@
 
   <ng-container matColumnDef="acoes">
     <mat-header-cell *matHeaderCellDef class="action-column-list">
-      <button (click)="onAdd()" mat-mini-fab color="accent" aria-label="Adicionar uma classe">
+      <button matTooltip="Adicionar classe" (click)="onAdd()" mat-mini-fab color="accent" aria-label="Adicionar uma classe">
         <mat-icon>add</mat-icon>
       </button>
     </mat-header-cell>
 
     <mat-cell *matCellDef="let element" class="action-column-list">
-      <button (click)="onEdit(element)" mat-icon-button color="primary" aria-label="Editar uma classe">
+      <button matTooltip="Editar" (click)="onEdit(element)" mat-icon-button color="primary" aria-label="Editar uma classe">
         <mat-icon>edit</mat-icon>
       </button>
-      <button (click)="onDelete(element)" mat-icon-button color="warn" aria-label="Remover uma classe">
+      <button matTooltip="Remover" (click)="onDelete(element)" mat-icon-button color="warn" aria-label="Remover uma classe">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>

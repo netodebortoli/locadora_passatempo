@@ -37,7 +37,7 @@ export class BaseContainerComponent<Type extends BaseModel> implements OnInit {
   refresh() {
     this.registros$ = this.service.list().pipe(
       catchError((erro) => {
-        this.onError(`Erro ao carregar ${this.humanReadbleName}`, erro);
+        this.onError(`Erro ao carregar registros de ${this.humanReadbleName}`, erro);
         return of([]);
       })
     );
@@ -52,7 +52,7 @@ export class BaseContainerComponent<Type extends BaseModel> implements OnInit {
 
   onDelete(registro: Type) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: `Tem certeza que deseja remover este(a) ${this.humanReadbleName}?`,
+      data: `Tem certeza que deseja remover este registro de ${this.humanReadbleName}?`,
     });
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
@@ -61,7 +61,7 @@ export class BaseContainerComponent<Type extends BaseModel> implements OnInit {
           error: (erro) => this.onError(`Erro ao tentar remover ${this.humanReadbleName}.`, erro),
           complete: () => {
             this.refresh();
-            this.snackBar.open(`${this.humanReadbleName} removido(a) com sucesso.`, 'X', {
+            this.snackBar.open(`Registro de ${this.humanReadbleName} removido com sucesso.`, 'X', {
               duration: 3500,
               verticalPosition: 'top',
               horizontalPosition: 'center',

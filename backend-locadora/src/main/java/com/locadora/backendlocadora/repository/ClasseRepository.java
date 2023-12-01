@@ -1,5 +1,7 @@
 package com.locadora.backendlocadora.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,6 +11,9 @@ import com.locadora.backendlocadora.domain.entity.ClasseEntity;
 
 @Repository
 public interface ClasseRepository extends JpaRepository<ClasseEntity, Long> {
+
+    @Query("FROM ClasseEntity ORDER BY nome")
+    public List<ClasseEntity> findAll();
 
     @Query("from ClasseEntity WHERE lower(nome) LIKE lower(:nome)")
     public ClasseEntity findByNome(@Param("nome") String nome);

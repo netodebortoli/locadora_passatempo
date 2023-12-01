@@ -1,0 +1,12 @@
+@use "../../../../shared/base/components/base-form/base-form.component.scss";
+
+app-socio-form {
+  .cabecalho-dependentes {
+    .mat-grid-tile-content {
+      justify-content: flex-end;
+      margin-right: 10px;
+    }
+  }
+}
+
+

@@ -1,5 +1,7 @@
 package com.locadora.backendlocadora.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,6 +11,9 @@ import com.locadora.backendlocadora.domain.entity.TituloEntity;
 
 @Repository
 public interface TituloRepository extends JpaRepository<TituloEntity, Long> {
+
+    @Query("From TituloEntity ORDER BY nome")
+    public List<TituloEntity> findAll();
 
     @Query("From TituloEntity WHERE diretor.id = :idDiretor"
             + " AND lower(nome) = lower(:nomeFilme)")

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Socio extends Cliente<Long, Socio> {
+public class Socio extends Cliente {
 
     @NotBlank(message = "O campo CPF é obrigatório.")
     @CPF(message = "O formato do CPF é inválido.")
@@ -37,7 +37,7 @@ public class Socio extends Cliente<Long, Socio> {
     @Schema(type = "json", description = "Endereço do sócio.") 
     private Endereco endereco;
 
-    // TODO: revisar, talvez o sócio possa ter mais dependentes, porém apenas 3 ativos
+    @Valid
     @Size(max = 3, message = "Um sócio pode ter apenas 3 dependentes.")
     @Schema(type = "json", description = "Lista de dependentes do sócio.") 
     private List<Dependente> dependentes;

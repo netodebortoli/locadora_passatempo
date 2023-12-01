@@ -31,7 +31,7 @@ import jakarta.validation.constraints.Positive;
 public class AtorController extends GenericController<Long, Ator, AtorEntity, AtorMapper, AtorRepository, AtorService> {
 
     @Operation(description = "Cria um objeto do tipo Ator", responses = {
-            @ApiResponse(responseCode = "201", description = "Ator criador com sucesso.", content = {
+            @ApiResponse(responseCode = "201", description = "Ator criado com sucesso.", content = {
                     @Content(mediaType = "application/json")
             }),
             @ApiResponse(responseCode = "400", description = "Erro ao criar Ator.", content = {

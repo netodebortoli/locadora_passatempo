@@ -7,6 +7,7 @@ import { ClasseFormComponent } from './containers/classe-form/classe-form.compon
 import { ClassesListComponent } from './components/classes-list/classes-list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AppMaterialModule } from 'src/app/shared/app-material/app-material.module';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -15,11 +16,12 @@ import { AppMaterialModule } from 'src/app/shared/app-material/app-material.modu
     ClasseFormComponent,
     ClassesListComponent
   ],
-  imports: [
-    CommonModule,
-    ClassesRoutingModule,
-    SharedModule,
-    AppMaterialModule
-  ]
+    imports: [
+        CommonModule,
+        ClassesRoutingModule,
+        SharedModule,
+        AppMaterialModule,
+        MatTooltipModule
+    ]
 })
 export class ClassesModule { }

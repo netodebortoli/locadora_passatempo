@@ -22,16 +22,16 @@
 
   <ng-container matColumnDef="acoes">
     <mat-header-cell *matHeaderCellDef class="action-column-list">
-      <button (click)="onAdd()" mat-mini-fab color="accent" aria-label="Adicionar um item">
+      <button matTooltip="Adicionar item" (click)="onAdd()" mat-mini-fab color="accent" aria-label="Adicionar um item">
         <mat-icon>add</mat-icon>
       </button>
     </mat-header-cell>
 
     <mat-cell *matCellDef="let element" class="action-column-list">
-      <button (click)="onEdit(element)" mat-icon-button color="primary" aria-label="Editar um item">
+      <button matTooltip="Editar" (click)="onEdit(element)" mat-icon-button color="primary" aria-label="Editar um item">
         <mat-icon>edit</mat-icon>
       </button>
-      <button (click)="onDelete(element)" mat-icon-button color="warn" aria-label="Remover um item">
+      <button matTooltip="Remover" (click)="onDelete(element)" mat-icon-button color="warn" aria-label="Remover um item">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>

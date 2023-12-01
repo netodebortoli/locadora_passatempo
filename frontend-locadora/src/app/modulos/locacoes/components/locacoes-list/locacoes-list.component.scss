@@ -1,0 +1,60 @@
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.expansao-titulos{
+  margin: 15px;
+}
+
+.bg-expansao{
+  background-color: #dfdbea;
+}
+
+.action-column-list-title{
+  flex: 0 0 125px;
+  display: flex;
+  justify-content: center;
+}
+
+.informacoes-expansao{
+  text-align: start;
+  margin: 16px 0;
+}
+
+h4{
+  font-weight: 500;
+  color: #673AB7;
+}
+
+.titulo-info{
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+.titulo-divisao{
+  font-weight: 500;
+  font-size: 16px;
+  color: #673AB7;
+  margin-bottom: 10px;
+}

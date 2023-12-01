@@ -1,0 +1,100 @@
+<table mat-table [dataSource]="arrayModel" class="mat-table-list" multiTemplateDataRows>
+
+  <ng-container matColumnDef="item">
+    <th mat-header-cell *matHeaderCellDef>Item</th>
+    <td mat-cell *matCellDef="let element"> {{element.item.numSerie}} </td>
+  </ng-container>
+  <ng-container matColumnDef="cliente">
+    <th mat-header-cell *matHeaderCellDef>Cliente</th>
+    <td mat-cell *matCellDef="let element"> {{element.cliente.nome}} </td>
+  </ng-container>
+  <ng-container matColumnDef="dataLocacao">
+    <th mat-header-cell *matHeaderCellDef>Data da locação</th>
+    <td mat-cell *matCellDef="let element"> {{element.dataLocacao | date:'shortDate'}} </td>
+  </ng-container>
+  <ng-container matColumnDef="dataDevolucaoPrevista">
+    <th mat-header-cell *matHeaderCellDef>Previsão de devolução</th>
+    <td mat-cell *matCellDef="let element"> {{element.dataDevolucaoPrevista | date:'shortDate'}} </td>
+  </ng-container>
+  <ng-container matColumnDef="dataDevolucaoEfetiva">
+    <th mat-header-cell *matHeaderCellDef>Devolução efetiva</th>
+    <td mat-cell *matCellDef="let element"> {{element.dataDevolucaoEfetiva !== null ? (element.dataDevolucaoEfetiva |
+      date:'shortDate') : 'Não efetuada'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expand">
+    <th mat-header-cell *matHeaderCellDef aria-label="row actions">Mais Detalhes</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button aria-label="expand row"
+        (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+        <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acoes">
+    <th mat-header-cell *matHeaderCellDef>
+      <div class="action-column-list-title">
+        <button matTooltip="Adicionar locação" (click)="onAdd()" mat-mini-fab color="accent"
+          aria-label="Adicionar uma locação.">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </th>
+
+    <td mat-cell *matCellDef="let element" class="action-column-list-title">
+      <ng-container *ngIf="element.dataDevolucaoEfetiva === null">
+        <button matTooltip="Editar" (click)="onEdit(element)" mat-icon-button color="primary"
+          aria-label="Editar uma locação.">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button matTooltip="Devolução" (click)="onReturnLocation(element)" mat-icon-button color="primary"
+          aria-label="Realizar devolução.">
+          <mat-icon>change_circle</mat-icon>
+        </button>
+      </ng-container>
+      <button matTooltip="Remover" (click)="onDelete(element)" mat-icon-button color="warn"
+        aria-label="Remover uma locação.">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell class="bg-expansao" *matCellDef="let element" [attr.colspan]="colunasParaExibirAoExpandir.length">
+      <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+        <!--inicio do expand-->
+
+        <div class="text-center" style="width: 100%">
+          <div class="row informacoes-expansao">
+            <span class="titulo-divisao">Informações adicionais:</span>
+            <div class="col-3">
+              <span class="titulo-info">Valor cobrado:</span> {{element.valorCobrado | currency}}
+            </div>
+            <div class="col-3">
+              <span class="titulo-info">Valor da multa:</span> {{ element.multaCobrada | currency }}
+            </div>
+            <div class="col-6">
+              <span class="titulo-info">Devolução:</span> {{getMensagemAtrasoDevolucao(element)}}
+            </div>
+          </div>
+        </div>
+
+        <!--fim do expand-->
+
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="colunasParaExibirAoExpandir"></tr>
+  <tr mat-row *matRowDef="let element; columns: colunasParaExibirAoExpandir;" class="example-element-row"
+    [class.example-expanded-row]="expandedElement === element"
+    (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+</table>
+

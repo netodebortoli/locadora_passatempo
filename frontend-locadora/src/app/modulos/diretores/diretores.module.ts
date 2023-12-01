@@ -8,6 +8,7 @@ import { DiretoresListComponent } from './components/diretores-list/diretores-li
 import { DiretoresComponent } from './containers/diretores/diretores.component';
 import { DiretoresRoutingModule } from './diretores-routing.module';
 import { DiretorFormComponent } from './containers/diretor-form/diretor-form.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -15,12 +16,13 @@ import { DiretorFormComponent } from './containers/diretor-form/diretor-form.com
     DiretoresComponent,
     DiretorFormComponent
   ],
-  imports: [
-    CommonModule,
-    DiretoresRoutingModule,
-    AppMaterialModule,
-    SharedModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        DiretoresRoutingModule,
+        AppMaterialModule,
+        SharedModule,
+        ReactiveFormsModule,
+        MatTooltipModule
+    ],
 })
 export class DiretoresModule {}

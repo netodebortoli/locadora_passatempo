@@ -1,0 +1,226 @@
+<mat-card class="mat-card-form">
+  <mat-toolbar color="primary">Detalhes de sócio</mat-toolbar>
+
+  <div *ngIf="!isLoading; else loading">
+
+    <mat-card-content>
+      <form [formGroup]="form" class="min-width-form">
+
+        <mat-tab-group>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              Sócio&nbsp;
+              <mat-icon class="example-tab-icon">person</mat-icon>
+            </ng-template>
+
+            <mat-grid-list cols="12" rowHeight="90" gutterSize="15px">
+
+              <mat-grid-tile [colspan]="6" [rowspan]="1">
+                <mat-form-field class="full-width">
+                  <mat-label>Nome</mat-label>
+                  <input matInput formControlName="nome" #nome>
+                  <mat-hint align="end">{{ nome.value.length }}/255</mat-hint>
+                  <mat-error *ngIf="form.get('nome')?.invalid">
+                    {{ getErrorMessage(this.form, "nome") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="3" [rowspan]="1">
+                <mat-form-field class="full-width">
+                  <mat-label>Data de Nascimento</mat-label>
+                  <input matInput readonly [matDatepicker]="picker" formControlName="dataNascimento"
+                         placeholder="dd/MM/aaaa"
+                         [max]="dataFutura">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="form.get('dataNascimento')?.invalid">
+                    {{ getErrorMessage(this.form, "dataNascimento") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="3" [rowspan]="1">
+                <mat-form-field class="full-width">
+                  <mat-label>CPF</mat-label>
+                  <input matInput formControlName="cpf" mask="000.000.000-00">
+                  <mat-error *ngIf="form.get('cpf')?.invalid">
+                    {{ getErrorMessage(this.form, "cpf") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1">
+                <mat-form-field class="full-width">
+                  <mat-label>Sexo</mat-label>
+                  <mat-select formControlName="sexo">
+                    <mat-option *ngFor="let sexo of sexos" [value]="sexo">
+                      {{ sexo }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.get('sexo')?.invalid">
+                    {{ getErrorMessage(this.form, "sexo") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1">
+                <mat-form-field class="full-width">
+                  <mat-label>Contato</mat-label>
+                  <input matInput formControlName="telefone" mask="(00) 00000-0000 || (00) 0000-0000">
+                  <mat-error *ngIf="form.get('telefone')?.invalid">
+                    {{ getErrorMessage(this.form, "telefone") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1">
+                <mat-form-field class="full-width" formGroupName="endereco">
+                  <mat-label>CEP</mat-label>
+                  <input matInput formControlName="cep" mask="00000-000" placeholder="00000-000"
+                         (change)="buscarCep()">
+                  <mat-error *ngIf="form.get('endereco.cep')?.invalid">
+                    {{ getErrorMessage(this.form, "endereco.cep") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="4" [rowspan]="1">
+                <mat-form-field class="full-width" formGroupName="endereco">
+                  <mat-label>Logradouro</mat-label>
+                  <input matInput formControlName="logradouro" #logradouro>
+                  <mat-hint align="end">{{ logradouro.value.length }}/255</mat-hint>
+                  <mat-error *ngIf="form.get('endereco.logradouro')?.invalid">
+                    {{ getErrorMessage(this.form, "endereco.logradouro") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1">
+                <mat-form-field class="full-width" formGroupName="endereco">
+                  <mat-label>Número</mat-label>
+                  <input matInput formControlName="numero" maxlength="10">
+                  <mat-error *ngIf="form.get('endereco.numero')?.invalid">
+                    {{ getErrorMessage(this.form, "endereco.numero") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="4" [rowspan]="1">
+                <mat-form-field class="full-width" formGroupName="endereco">
+                  <mat-label>Bairro</mat-label>
+                  <input matInput formControlName="bairro" #bairro>
+                  <mat-hint align="end">{{ bairro.value.length }}/255</mat-hint>
+                  <mat-error *ngIf="form.get('endereco.bairro')?.invalid">
+                    {{ getErrorMessage(this.form, "endereco.bairro") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="4" [rowspan]="1">
+                <mat-form-field class="full-width" formGroupName="endereco">
+                  <mat-label>Cidade</mat-label>
+                  <input matInput formControlName="localidade" #localidade>
+                  <mat-hint align="end">{{ localidade.value.length }}/255</mat-hint>
+                  <mat-error *ngIf="form.get('endereco.localidade')?.invalid">
+                    {{ getErrorMessage(this.form, "endereco.localidade") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="4" [rowspan]="1">
+                <mat-form-field class="full-width" formGroupName="endereco">
+                  <mat-label>Estado</mat-label>
+                  <mat-select formControlName="uf">
+                    <mat-option *ngFor="let uf of (ufsDisponiveis) | sort:'sigla'" [value]="uf.sigla">
+                      {{uf.sigla}} - {{uf.nome}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.get('endereco.uf')?.invalid">
+                    {{ getErrorMessage(this.form, "endereco.uf") }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              Dependentes&nbsp;
+              <mat-icon class="example-tab-icon">groups</mat-icon>
+            </ng-template>
+            <mat-grid-list cols="12" rowHeight="90" gutterSize="15px">
+
+              <mat-grid-tile class="cabecalho-dependentes" [colspan]="12" [rowspan]="1">
+                <button type="button" mat-fab extended color="accent" (click)="adicionarDependente()">
+                  Adicionar novo dependente
+                  <mat-icon aria-label="Adicionar novo dependente.">add</mat-icon>
+                </button>
+              </mat-grid-tile>
+
+              <div formArrayName="dependentes"
+                   *ngFor="let dependente of getDependentesFormArray(); let i = index">
+                <div [formGroupName]="i" class="formulario-dependente">
+                  <mat-grid-tile [colspan]="5" [rowspan]="1">
+                    <mat-form-field class="full-width">
+                      <mat-label>Nome</mat-label>
+                      <input matInput formControlName="nome" #nome>
+                      <mat-hint align="end">{{ nome.value.length }}/255</mat-hint>
+                      <mat-error *ngIf="getDependentesFormArray()[i].get('nome')?.invalid">
+                        {{getDependenteErrorMessage('nome', i)}}
+                      </mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+
+                  <mat-grid-tile [colspan]="3" [rowspan]="1">
+                    <mat-form-field class="full-width">
+                      <mat-label>Data de Nascimento</mat-label>
+                      <input matInput readonly [matDatepicker]="picker" formControlName="dataNascimento"
+                             placeholder="dd/MM/aaaa"
+                             [max]="dataFutura">
+                      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="getDependentesFormArray()[i].get('dataNascimento')?.invalid">
+                        {{getDependenteErrorMessage('dataNascimento', i)}}
+                      </mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+
+                  <mat-grid-tile [colspan]="3" [rowspan]="1">
+                    <mat-form-field class="full-width">
+                      <mat-label>Sexo</mat-label>
+                      <mat-select formControlName="sexo">
+                        <mat-option *ngFor="let sexo of sexos" [value]="sexo">
+                          {{ sexo }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="getDependentesFormArray()[i].get('sexo')?.invalid">
+                        {{getDependenteErrorMessage('sexo', i)}}
+                      </mat-error>
+                    </mat-form-field>
+                  </mat-grid-tile>
+
+                  <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <ng-container *ngIf="!getDependentesFormArray()[i].get('_id')?.value">
+                    <button mat-flat-button color="warn" style="margin-top: -20px" (click)="removerDependente(i)" aria-label="Remover dependente.">
+                      Remover
+                    </button>
+                    </ng-container>
+                  </mat-grid-tile>
+                </div>
+              </div>
+
+            </mat-grid-list>
+
+          </mat-tab>
+
+
+        </mat-tab-group>
+      </form>
+    </mat-card-content>
+
+
+    <mat-card-actions>
+      <button type="button" mat-raised-button (click)="onSubmit()" color="primary">Salvar</button>
+      <button type="button" mat-raised-button (click)="onCancel()">Cancelar</button>
+    </mat-card-actions>
+
+  </div>
+
+</mat-card>
+
+<ng-template #loading>
+  <div class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

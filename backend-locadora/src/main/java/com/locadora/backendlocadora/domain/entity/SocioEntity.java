@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "socios")
-public class SocioEntity extends ClienteEntity {
+public class SocioEntity extends ClienteEntity{
 
     @Column(nullable = false)
     protected String cpf;
