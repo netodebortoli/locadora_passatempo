@@ -3,8 +3,8 @@ version: '3.4'
 services:
   web:
     container_name: frontend-locadora
-    image: frontend-locadora
-    build: ./frontend-locadora
+    image: netodebortoli/locadora-aristides-amanda:front-1.0
+    #build: ./frontend-locadora
     ports:
       - 4200:80
     networks:
@@ -14,8 +14,8 @@ services:
 
   api:
     container_name: api
-    image: backend-locadora
-    build: ./backend-locadora
+    image: netodebortoli/locadora-aristides-amanda:back-1.0
+    #build: ./backend-locadora
     ports:
       - "8080:8080"
     networks:
