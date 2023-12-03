@@ -13,6 +13,7 @@ services:
       - api
 
   api:
+    container_name: api
     image: backend-locadora
     build: ./backend-locadora
     ports:
