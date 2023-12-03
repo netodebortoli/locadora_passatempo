@@ -1,0 +1,53 @@
+version: '3.4'
+
+services:
+  web:
+    container_name: frontend-locadora
+    image: frontend-locadora
+    build: ./frontend-locadora
+    ports:
+      - 4200:80
+    networks:
+      - app-network
+    depends_on:
+      - api
+
+  api:
+    image: backend-locadora
+    build: ./backend-locadora
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: locadora
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    container_name: db
+    image: postgres:13-alpine
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: locadora
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+      driver: local
