@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
-import { BaseListComponent } from 'src/app/shared/base/components/base-list/base-list.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {BaseListComponent} from 'src/app/shared/base/components/base-list/base-list.component';
 
-import { Titulo } from '../../model/titulo';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { MatTableDataSource } from '@angular/material/table';
+import {Titulo} from '../../model/titulo';
+import {trigger, state, style, transition, animate} from '@angular/animations';
 
 @Component({
   selector: 'app-titulos-list',
@@ -17,12 +16,19 @@ import { MatTableDataSource } from '@angular/material/table';
     ]),
   ],
 })
-export class TitulosListComponent extends BaseListComponent<Titulo>{
+export class TitulosListComponent extends BaseListComponent<Titulo> implements OnInit {
 
-  constructor(){
+  @Input() isViewOnly?: boolean;
+  isViewOnlyColumns: string[] = ['nome', 'diretor', 'ano', 'categoria', 'classe'];
+  expandedElement!: Titulo | null;
+  colunasParaExibirAoExpandir!: string[];
+
+  constructor() {
     super(['nome', 'diretor', 'ano', 'categoria', 'classe', 'acoes']);
   }
 
-  expandedElement!: Titulo | null;
-  colunasParaExibirAoExpandir = [...this.displayedColumns, 'expand'];
+  ngOnInit() {
+    this.colunasParaExibirAoExpandir = [...this.isViewOnly ? this.isViewOnlyColumns : this.displayedColumns, 'expand'];
+  }
+
 }

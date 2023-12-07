@@ -1,11 +1,11 @@
 import { Location } from '@angular/common';
-import { Component, Inject } from '@angular/core';
-import { FormGroup, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { FormGroupDirective, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { HttpErrorResponse } from '@angular/common/http';
 import { BaseModel } from '../../base.model';
 import { BaseService } from '../../base.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-base-form',
@@ -15,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export abstract class BaseFormComponent<Type extends BaseModel> {
 
   abstract form: UntypedFormGroup;
+  @ViewChild(FormGroupDirective) formDirective?: FormGroupDirective;
 
   constructor(
     @Inject(String) protected humanReadbleName: string,
@@ -24,17 +25,16 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
   ) { }
 
   compareObjetos(a: BaseModel, b: BaseModel): boolean {
-    return a._id === b._id;
+    return a?._id === b?._id;
   }
 
   onSubmit() {
+    this.formDirective?.onSubmit(null as any);
     if (this.form.valid) {
-      this.service.save(this.form.value as Type).subscribe({
+      this.service.save(this.form.getRawValue() as Type).subscribe({
         next: () => this.onSuccess(),
-        error: (erro) => this.onError(`Erro ao salvar o(a) ${this.humanReadbleName}.`, erro),
+        error: (erro) => this.onError(`Erro ao salvar registro de ${this.humanReadbleName}.`, erro),
       });
-    } else {
-      this.validateAllFormFields(this.form)
     }
   }
 
@@ -43,24 +43,12 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
   }
 
   private onSuccess() {
-    this.snackBar.open(`${this.humanReadbleName} salvo(a) com sucesso.`, '', { duration: 3500 });
+    this.snackBar.open(`Registro de ${this.humanReadbleName} salvo com sucesso.`, '', { duration: 3500 });
     this.onCancel();
   }
 
   protected onError(mensagem: string, err: HttpErrorResponse) {
-    this.snackBar.open(mensagem + ` ${err.error.mensagem}`,  'OK'/* , { duration: 3500 } */);
-  }
-
-  private validateAllFormFields(formGroup: UntypedFormGroup | UntypedFormArray) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof UntypedFormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) {
-        control.markAsTouched({ onlySelf: true });
-        this.validateAllFormFields(control);
-      }
-    });
+    this.snackBar.open(mensagem + ` ${err.error.mensagem}`, 'OK');
   }
 
   getErrorMessage(formGroup: UntypedFormGroup, fieldName: string) {
@@ -93,6 +81,10 @@ export abstract class BaseFormComponent<Type extends BaseModel> {
     if (field?.hasError('max')) {
       const requiredValue: number = field.errors ? field.errors['max']['max'] : 0;
       return `Valor máximo é ${requiredValue}.`;
+    }
+
+    if (field?.hasError('mask')) {
+      return `Formato do campo inválido.`;
     }
 
     return 'Campo Inválido';

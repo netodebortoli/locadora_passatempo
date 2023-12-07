@@ -39,9 +39,13 @@ public class ItemService extends GenericService<Item, Long, ItemRepository, Item
         }
     }
 
-    // TODO: nao permitir excluir um item com locações associada
     @Override
     public void deletar(@Valid @NotNull Long id) throws RegistroNaoEncontradoException, NegocioException {
+
+        if (this.repository.isItemPossuiLocacoes(id)) {
+            throw new NegocioException("Nao é possível excluir um item relacionado a locações.");
+        }
+
         super.deletar(id);
     }
 
